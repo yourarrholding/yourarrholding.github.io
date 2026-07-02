@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Отчёт о геосервисах — Вмятиноф.рф — Июнь 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#1c1c1c;
+  --red:#c82828;
+  --red2:#8a1c1c;
+  --green:#2e7d32;
+  --gray:#f6f6f6;
+  --border:#e4e4e4;
+  --muted:#888;
+  --radius:10px;
+  --header-bg:#f0eded;
+  --header-border:#ddd5d5;
+}
+body{font-family:'Montserrat',sans-serif;background:#fff;color:#1c1c1c;font-size:15px;line-height:1.65}
+a{color:inherit;text-decoration:none}
+
+/* HEADER — светлый, чтобы чёрно-красный лого читался */
+.header{background:var(--header-bg);border-bottom:3px solid var(--red);padding:44px 20px 36px;text-align:center}
+.header-logo{max-height:80px;max-width:400px;width:90%;object-fit:contain;display:block;margin:0 auto 22px}
+.header-badge{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:4px;margin-bottom:10px}
+.header-title{color:var(--dark);font-size:22px;font-weight:800;margin-bottom:5px}
+.header-sub{color:var(--muted);font-size:13px;font-weight:500}
+
+.section{padding:48px 20px;max-width:820px;margin:0 auto}
+.section+.section{border-top:1px solid var(--border)}
+.sec-num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:var(--dark);color:#fff;font-size:13px;font-weight:700;border-radius:50%;margin-bottom:12px}
+.sec-title{font-size:20px;font-weight:800;margin-bottom:22px}
+.period{font-size:13px;color:var(--muted);margin-bottom:20px;font-weight:500}
+
+.checklist{list-style:none;display:flex;flex-direction:column;gap:11px}
+.checklist li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#444}
+.chk{flex-shrink:0;width:22px;height:22px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.chk::after{content:'';display:block;width:10px;height:6px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translateY(-2px)}
+
+.platform-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:540px){.platform-cards{grid-template-columns:1fr}}
+.p-card{border:1px solid var(--border);border-radius:var(--radius);padding:20px 18px 16px;position:relative;overflow:hidden}
+.p-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:var(--red)}
+.p-name{font-size:15px;font-weight:800;margin-bottom:5px;padding-left:4px}
+.p-hint{font-size:12px;color:var(--muted);margin-bottom:14px;padding-left:4px;line-height:1.5}
+.p-btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:opacity .15s;white-space:nowrap}
+.btn:hover{opacity:.8}
+.btn-dark{background:var(--dark);color:#fff}
+.btn-copy{background:var(--gray);color:#1c1c1c;border:1.5px solid var(--border)}
+
+.ow{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.rt{width:100%;border-collapse:collapse;font-size:14px;min-width:420px}
+table.rt th{background:var(--dark);color:#fff;padding:10px 12px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap}
+table.rt td{padding:12px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+table.rt tr:last-child td{border-bottom:none}
+table.rt tr:hover td{background:var(--gray)}
+.rating-val{font-size:15px;font-weight:800}
+.up{color:var(--green);font-weight:700}
+.down{color:var(--red);font-weight:700}
+.neutral{color:var(--muted);font-weight:500}
+.lnk{color:var(--red);font-weight:700;font-size:13px}
+.lnk:hover{text-decoration:underline}
+
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:28px}
+.stat-card{background:var(--gray);border-radius:var(--radius);padding:16px 14px 14px;border:1px solid var(--border)}
+.stat-lbl{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;line-height:1.4}
+.stat-val{font-size:24px;font-weight:800;line-height:1;margin-bottom:6px}
+.stat-dyn{font-size:12px;font-weight:700}
+.stat-dyn.up{color:var(--green)}.stat-dyn.down{color:var(--red)}.stat-dyn.neutral{color:var(--muted)}
+
+.chart-title{font-size:15px;font-weight:700;margin-bottom:12px}
+.chart-sub{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:20px 0 9px;padding-top:16px;border-top:1px solid var(--border)}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.bar-lbl{font-size:11px;color:var(--muted);min-width:60px;text-align:right;flex-shrink:0;line-height:1.3}
+.bar-track{flex:1;background:#e8e8e8;border-radius:4px;height:22px;overflow:hidden;min-width:0}
+.bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:7px}
+.bar-dark{background:var(--dark)}.bar-red{background:var(--red)}
+.bar-val{font-size:10px;font-weight:700;color:#fff;white-space:nowrap}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+
+table.revt{width:100%;border-collapse:collapse;font-size:14px;min-width:420px}
+table.revt th{background:var(--dark);color:#fff;padding:10px 12px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap}
+table.revt td{padding:11px 12px;border-bottom:1px solid var(--border)}
+table.revt .total-row td{background:var(--gray);border-top:2px solid var(--dark);border-bottom:none;font-weight:700}
+table.revt tr:not(.total-row):hover td{background:var(--gray)}
+.num-good{color:var(--green);font-weight:700}.num-bad{color:var(--red);font-weight:700}.num-removed{color:var(--red2);font-weight:700}
+
+/* FOOTER — светлый, как шапка */
+.footer{background:var(--header-bg);border-top:3px solid var(--red);padding:36px 20px;text-align:center}
+.footer-logo{max-height:44px;max-width:200px;object-fit:contain;display:block;margin:0 auto 12px}
+.footer-text{color:var(--muted);font-size:12px;font-weight:500}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <img src="bez_fona.png" alt="Вмятиноф.рф" class="header-logo">
+  <div class="header-badge">Отчёт о геосервисах</div>
+  <div class="header-title">Детейлинг-центр Вмятиноф.рф</div>
+  <div class="header-sub">Июнь 2026</div>
+</header>
+
+<section class="section">
+<div class="sec-num">01</div>
+<div class="sec-title">Выполненные работы</div>
+<ul class="checklist">
+  <li><div class="chk"></div><span>Ежедневный контроль отзывов на Яндекс Картах, 2ГИС, Google Maps, Zoon, Flamp</span></li>
+  <li><div class="chk"></div><span>Ответы на отзывы, подача жалоб, чистка негатива</span></li>
+  <li><div class="chk"></div><span>Ежедневная проверка корректности данных о компании</span></li>
+  <li><div class="chk"></div><span>Добавление новых публикаций с SEO-оптимизированными текстами на Яндекс Картах</span></li>
+  <li><div class="chk"></div><span>Бесплатное внедрение новых функций и дополнений геосервисов</span></li>
+  <li><div class="chk"></div><span>Добавление новых фото-материалов</span></li>
+  <li><div class="chk"></div><span>Работа с товарами и услугами — описания SEO-оптимизированы</span></li>
+  <li><div class="chk"></div><span>Работа с аналитикой, полезные рекомендации</span></li>
+  <li><div class="chk"></div><span>Коммуникация с поддержкой геосервисов</span></li>
+  <li><div class="chk"></div><span>Контроль незапланированных автоизменений данных Яндекс-роботом и 2ГИС</span></li>
+  <li><div class="chk"></div><span>Подготовка ежемесячной отчётности</span></li>
+</ul>
+</section>
+
+<section class="section">
+<div class="sec-num">02</div>
+<div class="sec-title">Ссылки для сбора отзывов</div>
+<div class="platform-cards">
+  <div class="p-card">
+    <div class="p-name">Яндекс Карты</div>
+    <div class="p-hint">Передайте клиенту — он попадёт прямо на форму отзыва</div>
+    <div class="p-btns">
+      <a href="https://yandex.ru/maps/org/1144901569?add-review=true" target="_blank" class="btn btn-dark">↗ Открыть</a>
+      <button class="btn btn-copy" onclick="copyLink('https://yandex.ru/maps/org/1144901569?add-review=true',this)">⌧ Скопировать</button>
+    </div>
+  </div>
+  <div class="p-card">
+    <div class="p-name">2ГИС</div>
+    <div class="p-hint">Передайте клиенту — он попадёт прямо на форму отзыва</div>
+    <div class="p-btns">
+      <a href="https://2gis.ru/reviews/70000001006550665/addReview" target="_blank" class="btn btn-dark">↗ Открыть</a>
+      <button class="btn btn-copy" onclick="copyLink('https://2gis.ru/reviews/70000001006550665/addReview',this)">⌧ Скопировать</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section">
+<div class="sec-num">03</div>
+<div class="sec-title">Рейтинг на геосервисах</div>
+<div class="ow">
+<table class="rt">
+  <thead><tr><th>#</th><th>Геосервис</th><th>Рейтинг</th><th>Динамика</th><th>Ссылка</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Яндекс Карты</td><td><span class="rating-val">⭐ 4,9</span></td><td><span class="neutral">— без изм.</span></td><td><a href="https://yandex.ru/maps/org/1144901569" target="_blank" class="lnk">→ Открыть</a></td></tr>
+    <tr><td>2</td><td>2ГИС</td><td><span class="rating-val">⭐ 4,6</span></td><td><span class="neutral">— без изм.</span></td><td><a href="https://go.2gis.com/faBG8" target="_blank" class="lnk">→ Открыть</a></td></tr>
+    <tr><td>3</td><td>Google Maps</td><td><span class="rating-val">⭐ 3,5</span></td><td><span class="neutral">— без изм.</span></td><td><a href="https://share.google/tIUxVnZgl8rO0Nyh7" target="_blank" class="lnk">→ Открыть</a></td></tr>
+    <tr><td>4</td><td>Zoon</td><td><span class="rating-val">⭐ 3,2</span></td><td><span class="neutral">— без изм.</span></td><td><a href="https://zoon.ru/s/aQ2OXw" target="_blank" class="lnk">→ Открыть</a></td></tr>
+    <tr><td>5</td><td>Flamp</td><td><span style="color:var(--muted);font-size:13px">нет рейтинга</span></td><td>—</td><td><a href="http://flamp.ru/vmyatinof" target="_blank" class="lnk">→ Открыть</a></td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<section class="section">
+<div class="sec-num">04</div>
+<div class="sec-title">Статистика Яндекс Бизнес</div>
+<div class="period">Профиль · Июнь 2026</div>
+<div class="stats-grid"><div class="stat-card"><div class="stat-lbl">Переходов в профиль</div><div class="stat-val">9 967</div><div class="stat-dyn up">▲ +19%</div></div><div class="stat-card"><div class="stat-lbl">Проложено маршрутов</div><div class="stat-val">116</div><div class="stat-dyn down">▼ -1%</div></div><div class="stat-card"><div class="stat-lbl">Нажатий «Позвонить»</div><div class="stat-val">103</div><div class="stat-dyn down">▼ -26%</div></div><div class="stat-card"><div class="stat-lbl">Переходов на сайт</div><div class="stat-val">95</div><div class="stat-dyn down">▼ -16%</div></div></div>
+<div class="chart-title">Динамика по месяцам</div>
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:#1c1c1c"></div>Прошлые месяцы</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#c82828"></div>Июнь 2026</div>
+</div>
+<div class="chart-sub">Переходов в профиль компании</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:45%"><span class="bar-val">4 503</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:52%"><span class="bar-val">5 160</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:60%"><span class="bar-val">5 938</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:67%"><span class="bar-val">6 722</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:57%"><span class="bar-val">5 712</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:46%"><span class="bar-val">4 611</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:45%"><span class="bar-val">4 493</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:84%"><span class="bar-val">8 364</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:100%"><span class="bar-val">9 967</span></div></div></div>
+
+<div class="chart-sub">Проложено маршрутов</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:55%"><span class="bar-val">64</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:44%"><span class="bar-val">52</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:56%"><span class="bar-val">66</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:68%"><span class="bar-val">79</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:56%"><span class="bar-val">66</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:67%"><span class="bar-val">78</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:56%"><span class="bar-val">65</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">117</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:99%"><span class="bar-val">116</span></div></div></div>
+
+<div class="chart-sub">Нажатий «Позвонить»</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:68%"><span class="bar-val">95</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:39%"><span class="bar-val">54</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:79%"><span class="bar-val">110</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:65%"><span class="bar-val">91</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:64%"><span class="bar-val">89</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:65%"><span class="bar-val">90</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:68%"><span class="bar-val">94</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">139</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:74%"><span class="bar-val">103</span></div></div></div>
+
+<div class="chart-sub">Переходов на сайт</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:54%"><span class="bar-val">61</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:57%"><span class="bar-val">64</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:46%"><span class="bar-val">52</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:74%"><span class="bar-val">84</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:69%"><span class="bar-val">78</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:65%"><span class="bar-val">73</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:79%"><span class="bar-val">89</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">113</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:84%"><span class="bar-val">95</span></div></div></div>
+
+</section>
+
+<section class="section">
+<div class="sec-num">05</div>
+<div class="sec-title">Статистика 2ГИС</div>
+<div class="period">Профиль · Июнь 2026</div>
+<div class="stats-grid"><div class="stat-card"><div class="stat-lbl">Показы карточки</div><div class="stat-val">1 439</div><div class="stat-dyn down">▼ -16%</div></div><div class="stat-card"><div class="stat-lbl">Позиция в выдаче</div><div class="stat-val">4</div><div class="stat-dyn neutral">— стабильно</div></div></div>
+<div class="chart-title">Динамика по месяцам</div>
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:#1c1c1c"></div>Прошлые месяцы</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#c82828"></div>Июнь 2026</div>
+</div>
+<div class="chart-sub">Показы карточки</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:86%"><span class="bar-val">1 806</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:73%"><span class="bar-val">1 539</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:57%"><span class="bar-val">1 198</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:58%"><span class="bar-val">1 227</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:61%"><span class="bar-val">1 297</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">2 111</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:66%"><span class="bar-val">1 398</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:81%"><span class="bar-val">1 703</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:68%"><span class="bar-val">1 439</span></div></div></div>
+
+</section>
+
+<section class="section">
+<div class="sec-num">06</div>
+<div class="sec-title">Статистика Google Maps</div>
+<div class="period">Профиль · Июнь 2026</div>
+<div class="stats-grid"><div class="stat-card"><div class="stat-lbl">Просмотры профиля</div><div class="stat-val">81</div><div class="stat-dyn down">▼ -35%</div></div><div class="stat-card"><div class="stat-lbl">Звонки</div><div class="stat-val">2</div><div class="stat-dyn down">▼ -71%</div></div><div class="stat-card"><div class="stat-lbl">Маршруты</div><div class="stat-val">32</div><div class="stat-dyn down">▼ -40%</div></div><div class="stat-card"><div class="stat-lbl">Клики на сайт</div><div class="stat-val">2</div><div class="stat-dyn down">▼ -80%</div></div></div>
+<div class="chart-title">Динамика по месяцам</div>
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:#1c1c1c"></div>Прошлые месяцы</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#c82828"></div>Июнь 2026</div>
+</div>
+<div class="chart-sub">Просмотры профиля компании</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:75%"><span class="bar-val">109</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:71%"><span class="bar-val">104</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:75%"><span class="bar-val">109</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:71%"><span class="bar-val">104</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:99%"><span class="bar-val">144</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">146</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:84%"><span class="bar-val">122</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:86%"><span class="bar-val">125</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:55%"><span class="bar-val">81</span></div></div></div>
+
+<div class="chart-sub">Звонки</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:57%"><span class="bar-val">4</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:71%"><span class="bar-val">5</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:43%"><span class="bar-val">3</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:14%"><span class="bar-val">1</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:29%"><span class="bar-val">2</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:43%"><span class="bar-val">3</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">7</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">7</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:29%"><span class="bar-val">2</span></div></div></div>
+
+<div class="chart-sub">Маршруты</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:87%"><span class="bar-val">46</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:40%"><span class="bar-val">21</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:98%"><span class="bar-val">52</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:94%"><span class="bar-val">50</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:87%"><span class="bar-val">46</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:26%"><span class="bar-val">14</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:79%"><span class="bar-val">42</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">53</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:60%"><span class="bar-val">32</span></div></div></div>
+
+<div class="chart-sub">Клики с переходом на сайт</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:0%"><span class="bar-val">0</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:9%"><span class="bar-val">1</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:9%"><span class="bar-val">1</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:0%"><span class="bar-val">0</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">11</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:36%"><span class="bar-val">4</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:27%"><span class="bar-val">3</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:91%"><span class="bar-val">10</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:18%"><span class="bar-val">2</span></div></div></div>
+
+</section>
+
+<section class="section">
+<div class="sec-num">07</div>
+<div class="sec-title">2ГИС Рекламная</div>
+<div class="period">Рекламная кампания · Июнь 2026</div>
+<div class="stats-grid"><div class="stat-card"><div class="stat-lbl">Бюджет на рекламу</div><div class="stat-val">12 649 ₽</div><div class="stat-dyn neutral">— ежемесячный</div></div><div class="stat-card"><div class="stat-lbl">Итого действий</div><div class="stat-val">70</div><div class="stat-dyn up">▲ +3%</div></div><div class="stat-card"><div class="stat-lbl">Стоимость действия</div><div class="stat-val">180,71 ₽</div><div class="stat-dyn up">▲ -3%</div></div></div>
+<div class="chart-title">Динамика по месяцам</div>
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:#1c1c1c"></div>Прошлые месяцы</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#c82828"></div>Июнь 2026</div>
+</div>
+<div class="chart-sub">Звонки и просмотры телефона</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">37</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:89%"><span class="bar-val">33</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:51%"><span class="bar-val">19</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:68%"><span class="bar-val">25</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:57%"><span class="bar-val">21</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:81%"><span class="bar-val">30</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:59%"><span class="bar-val">22</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:51%"><span class="bar-val">19</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:35%"><span class="bar-val">13</span></div></div></div>
+
+<div class="chart-sub">Клики в адрес</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">6</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:17%"><span class="bar-val">1</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:0%"><span class="bar-val">0</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:17%"><span class="bar-val">1</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:33%"><span class="bar-val">2</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:17%"><span class="bar-val">1</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:17%"><span class="bar-val">1</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:17%"><span class="bar-val">1</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:50%"><span class="bar-val">3</span></div></div></div>
+
+<div class="chart-sub">Переходы на сайт</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">21</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:57%"><span class="bar-val">12</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:43%"><span class="bar-val">9</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:48%"><span class="bar-val">10</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:67%"><span class="bar-val">14</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:90%"><span class="bar-val">19</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:71%"><span class="bar-val">15</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:86%"><span class="bar-val">18</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:90%"><span class="bar-val">19</span></div></div></div>
+
+<div class="chart-sub">Построения маршрутов</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">20</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:50%"><span class="bar-val">10</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:25%"><span class="bar-val">5</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:20%"><span class="bar-val">4</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:15%"><span class="bar-val">3</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:55%"><span class="bar-val">11</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:40%"><span class="bar-val">8</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:80%"><span class="bar-val">16</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:55%"><span class="bar-val">11</span></div></div></div>
+
+<div class="chart-sub">Клики в соцсети</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:50%"><span class="bar-val">3</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:0%"><span class="bar-val">0</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:17%"><span class="bar-val">1</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:17%"><span class="bar-val">1</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:67%"><span class="bar-val">4</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">6</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:17%"><span class="bar-val">1</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:33%"><span class="bar-val">2</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:33%"><span class="bar-val">2</span></div></div></div>
+
+<div class="chart-sub">Клики в мессенджеры</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:60%"><span class="bar-val">6</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:90%"><span class="bar-val">9</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:20%"><span class="bar-val">2</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:80%"><span class="bar-val">8</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:70%"><span class="bar-val">7</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">10</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:30%"><span class="bar-val">3</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:40%"><span class="bar-val">4</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:80%"><span class="bar-val">8</span></div></div></div>
+
+<div class="chart-sub">Переходы по рекламной ссылке</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:43%"><span class="bar-val">6</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:64%"><span class="bar-val">9</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:14%"><span class="bar-val">2</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:57%"><span class="bar-val">8</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:50%"><span class="bar-val">7</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:86%"><span class="bar-val">12</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:29%"><span class="bar-val">4</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:57%"><span class="bar-val">8</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:100%"><span class="bar-val">14</span></div></div></div>
+
+<div class="chart-sub">Итого действий</div>
+<div class="bar-row"><div class="bar-lbl">Окт 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:100%"><span class="bar-val">99</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Ноя 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:75%"><span class="bar-val">74</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Дек 25</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:38%"><span class="bar-val">38</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Янв 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:58%"><span class="bar-val">57</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Фев 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:59%"><span class="bar-val">58</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Мар 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:90%"><span class="bar-val">89</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Апр 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:55%"><span class="bar-val">54</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl">Май 26</div><div class="bar-track"><div class="bar-fill bar-dark" style="width:69%"><span class="bar-val">68</span></div></div></div>
+<div class="bar-row"><div class="bar-lbl"><span style="color:var(--red);font-weight:700">Июн 26</span></div><div class="bar-track"><div class="bar-fill bar-red" style="width:71%"><span class="bar-val">70</span></div></div></div>
+
+</section>
+
+<section class="section">
+<div class="sec-num">08</div>
+<div class="sec-title">Управление отзывами</div>
+<div class="period">Июнь 2026</div>
+<div class="ow">
+<table class="revt">
+  <thead><tr><th>Геосервис</th><th>Всего</th><th>Хорошие (4–5★)</th><th>Плохие (1–3★)</th><th>Удалено нами</th></tr></thead>
+  <tbody><tr><td>Яндекс Карты</td><td>6</td><td class="num-good">6</td><td>—</td><td>—</td></tr>
+<tr><td>2ГИС</td><td>1</td><td class="num-good">1</td><td>—</td><td>—</td></tr>
+<tr><td>Google Maps</td><td>—</td><td class="num-good">—</td><td>—</td><td>—</td></tr>
+<tr><td>Zoon</td><td>—</td><td class="num-good">—</td><td>—</td><td>—</td></tr>
+<tr><td>Flamp</td><td>—</td><td class="num-good">—</td><td>—</td><td>—</td></tr>
+<tr class="total-row"><td>Итого</td><td>7</td><td class="num-good">7</td><td>—</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<footer class="footer">
+  <img src="LOGO_YOURARR.png" alt="YOURARR" class="footer-logo">
+  <div class="footer-text">Управление репутацией на геосервисах · Вмятиноф.рф · Июнь 2026</div>
+</footer>
+
+<script>
+function copyLink(url,btn){
+  navigator.clipboard.writeText(url).then(function(){
+    var o=btn.innerHTML;btn.innerHTML='✓ Скопировано';btn.style.color='#2e7d32';
+    setTimeout(function(){btn.innerHTML=o;btn.style.color='';},2000);
+  });
+}
+</script>
+</body>
+</html>
