@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Отчёт о геосервисах — Адресат</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:     #E8374B;
+  --red-dk:  #C22D3D;
+  --dark:    #231F20;
+  --gray:    #58595B;
+  --gray-lt: #9B9B9B;
+  --bg:      #F5F2EE;
+  --bg2:     #EDEAE5;
+  --surface: #FFFFFF;
+  --border:  #DDD8D0;
+  --green:   #2A7A4F;
+  --green-bg:#E6F4ED;
+  --orange:  #D97B3A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--dark);font-size:14px;line-height:1.5;}
+
+/* ── HEADER ── */
+.hd{background:var(--dark);}
+.hd-top{display:flex;align-items:stretch;max-width:1080px;margin:0 auto;}
+.hd-logo-box{background:var(--red);padding:28px 36px;display:flex;align-items:center;flex-shrink:0;}
+.hd-logo-box img{height:52px;width:auto;filter:brightness(0) invert(1);}
+.hd-info{padding:28px 36px;flex:1;}
+.hd-tag{font-family:'Oswald',sans-serif;font-size:11px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+.hd-title{font-family:'Oswald',sans-serif;font-size:30px;font-weight:700;color:#fff;line-height:1.1;text-transform:uppercase;letter-spacing:.5px;}
+.hd-sub{font-size:12px;color:#888;margin-top:7px;}
+
+
+
+
+/* ── BRANCH CHOOSER ── */
+.bc{background:#2d2a2b;padding:26px 20px 22px;}
+.bc-inner{max-width:1080px;margin:0 auto;}
+.bc-label{font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#bbb;margin-bottom:14px;text-align:center;}
+.bc-label em{color:var(--red);font-style:normal;font-weight:700;}
+.bc-btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
+.bc-btn{font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);color:#aaa;padding:12px 22px 10px;border-radius:6px;cursor:pointer;transition:all .18s;line-height:1.25;text-align:center;}
+.bc-btn .sub{display:block;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;opacity:.7;margin-top:2px;}
+.bc-btn:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2);}
+.bc-btn.active{background:var(--red);border-color:var(--red);color:#fff;}
+
+/* ── BRANCH BANNER ── */
+.bb{background:var(--red);padding:0 20px;}
+.bb-inner{max-width:1080px;margin:0 auto;height:40px;display:flex;align-items:center;gap:10px;}
+.bb-inner::before{content:'';width:4px;height:20px;background:rgba(255,255,255,.4);border-radius:2px;flex-shrink:0;}
+.bb-text{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:#fff;}
+
+/* ── MAIN ── */
+.main{max-width:1080px;margin:0 auto;padding:36px 20px 60px;}
+
+/* ── SECTION ── */
+.sec{margin-bottom:48px;}
+.sec-hd{display:flex;align-items:center;gap:14px;margin-bottom:22px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+.sec-num{width:40px;height:40px;background:var(--dark);color:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;flex-shrink:0;}
+.sec-title{font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:var(--dark);text-transform:uppercase;letter-spacing:.5px;}
+
+/* ── SERVICES LIST ── */
+.svc-list{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px 24px;}
+.svc-list li{list-style:none;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.5;display:flex;gap:12px;align-items:flex-start;}
+.svc-list li:last-child{border-bottom:none;}
+.svc-list li::before{content:'';width:8px;height:8px;background:var(--red);border-radius:1px;flex-shrink:0;margin-top:5px;}
+
+/* ── REVIEW LINK CARDS ── */
+.rl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;}
+.rl-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 20px;}
+.rl-card-platform{font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--dark);margin-bottom:3px;}
+.rl-card-addr{font-size:11px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.rl-card-hint{font-size:11px;color:var(--gray-lt);margin-bottom:14px;line-height:1.4;}
+.rl-btns{display:flex;gap:8px;}
+.btn-primary{flex:1;background:var(--dark);color:#fff;border:none;border-radius:5px;padding:10px 14px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .18s;}
+.btn-primary:hover{background:var(--red);}
+.btn-sec{background:var(--bg);color:var(--dark);border:1px solid var(--border);border-radius:5px;padding:10px 13px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .18s;white-space:nowrap;}
+.btn-sec:hover{background:var(--border);}
+
+/* ── SCROLL HINT ── */
+.scroll-hint{font-size:11px;color:var(--gray-lt);margin-bottom:8px;}
+
+/* ── RATING TABLE ── */
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border);-webkit-overflow-scrolling:touch;}
+.r-tbl{width:100%;border-collapse:collapse;min-width:500px;background:var(--surface);}
+.r-tbl th{background:var(--dark);color:#fff;padding:11px 16px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;text-align:left;white-space:nowrap;}
+.r-tbl th:first-child{border-radius:8px 0 0 0;}
+.r-tbl th:last-child{border-radius:0 8px 0 0;}
+.r-tbl td{padding:11px 16px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.r-tbl tr:last-child td{border-bottom:none;}
+.r-tbl tr:nth-child(even) td{background:var(--bg);}
+.r-tbl td:first-child{font-weight:600;color:var(--dark);}
+.tbl-lnk{color:var(--red);text-decoration:none;font-weight:700;font-size:12px;}
+.tbl-lnk:hover{text-decoration:underline;}
+.d-pos{color:var(--green);font-weight:700;font-size:12px;}
+.d-neg{color:var(--red);font-weight:700;font-size:12px;}
+.d-neu{color:var(--gray-lt);font-size:12px;}
+
+/* ── STAT CARDS ── */
+.stat-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;margin-bottom:22px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center;}
+.stat-card-label{font-size:10px;color:var(--gray);margin-bottom:7px;line-height:1.35;font-weight:600;text-transform:uppercase;letter-spacing:.3px;}
+.stat-card-val{font-family:'Oswald',sans-serif;font-size:30px;font-weight:700;color:var(--dark);line-height:1;}
+.stat-card-dyn{font-size:11px;font-weight:600;margin-top:5px;}
+.stat-card-dyn.pos{color:var(--green);}
+.stat-card-dyn.neg{color:var(--red);}
+.stat-card-dyn.neu{color:var(--gray-lt);}
+
+/* ── BAR CHARTS ── */
+.charts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
+.chart-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;}
+.chart-box-title{font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--gray);margin-bottom:16px;}
+.chart-legend{display:flex;gap:16px;margin-bottom:14px;}
+.chart-legend span{font-size:11px;color:var(--gray);display:flex;align-items:center;gap:5px;}
+.leg-dot{width:10px;height:10px;border-radius:2px;display:inline-block;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.bar-mo{width:44px;font-size:10px;color:var(--gray-lt);text-align:right;flex-shrink:0;}
+.bar-track{flex:1;height:22px;background:var(--bg2);border-radius:4px;overflow:hidden;position:relative;}
+.bar-fill{position:absolute;left:0;top:0;bottom:0;border-radius:4px;}
+.bar-fill.past{background:#ccc;}
+.bar-fill.curr{background:var(--red);}
+.bar-fill.up{background:var(--green);}
+.bar-val{width:56px;flex-shrink:0;font-size:12px;font-weight:700;color:var(--dark);text-align:left;}
+.bar-row.hi .bar-mo{font-weight:700;color:var(--dark);}
+.bar-row.hi .bar-val.r{color:var(--red);}
+.bar-row.hi .bar-val.g{color:var(--green);}
+
+/* ── REVIEWS TABLE ── */
+.rev-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border);-webkit-overflow-scrolling:touch;}
+.rev-tbl{width:100%;border-collapse:collapse;min-width:480px;background:var(--surface);}
+.rev-tbl th{background:var(--dark);color:#fff;padding:11px 16px;font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;text-align:left;white-space:nowrap;}
+.rev-tbl th:first-child{border-radius:8px 0 0 0;}
+.rev-tbl th:last-child{border-radius:0 8px 0 0;}
+.rev-tbl td{padding:11px 16px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.rev-tbl tr:last-child td{border-bottom:none;}
+.rev-tbl tr:nth-child(even) td{background:var(--bg);}
+.rev-tbl tr.total td{font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;background:var(--dark);color:#fff;}
+.rev-tbl .n-pos{color:var(--green);font-weight:700;}
+.rev-tbl .n-neg{color:var(--red);font-weight:700;}
+.rev-tbl .n-del{color:var(--orange);font-weight:700;}
+.rev-tbl .dash{color:var(--gray-lt);}
+.rev-tbl td:first-child{font-weight:600;}
+
+/* ── OTHER SERVICES ── */
+.other-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;}
+.other-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.oc-left .oc-name{font-family:'Oswald',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--dark);}
+.oc-left .oc-rating{font-size:12px;margin-top:3px;}
+.oc-rating.hi{color:var(--green);font-weight:700;}
+.oc-rating.mi{color:var(--orange);font-weight:700;}
+.oc-rating.lo{color:var(--red);font-weight:700;}
+.oc-rating.na{color:var(--gray-lt);}
+.oc-btn{display:inline-flex;align-items:center;gap:5px;background:var(--dark);color:#fff;text-decoration:none;font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;padding:8px 14px 7px;border-radius:5px;white-space:nowrap;transition:background .18s;flex-shrink:0;}
+.oc-btn:hover{background:var(--red);}
+
+/* ── FOOTER ── */
+.ft{background:var(--dark);padding:26px 20px;margin-top:20px;}
+.ft-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.ft-logo{font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;color:#fff;text-transform:uppercase;}
+.ft-logo em{color:var(--red);font-style:normal;}
+.ft-text{font-size:11px;color:#666;}
+
+@media(max-width:640px){
+  .hd-top{flex-direction:column;}
+  .hd-logo-box{padding:20px 24px;}
+  .hd-info{padding:20px 24px;}
+  .bc-btn{font-size:12px;padding:10px 14px 8px;}
+}
+
+/* ── REVIEW LINKS V2 ── */
+.rl2-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;}
+.rl2-platform-block{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0;overflow:hidden;}
+.rl2-platform-title{font-family:'Oswald',sans-serif;font-size:17px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;background:var(--dark);color:#fff;padding:14px 20px;}
+.rl2-item{padding:14px 20px;border-bottom:1px solid var(--border);}
+.rl2-item:last-child{border-bottom:none;}
+.rl2-addr{font-size:12px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}.rl2-hint{font-size:11px;color:var(--gray-lt);margin-bottom:10px;line-height:1.4;}
+/* ── OTHER SERVICES TABLE ── */
+.ot-tbl{width:100%;border-collapse:collapse;min-width:440px;background:var(--surface);}
+.ot-tbl th{background:var(--dark);color:#fff;padding:11px 16px;font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;text-align:left;}
+.ot-tbl th:first-child{border-radius:8px 0 0 0;}
+.ot-tbl th:last-child{border-radius:0 8px 0 0;}
+.ot-tbl td{padding:10px 16px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.ot-tbl tr:last-child td{border-bottom:none;}
+.ot-tbl tr:nth-child(even) td{background:var(--bg);}
+.ot-name{font-weight:700;color:var(--dark);margin-right:6px;}
+.ot-addr{font-size:11px;color:var(--gray-lt);display:inline;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hd">
+  <div class="hd-top">
+    <div class="hd-logo-box">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAADbCAYAAAC1HkJPAAB4k0lEQVR42u2deXxdVdX3f2vtc+69GTtmatMWsIgWBxRwQgioKFBmTJ1QHIu0SVoGRZ/B9D74vE4MbZMWqY/6OPCojUIpLaCCEsVZnKlTRTs3SadMdzjn7L3eP8656W1I03vTdGR/P58rtr33nD2vvdZeey3gOEcAkoYGBwBWo1Gl515zR/aK657cc8kVLxv6TmOjgsVisVgsJxB0XAvfxkZFHR0aAFKXXfU6Zv5cjNXrjAgCkT6IfGazTt/1wscey0pjo0JHhyFAbLdaLBaLxQrgMWm9rYzGDUQdHXrvVVdNTGheQqBFcWb0+b4BAIeZS10X2SD4nWi5teTRB38wXGhbLBaLxWIFcKHCt6HBoc7OAAAGL732OqXks3HlntbveyIiwkQcCmkIAF2mlKMFMGI+75H/n5Xr1u2S1lYGAEomje1ii8VisVgBPJrgbW1lJJNCgOy9+IpTS2LOp+NKzfONQcaYgABnpN8ZEUNEVOHGKBsEW3zIxyvWP3j/cGFusVgsFosVwPmCFyA0NKghrfeya5odpiUxpSb3e54GQBRpvYd4ThBndmKs4Gn9UMaYj054dM3fCMC3GhvVPGuWtlgsFosVwJHQzDuv3XfJNecmHNwZV+4F6cCHb4xmoqK8m42IEGAq3JjKat1vxNyxrsy9e15Hh/5hQ4NzYWentk5aFovFYnneCmABCI2NTB0duquhobyyfNJ/gPjWBLPTHwQBAEWHUTYjoh1mVeq4yOrgF0bj1tJHH/jJcKFvsVgsFsvzRgD/sKHBuSgyNw9cevXliulzCcd90YDvQUQ0Fan1jiLkBYAuV46TFSMwWJYZ1MlJnQ/tC68szRGCddKyWCwWy0kugEMnK4CQNINz505nxD4VY/VuI4K00Yet9Y6iDQ85aXk6+Eeg9e1ljz70HcA6aVksFovlJBbAw52s0nOv/hARfzKuVHW/5xkAKMTJahzKESSYHZcZGa1XZ7zgY5O+//A/BSC0tpK9smSxWCyWk0YA55+37nnzNS8vi9HnYkpdnAk0PKOLdrI67PKIGABSEYuprNZ7tJElZY882JbThmGdtCwWi8VyIgvgfCerfzY0JGrLJ3+MiG6PMyf6fF8TEdMx9MA2ItplViWOi6z2f5QJ/NsmPrbuV8M3DRaLxWKxnDACOF+A9V96zcUu051xx3nZoO/BjKOT1ThsEkRETKXrqowxAUTu7BvY8981nZ0DNq60xWKxWE4YAZwf/rH/4muq3Th9UhF9iACk9Pg5WUXezRgvDTrneV3uxpAJ/L9oIx8pf3TNOuBAj22LxWKxWI43AUyS52SVuvzadzPkU3HlTu/3swYyfk5WRsQwEbvEyI7jGXLuylKJUg6D4Bn9tUF4H5+6fv02G1faYrFYLMedAM43N++67OoXVxB/Nuaoy7NawxslfvNYBWS5cpxBHYAg3WVurLrf9w9I0DAO2rABgIpYjLOB7haY/yhZv+YLgHXSslgsFstxIIDznax+2NDgvLps0m1M/O9xpcr7fU8LgRk0biZiJlJlbgxZHfzJh14s0L93jPtfiukmhwiDenzvERsRHWNWCcdBNtDf99m/reLhh/8wfNNhsVgsFstRE8D5AqjvsmsviBHujDvOuanARzCG+M2jab05J6msMVkx5rM9e3Z+aubPf57Ofad/7lUXuqTujCvn7EHfh5Yj9v6MAT7d1b/7M6d2dmask5bFYrFYjpoAFrQyGjcQdXTozW9+8+Rqt3wJCM0uMQZ1cCQ10CcC0beVP/LQ73IbAHR0mJwG/uuzz3bn1M78CBP9W5xV2ZHUwDOB/4fA4LaKRx/8vtWGLRaLxXLEBXB+yMbUZVfPU8SfjjnOqf2+d+TOYLXuEch/lqx78L5cGYafwR6gjV9y5RxXqTsTjnPpkTqDLlXKEQBa5At+Vv6j4vsPdlsnLYvFYrGMuwAO4zcnhQDZd8nVL4gr+kxCqes8Y5AdXwEHAEEJK4eJ4Im5P+Xpj0/53kNbDhUq8jmhLi+79r3M+O+Ycqb1e9lxDXW5f4MQ56z2txlDHy995IGvDd+kWCwWi8UyJgE8TKjR4NxrFilQa9xRE/s9T4cybdyE2tA9XE8Hfw1EPlq2/sG1QHH3cPM10a7LLqudQPFPOswfAMb3HnLUPkGM2YkrhUyg1/mEj1Sue+Avw7Vyi8VisVgKFsD5AmTwsitfrVjdFVfueenAhz/OTlYAdLnjOJ4xgYjcM6D0HVVr1/YfjpPTAekO5177FkW4M6Gcl4x3JC4jIgSYCjemsiYYgOCTf9q5+e5znn7at05aFovFYilYAOdfLeq58sqKcq3+E8AtCaVUfzD+TlZDsZiD4CkNc2vZ+jW/HC8NMr8um1/zmpKqqbUfJ/BH48zx8Y5FbUS0w6xKw7r8ypPgtspH1v7IasMWi8ViOaQAztcaBy+7+ipm/mxCOS8c8L0hE/G4aL352YgCvU8DS8rWP7AcgByJQBf5AnDgsqvOckjdFXfUGzJBAO8IaPNlynF8MYCgrdsfWDLze9/bs7qxUTV2zBGCddKyWCwWS54AFoAIkN1vvmpGqcufjiv1Tm0EaaPHzckqElJD+Xg9Y76dluztE9evf/ZI5+N9rpPWNTcS0x1xpar6PM8QxjdUJhFRhRsjLwj+qcV8rPSRNauB8IzaekpbLBaL5QANOD336vkE/u+4o6b2e964eg7nC6VsEPzTQG4vXf9gB3B0PYcjj24QYHa/+aoZpTH1qTjxu7Qcmc1GnNmJMSOj9Xf6dPr2msce+0dus2OHncVisVio99KrOivd2AVZHSB7BM2yIlieRXbJxPXr94ZOSsfGLHuAuX3uNVc6RJ+NKeeMI2Zud2MqENmXCbLzyh99+PHc2bQdehaLxfL8huPMF/T7nvHCgBrj5SGsVaj1Or4xv/JEX1Cy/oFFOeFLHR36WJ2JXtTZGQhA0tioytY/uLaPg3Mzgf85h0iXu64SIJBx0FKJiIlI9QV+1lHORCI6iwBBdzfZYWexWCwW9o3J8Dh5BRsRERFd6caUAgbSgf+xnw3sfl3l+od+LI2NSgA6HrQ/AoQ6OrQ0NqqqtWv7S9Y/+FFP9HmeNk9VuDHHISIjosfpXQpiRIjTdrhZLBaLJYcj4fWiw0aAIKGUE2OlMlqv833/I5XfW3dcB6egjg495KT1yNpfALggM/faFgYtqYzFxjPoCEEM2+FmsVgsliENeBy0XiMipsKNOQC2Dgb6PSXrH7ii8nvr/iINDU5O0B2vDUCAUGdnIK2tLAAS6x9YlgHO9rT+doUbU3GlWAAbYtJisVgs46sBH4bGGzpZOY4jALKBv2qvh/+sOzBBwQkjuHJXhKShwaH1DzwLoDE195pGBfpMhRsb98QTFovFYrECeCzCF4qISh3Xyerg974Et1WsX/s4EJmbk8kT1suXOjuDvNSLHfvmzn1cB0jGmJtdYhoIfGEi60hlsVgslsOiaG1OAFEgowgDaR0s2RykXl2xfu3jx5OT1WELYSRNzklr4vr1e0vXP9BiRF/gG/OrhFJkIPYur8VisViOrgAGIC4TZw3eXrrugeTpjz3m7b9adHIFmcg5af2wocEpXf/Qj382sPt1vtE/K1Mu5VITWiwWi8UyFsZigiYtAhazWRobVU5QnawNRICgszOQxsYYdXR4/Zde1a1CC7TVgi0Wi8VyVDXg8IdMMero0Jgz5/kiiMIrSxDXDhuLxWKxHDMBLETPOw0wNLGT1XwLaqoRPxaLxWKJcGwTWI6A8JUx/JvFYrFYAWyxHAY5AcvR/6e8/1rHNYvFYrEC2DLOMACZWV19qoAfkv1n5QTAEIgF+P3W7p3zrCZssVgsVgBbxlcABxq42WH1EjPCLS0GXjhjat35W3bteAqAAmDTMlosluf1ommxjMc40rOqqmoJfIM2WouIlihOePTxAYiQ3G61X4vFYrEC2DJ+40gC8EJmrogErIr+PvdxjYiAcOn0qqqXIzwPVrbpLBaLFcAWy9ggAHrWhAkTCbhRjJFRBKthYgb4I1YLtlgsVgBbLIeHAiA6XvIBVqpKwnPdg935VUaMENFbZ1RVvSDSgu0YtFgsVgBbLGPRfuvq6koh0iIicogxRQA0M8cNqUXYfz3JYrFYrAC2WIrVfpXBO5jVzChBxaHGlDLGCAE3zKqqqrVasMVisQLYYikefTbgijG3SpiisRBtNqcFVwbgmyIt2I5Di8ViBbDFUiAOANlZVXuVYn5xgdrv0LgTY4RAHz5t0qQJGP3c2GKxWKwAtljyMKHQlI9K8R7NLIBhxdVZ130v9l9bslgsFiuALZZRUADMjOrqNzHzuZHzVbEClEREILxo1qxZCasFWywWK4AtlkMjACCCj1Hen4vWgkWMUnxqkMrOs1qwxWKxAthiObT2K9Nral5NrC4y4dnvmAVnpD3fBhsb2mKxWAFssRSgARvcTqDDTTGoRMQoppfOqK6ea7Vgi8ViBbDFcnDt18yoqTmTiK4wYgzGIaOWADCgj+b90WKxWKwAtliGy0sjdBszO4ep/R6gBTPxefVTay+ATdJgsVisALZYnjNWzKyamlMYeJsZPelC0UKdACBMVWg5/qHok8t0lfvziVqPE739eVhfnEh1eF7ffLAC2FLMhBFtaBExl2B8rw0pI2KI+JJpVdPOslrwmPtHITwSyH3UCH/HY3x27veE8JhAon4yeX/mvPfScdQuPKxNcmXLlXuk9jue6sDD+m94+5thfZFfFz6GbT68PXmEtpe8Oo72/ZMSx65blgInlDmtpqbaE7xvnLXfHIaIHBJzG4Dr7Sb1ue1zKCsCCvci5wKfmVsANYAg95d1dXWlsSCozCoVZ2YDIFW3va7vaTztD3umyhMUx0IAICr7wcqQX76DtZ/Kays5ynVQw4QrAGD27Nlxb9++yUEsVgkfJSLCjjLZgLnf87y9u3fv7h9Wl9yz9BGsA+dtDgp5T25smQLGiDOsn04aK4cVwJaCNFQAgSd0EzNPMMYEBY6dfM2oAC3YCBHeOqOqqnVLT8+z0e/MMa67Oc77hgDIqdXVNQHUy0TMCwk4VYAaAZUDIIL0g2gLYP6olfrJjh07Nuf1qx5FgGkAqK6uromRcxGMXATIy0TLDE1qgtISg9YGRJmuqm1766l2E4R+S4ROiakfb926dU/ee46GAMsvd65e7vSqqjkMdRZIXmKEXkBArQCVRIgBgIj4BOoHYRdBNolgAwn/gf3YHzf1bto3bB4c6Xrk1yGINjwzlaHXiZjXAfLyTF//LLAzhQNTBgKBABECByZboty906trthLoTwz6GbH8eNPOnX/O20CNZx1yQjfI3yTMwZxY79TeWYA+HUpmk+FTQDIdgqlCMgGCEiJyJRybGkJZEPoh2A3IdoD+wSx/gciGzd3dz+Zv/sZQfsFx7NhpBbClkAVBz548uTIjuElC7bdQrZCIiMKrvgW9J2DmuDZYDKD5GGqfOTMrT6+q/SoTzRCIEQgf/YKQIRBroUXbe7b/boRNSbg5An3CUbxAwtN0kAAHWPcIgDCgZXBGde3Dgabkjt07/jKCEM49X0+vrn4Zg1sAXE3AFCiCSPQoERANKRYJYpoI4FRiuhAiN4sX7KyvqXvIGPp8VO7RBP54bRJzgpdnVle/wYi6DiRvBHA6UdgGSuQ5OTBz9Qj9EHiofpqy3TOqan8iRN8Z9DPr9u7d23uE6zFUh1kTJkzUicS1MPR2BPI6ZioDM3JzadickmiuxQlUS0S1BDoHhPdqI0F9Te2vROhbPvQ3u7u7u8apDpwvdOurq18qpC4iwQW92HMWAbOIyCHiyM5AEJJwt0D7Jxny/0xh+0cVhIF4M6pq/wrCkwTz0Obu7s5hGwl9qLasr679Twa/ycBogajja2ElYwWwpSDtN83O+5TiGmOMxqHNz0JhqMndAvyciOaOIVXhf2/q6ek6llpwTU3NVBK8gyiUYHSMLFlEBPL1ZOSvWyM1uogxxnh5G2saWs1k6M9lxPx2RXLZ9Km179i2a+cjeW2sAOiampoy1/AdgDQRs2uMgYjR2C+7nmPWiwKqSPRfIqCWiG4EmQ/MqK79CrT/iS27d28/AsIrVxZdX19fIl7wHgI+LERnMYcbBhGBObD8I7WjyIGSTRGhmoiuIdA1ZW58S1l17Rc4m27f3Nu7d5w1yVxZdF1d3VSlZaEBPsjE9WCBeW75aVg9CPkdLRCBmKhkDoFey0yvJaP+vb6m9gua6Z4dO3bswoHnycWW10ybOvWFzM48ANcAeIUiIkAgIIgIRETLgTsFGmUMD29/AhAD00uJ6KUi1DyjpvaPAlmlmb+0Y8eO1CHGUk6sn8VMF4gcu/l7qF2MxTKq9jtr1qwEiBflFtcCfqeJWYTocdL+fBHReVrlId/HzBUBeAGOXapCBoAY0UwAMCJBtJgci48vIpqIgkPspgMc6KwzkhOWAiDGGJ+ASmZ8e9bk2hcDkLNxtgtAT5s69YWu0FOs6GYAbnTcIHnPyXeOyf/kO9EoCd8TAHCI+QPixJ6eXlV7XbRgjpcmMnSGO72qthGe/rVi/jwRnRVtRoJo44dh5Vd4rvfw8LYiAcSIaCNGE9EMZv4vEy/9zbSamrflLfw0TnWQ6dV1H3K0/I6Zl4Co3hijTTh3Rmv/kTYj+eNAcm1BkCom/jdHy++mVdXekLeB4CLXBJleXdvG7PyBme8golcCIGNMYMIxa4aV2TlE2/PBxuqB/UgvZVJtSsvTM6qrr8R+R1AaxQCdisqUPYZz+KBz2wpgyyEXBz+VfZtSfGoRKQdZRAgkX9uye/d2gXyfiQuNmpVLVXjjMUxVSAgl1elMlFvs1DH+jN4GUrCVgAC4IuITc0mg5P8BwNN42q+dXPtiZudJJjrLGONH33fG2P45z2mEiz9qFdO366tr/yNPCNNhjk09bdq0KTNqav9PMa0mwpw8oZsTQnyY40AhvKsuxpiACKc4UN+cXl3bfgiNrhAcAHr65Mn19dV16xXTKhBNj+ogBff9oevAAJyhTRHRdEfx/06vqv16VVVVOYq7dcDREceLmThujMnmCdzx9l7O30zw0EaC6EVE6qH6qpq7gAOsAiNMC+HjYO4e9GMFsGU0DABFwG1S4EEuQm9mNsb8ecKUKd8HQDC0PLKBFjIpWQAdpipMvA/HMDylCJ0RHkwd/9G5BFKsWdeJvNkvqa2tnTplypQKR2E9EdUZkQCAO47Fc0TEGBHNzHdMr679zGFqwg4APa2q6iwVmJ8R8TvyNK8jdfWG9tfDBIp5YX1N7YNz5sxxMTZPWwdAMKOq7vXsxH7OTJflCd6xbnoKrYMYYwKl+F1xUp3TJ0+uL6I/ogkhT4GG5ubRui7E+WNJKXXLjOrab+Rp8SfclSUrgC2jLRCmvrruCsX8Eik86YIhIoDkvg0bNniNAG/btfP7xpg/U6hNFqYFh4dIxypVYXRiSi86YQJjEhUrgAmAKOYEa316gp3Pcmjl8HFknDMZABtjfMX80elVNbcjdKgp9l0KQFA/tfYCJvUkiE6PTN3qKK1nHG1efCa+sm/X7vujMV2MAHAABNOm1lwuJN/Pab1HUPCOKIijOrySnNgPpk+enhPCBbWhCDYg9Pg7FkKPAShtjM/Mb59eVbOymLJbAWw5UbRfQOR2KVwKCQBHG7PPKHU/ADyDOQpAAOJVkbdpoQLYKMWn+Kns246BFhyVUWZHdT/u5wkRgmgRKsZhjURECKoZwPuNMWacNd+DLfwBM3+6vqr2kkgIF9q3oWdrbe25pGg9EU2I/AuOhTOpa4zxmdVb66trP1GEAFAAghnV1Rcz04MEShzTOogJmOh0Unr9lClTKvK13NHmBrP82YwtD/i4ll8b4yulPlw/tebtGF//AiuALccMBcBMr6l5AzG9pgjtVzMzSGR15GWpNmCDH/6D3K+N6cX+S/UF7LJFaH+qwqPlCU0AZMqUKRUkmJnnPXxcIyIxJlJEFEPhnq0koZP126Pf8VFq39D7lvDladOmTUFhjkAMwMycOrUOBmsAlEeCq5gFVyKBn9us5NpJ5/19MePMic4kW+um1r2yAAHAAPSsybUvFvC3iUgJ5FhHfXOMiM+KX1ai3C/mafOjWofSWv8Lgh7Cc45ocgEzgmFtPTxqmhnW7mMNEqJExAjT3ZHPiMEJZIq2Athy0EkGwe2U/+dCJoMxxkDdO+xZaufOnT0kspqZgcKuoeRSFb4kSlU4LpmXChQQKHfdehBNKeLsGjgwvN6hPuPbV6DfGyPfFSN/oNDUMN6L0PBFNcDYr+GwhOfBteTrTxe4aBIAMeR8lYmnSXhOrYpoI00AMZHDzA6Fm5UcipkdJnbyjklMgWOFCGBmczdGnysEgGbNmpUIFFYTUWURTo2F9sdYBVmkzXNj5B092kZCAFAUbesfUa/lhKlGeB+Zc+3MxE60MeTok4M51+5Rf0RtFBRZ/tBaxlznufEP4gRLaWrvAVtG1H5n1NaeA6GLTRHab+R89eO8gBEHCFoj6l4S84FiFp1QWtHtANYeJS2YACAQOY2JuUgt61jsvDUAbOve+XUAXweAGdV1VxHofoGUjkO5NIBw8cxFqYg6RiC5a5tjMf05xhjNzO+fXlXVvq2n5w84+L3O0OO5uvbDzPymIiKxheMSpIhJGaN7RPADAX4KLRuFzV6IEImaICSnEOEcElzITKdFl5oLqZcyIpqJG6bX1Fy4ravryYPUgwHoIJ35tFLqJUXWYbh2qZ7TH/stIfl9Usy5tBIjhiF3Tps2bd327dv34OBXBxWAQIANDJwr4cZGAQQjxhdj/i6EDRD6uwE2k6BbyPSKqAyzCUSESVOclEyEoXohehEJXimQsxSrkmhcFTOmcj4jHwCwLH88EuiAzUGRVpqx9E1RmygrgC0jWzQDuZ0VU+Rdy4WNWiKAVuSbDPMX8e27tv92enXNU0x8QaGLm4RJGl5XP7W2YeuunZ04stGUhoQVC51BTCjC+1tExD/kFM/FLBr/s9ahO7lbunc8VF9V/UVWTssYF/qhvQ8TqVAYmb8K6PcisplAGpA6AC8F6BVMrIwYGYOwFwIpQP07gHmj1MvU1dVNZW0+KeE5daGLo2YiZSBdMPi0Vvz16GjkoNTX15cY378KQkuY6AxT2DgVAgmEbgLw5ME2tfU1NS+B0OICg9mMpPEyMytjDMTIHwzJ0yR4FiK9ABJCNJOAVwI4l6MAKji0SXm/EIMErNRUeOZWAP8WjZuD3z8n80fmmKMDP22AJ0DmQYj50daenn+MxTIys6bmVGP0W0HUwsT1RgpuJxYRIaIXz5xa9/LNu3Y8PWfOHN6wYQMEUsbECiBV1MAXKXLyEREV3afKCmDL8F26qZtS9yKwXBUtqoWMEUNEShu9ieLuOuwP4P+cZzNhJYEuKMaxK4yiKB8F0ImjdCVIRM4oUJJoJlJazPe0ohuNMYqZ9UGeycRk2JjZBH58vIuMvLuYAu6ESMsYtd/Q84yIjcg6IblrW3fXTwD4w784beq0VxCbZiJ631AQpiK0rij+91UzqqpesCVcuEcMtcmBaWGlphSxodDRxuB7CJz3b9mzdVve80bS7AiAbN26NQ3gm6dNmvSo58bvZ6K55tCmYmXEEIC3TJs2bcr27dt3j/AOEYM7FLNjxARF9ku4kRDJGqO/xIa/uHnXjt8cbC7U1dW9CEbmA2giIrcIU7cSY0RIbqyvr78ziuU9UluF5zKGf2tIrxKj7t62e/tfR9h00PDfjGI10pu7uv4J4HN1dXVfhpbPM9F1pvCya2J2NMwFAJ72PC8XCetXWkwlRAKRQwpIEsCAZDKBzgZQyFiWMNyu2WoM/Zn2RxcraJ5ZAWx5jrbBbG5lVm4Ri52Jzne+FC1gI+2cNQAS110rWX8zMc8sODxlGAXnkmlVVWdt7+n5/RHWgqPFn14Y7YIPrdMSgQz+vHPnzk2FvKCqqsqJHzljdehUxLJPoujGYxHkFGr0TVu7d37+IIuqADDbd23/LYD3z6iuXiPgr0aeyYUK4Vz875gxuB5AcpgAJgDB7MmTKzOgG4uIQ54Tvuu2du+8OhorLvafkR6qTOrZvXt7Z8+efV26d+BXzPSSQ4xVioTkBK316wA8jP1HMAxAR9rvFUZMsb4MATM7xpinBGbhtu7uP+T920jP0Tt27PgLgFvqa2q+CcHXiej0AucaCaCVUpO1p98KYFVuAzTCXMbWXTt/BOBHeRvsXN/JGOcnA1CRleKt9dW1TxDRGwo2RwtAkLMAYOPGjeHRTM+OTwH4VDGFmFZd/Vom/mmB41gTkQOhNVt7djaPpcIWy5CGOm3atBkEvLOIlIMCQGmt08bnLx8oxJ77va1bt6YF+HIRV5IQas7MBP4IjnwmGjMHc2IATinGpEpEW6I2jGHkUHtDEX2UUvEj3pvBmM/LDRExjLxrSyh883PjjuS1ygDcLd3da7XouRBJozjnLA6P73Adnus3oAAg7cSuZOZqKcycmgsE82xa++/E/vNAv8Ay5TylnY0bN2YJ+GiBY0CISFjovGHjhqNSfZCZi/Xm10zsaG3u39q986JI+OYHGhnJCWuoT7Z2df1SAu8iEflHEXfww9sHIm8bZS4P13Rzzz6YYx6NMBdGchQ0UT85YUeYmyPhW4icIgmDZZ86rNw0ynwc/nGj/5aOwWLmFjD/n/OxAtiSL4CFAt3CSpWicKcFHYaZpLXb927fgtGvDIWHUg5/SWudxv44uAWaKum6+qqq2Sj8XGssAhh76/bWCqSuQA2YIAIj2IyRE6QfLGn6kcUZk+lZM7ESkc9s2dX1rWgxOZRnbW7RjO3o6fmJwLSEZ24FC5ro/A5nzqytfREOvJIk0co6L4rVX5AApVCT+0jkqeuMURvTAKimZ+cTxsi/ChBgFAWmeEle2QlAEAaTkWui8VTc+bWYddt6dl6ft5Eo5KpUrk/crXv2bDMmaBSR7LAN1ME+RkS0EM6pqampxqE91IffPc+F73TyNvBykDkgI3w/5wlN27q7/yCCv0Re/aaQuQvBlGECWIqYlybawI1l81r0ewAYK4AtQya0urq6qQB9oAjtN1xAIWChFQUIKxOZmDYD9HAUH1oXWj5mjgupxSjsbGbMAlj5cgozx1HY9RiODsS25guNY41I0akTc5rjv1RJfEme1lgoHgBna3f3/2itn4qulRQq+DQzszY4P28zGCYCmTBropC83oTCTRVQB2XE/G1bz861eZtBGsMHANTToTD4QwHX8Sh03sHMPMHEAGBS3jlFHLkM9YUW2Y6Yc0NemYrdSPgA3O27dv0WIvc6SrnhtaBRPy4TO65SlUrjwnxLRAEb+Nwdf523ccPsyZMr6yfXT59RVfWC6VOnnj6rpuaUmpqa6vr6+pIRvp8fAxsAdhR3FZISDc/JBnb8Ys+ALbkJFjhabiTmScU4ukQL3m+27ep6qohFgkiwQiDzitAIcqkK3zOrquqTRyhVYThhlZxOYERBEg4VlICMMV7AtPN4EsBjwBCRI5AVmzZtyqCIgCnD2gNE9N8AHi1qAQzzDL8GwH15C7oOEplXMHhSgcLLEBGLQQdG894tnCAqSXcuC3IBhtDJs2bNSmzatClzNsBPAxokDUSMIgSwEIhJzH9EjlDOYdQn3Aho984AeqrAHDKBBBG0GKUUS6aAMZ0z8WoAZtasWQmdzb4aBudDcI4AL8hAagR+OUi5RKBAoF0gA8/vq6+u2UlEfxeD3zD4p1Tq/iYaf4UK/udsBAZwNgFPnxCTzgpgCwHQU6ZMqTDAQjZSVHoyIgKJ3Ju3czUFLAi0ddfOp6ZX1/yWiV9RoJNFzmGnItC0AMAncIQiZIngRYX6MhIRBNgDSM8JLIAF4b1cj8k8ELX1WNrVAKCanulP7Kza9iwznVa4849ARM7MGyMOAE1Cr4yugxWaTxpC9Lb66tqLIEV5pI485ggGRk43oVVSjfpdEZAggX1IAMg8Hb3bCF6lpOCALkM3CkomVPwferoYh+dwaABga+gF/u7DEOIH03oNAF1fVTUbpD6o09m3EtELiGl/Gmp5zkRWAGJEXAmgnkDnkMI7RAQmlX22vqb2YaP5K9t3bf8tkfgnYI4FK4AtxWm/Jey8h5nririjKAQoo013LPA7DjFRR3wnwPcS0aoi7typMFWhfPi0SZPuenbv3j4Ulme4OA1O6AwU6gENEEG6urq6Bse5LEdVABMRGSN/29zT/c/8hXssgvxpPO3Xo+b7RHxjgYKTo93MjJqamrKurq7BsxHqMALMKaJFwzvcRLMBzB7PdVsOoTXmviMA6wrN6N2vfRLk9CI80k103vydjRs3Zg9T+x3eNjmfCyqsuqP6KygAevLkyZVljvufAN9ETGVRIBDJywF+8FSB0cQXiIneoojpNCJaREqa66tqvygiU4VQaNs9fwQwAUoaGhxs2MDS0GBwstPfr6ShgQYgJ9NAIAB69uzZ8XTfwM1FXB8Bont3ovX9z+7d21vkQqEBIO6XrPacwf8moiopbGEgAQJWqipL7vsB3DOOC9SQdi7AaYUsuMjdUQa25QkSfQKOA0MAE8nf8iwZh1UPA/oZC24s3OoggMgkVjwFwODT+x2wZoWnq4UvwHn5aceLgiJKRV8IYoODubaT+sr6SQK/FoVrwBS2BT1xBDaX4zVPHADB9JqaV5PQV4j5jCg4SIADPf4LbLL9GzQRMbm0ksz0ISNDQTFOSn+lMQtgJmcvdXYGeP4QAED/ZVd6J5v2m+4baFTELygi8gwQmvs0K/qfvN8UM0ncZ/c+21tfVfsNYm6RUPMuZDxGYee4pb6+/vNbt27NjNNCRQCkrq5uCrTMKOYOMAw2ozCBfRxvxQgw6BmHekT9wH+PDJAF55glojhrPRHA5rz+rJLiy3QsFmsJzyMknairS2Pv3rDQ8ewkkKooou2UiARM+q8Y/7jh47ZmTJ9aexkLvg2ikrx0kONhUc0JcMkLwnHS2qCdsc6wQPvv6r3sqk0QJpARnOQoYdJkBIJTAzEni0nEAGASfESoqNhrYfQnY9Zu3tm1YYzv9gDAUbg7MGY+gHiB5jEWEa0UnxJk/bcB+N9x0oIJgJBPM4ilEkV4Wguw6WQY40Ljor3nEnnsyjM/FxFRaOgOpgHgCFB+Qk00or0bNmzwclYEQ1RGRXjlhq5e0suet/vADc1xAQPQ06urX0PAAyCKH8FUioV4vT//BDABpEVQ4ThLQITnG9lAI601onOaE1371dNqai4n0MuKTe0WHd48ObO2ds5o4RdHfYYIeT4HzOZ3UdrDgssQpiqkWwF8DePjiMUADJGZzUQoOAmFCIhkEywHmjeU9gKBJhQ8TwQAsewPjztr1ixHpzLuCbLXjY4jZBsA5DyglVGusEAKPXslIoFkdEVFFr29x9XWIuqTiTqd+RbtF77FpoM82PEAneza7rhpwADQ7/saRPI8XFsUnRyDJHfG9rEx1EaJCIjpbmOgAIYxY5vTrAwABJHJVxXxfh2mKqy7fEv3jofGSQsGEc4AUaHR2Dm8h6SOqzvAxwPaGIdIcVGDAYAmPbSRm7ppk95ZVavHMNnMMeiLIDLj/x0AemfPZmzcWOyYyMUvZt/3j7cNPgPQOp1OMjszi0zyMZTFiYlUOL+AUTJr4fkijMfuhEWk7DJzYmu/9VNrLyCi80TGnBRcHctxGB6QyUcBPIRxu44kpxe4ZAoiczhI77ACePjOxJkgBFVEcgYSEZBIKvfnp4FgOiRV7Docpuo7+nOKiaBJngGAWCwWjgVHMuGJVYHHGSIgoBxAGYDB40n41tbWzoLBfBOmWSomFzNFsbl7jchTYszTINkKYSagSgSnEOHFAM5kogkAYMae5vL5IYAtJ8Uq+TECQQ4vtOPhRqUa6++jVIU0XqkKTVSYUyPnoULP6/bGguBEvgN8JBZro0lmKQqjdBawiEokgD2t1L685jUg7CmibcPnGPmFAXYCh30PuKhxbKBJtPMjANiwYYMGAO2pPqggTUQlBYz1nDNhhdJqOoBuHB9X2xiAcQzey8yJIrTf6FxfPG3kU6S9L2zds2fbwb48q6qq1hBfIIbeCcIVUQYoqwFbTjrt10ybOu0VRPKW6KzzcMbB4SobhyW8o1SFtyNMVXg4ZQjbQWg6Crt3GHq9Aluja1gn6h3gIwIBZxdhys8FNNlNRMM8sWlbuEks6Dlh8gIxn9vWs/M7x7gJwrjncbOHNe0jopICm0IzswOjXwHgdxi/aG+EMWbGwlBceLmqiKuKuYxavWToyq27dvw4b/0Z6fd6U0/PTgCrAayum1r3SrAsIdBcCaf5SWmOtrGgn58Ikflo5CBzIt/hVkbEEPFbpk2d9oqoLmM2Wc2qqppKQE2BV5ByMf3+bufSiJaEN0kR0Z8AgASbd+zYkTrgNyJ/LWrpJYAI50abyjj2xxU+Wp/8dI20Y8eOFARb8utZiNgTwuUY32tIY0kWkIuKJ3V1dTMEmCNhTO6CwmmCiEXwoS2h8I3huRm1hmdxGkrMsGPXjt/4JO8wkIGTeXNrNeDnFwzATJ86/XQifa2RopIuHLcLPoEcIvMRAO88jHbRmnkmCcqkULM4EcSYv4yTJeCksa7UV1e/lICzI22psKhqRBCY3+c9J4orzb8rPogFLsD+rEHmGLdHAMKfiOhVUpgKHGb+At4yffL0+m17tm07TC2YAKC+vj4h2eCbTDLRHGJ8EyjKxCRPbO3eeQcAOBpngDheYGSzXIz4X2/r6fp2JGcKiZ+Qp22DEZ6Dn9RBnqwAfn5BAAxRcAuzihXpyXgca8FGiHBdfVX97K09W/8xhgWLAJAxmOMoRoFBQSi6gvRnO6wOaEcB6CNErEQKHl8UesLSU8MWY2iFp0WbLIEKuSeuJPRiOndmbe2czTt3/hnjENXrsBuF5KcA3l9EGwasVKkmfTuA5qgNxyqIwk1Axr/KcZwrjZiC1FdmhgmCH+f6QcjMZKhCEpQMbahI6PHD2JiahDGsodyTeWtrzWbPM+23fnL9dIDeXWTKweN90dfMHBPyb8bYnbqEQK8vTvCLIaI/5BaMk6QtD2czH8yYWnc+Eb/LiCnUt0AAKC06axzqzGtLg9CEuxlCvw+P2wtqYxMmsZd/x4G5hY+JdQbhzu5JY4yP4qLMGQY+PK26+rWI0gqOdUN0NuCC0GrEaBHxRUQf4uNrY4wwHs+ryeRiR4eAdmJspmMGwEac04kppwXbM2DLCd/XAidoYsVleaaek4EoVSG9e+bUqXUozqubEKVRI8hbQqt8QWnvBJCNW7q6/oqxZw863uRvgLFFIHIBBFVVVbXC+FqR48oQkZDQT8M80QdYL1SkQj4UCeBCTbiamd85var2ukh4xY7wvDqYY5EBwFt6ev4Bwa+jOhSa/xogUgz+1vTJ0+vHIIQp2gDprqqaz7FSL4os4C5GP8NmAlwxsisTBE/n5oKMzVJWNsY1hgEYYfMBQsEbLyuALce3llhfXz9ZROaPUfs10eJxtD5j0YIrNKkFRWg+FC3OJkin38Os6gWiCxTABNADCM8aT467iiKTo7bL5i3gOeFCw9otF3CfAPgza2pOTbD6HhFmRWedxaS0JAK+MsKaZACAJfiWMSYX3rGwACkihglfnVld/SaE54+UV97DnUv5cY9z80JGW2MN4atERYUOZBERIppBjn68dnLtiyMhnKvHSIEq8vtFAPj1VTUfZeZFRWQ508QsIPnu7t27+2fNmhUDACbKFqn+gmBeieIDkcQA+NOqq99IxNcXYUk5YQWwLsAkYT9j/ADQEGjgmEYNUwBEsv6HlFKTx6L9EhEzkToanzEGeeEwVSFunDVhwsSD1DG3eDl5i3l2enX1ywj8aQkneyHnW44xxmeYL0QaBec995AfY4xTvGwUdZDnjYcVwzHGCBG9vb66Zv30mpo3YH/2nJxwGRa7CCb6d6mvrnuXAf0MoJdGY75Q4WsIxNqYHRno72C/l2y+AFZbenr+ISLrOYyvUagGSSAqNeBHZlTX3hz9Xc7bVuWNAcaBafPyP5z33Vxb5xyFAgCYNnXaK2ZU1y6fVl39xgO09jyBBgBuNv5No/WuIm8esIhoIjrDcfCT6dV1H8qrR76XssL+O88GQDBt2rQp9VV19zHzZ0xxISNZRAiGvggAruvmchrvKkKURo5kfMnM6urTovLGDjJWh28avBlT685X4NV4HkTDchJKJVy2ivCRIhBRcB2YIBs/ltpvTU1NGQTNxWon2J8r9p8EPIujcSWAoACcX6RmyblUhUG85H1A70ipCg9IyTZ78uTKjBOfR5DPgGhSgXccQ8FD8t7NXd3PjqV6JpHYhUxxSbWE1F7sv7JxpMaJYuLLBLhsRnXNrwB6SIv+IVz3r9u3b9+T6/e6urpSV+QUo+UiIXoPE14lIIwhopohJoe0WdrT0zOAUcKJsqH/JyxXF7EgU9SfLhHfPaO65h0CXqayqfWbenv3Fa7HHUhNTU11zPBZQvIGABcD5iylHDaBvwPAEyOUTwA4m3o37ZtWXbvUYfqkmKI2KSpq10mKaFV9de2HIfgiQX93S0/PP4cJc2dGTc0ZELpaAvNhVlxfhOYbar9ELEZ+sXXXzh8B4I0bNwbhroL+UWR2KwNCmRH+v/r6+su2bt26J0/po7y5lNvcmSlTplSUOrEmEVlCRLEi06NGioKoXbN2KWyCf0II4Iw2T2SNtt7QR8qqB+gKXykShInOq6uPtiasAASO0PWKeXqREzJSvmCIzFVbu7v/eLQKPb2q9gHFfI2Rojy1Q7OdyKJhqQoJ0fUrVuY9YlAGyOw04WxFmBamopXCMvaAlDGyhYleML2q5r9Q3F3NcPOSyVYVsa6QiIDZLJpeVfMvDCWNICEihgm+uqWnZyye3yNLxEiDJeJziehcJQQT6L311TVdIhggIhfaTDGg6cyKBJJLXFHo/dB8M74yWm/OwqzEwXMpawBqy+6dv55eVfMNpdQ7i/DeJwBixBgiPpeBr+t4yY766pIfSeiZ/CfRemvA3Fvu+5l0IuErpSSbzSpmLo0BVWK4HjCnA/wSQF4mgheBMYmJESWfD4zRBqDZowk2AJzV/nIWZz4xzyjwOk++pTKqB72SiF5pBF59dc0/ILRNgBQBZSDMFMELmJkhgjHMdYRx7ukTedp16EjmpZ7RscQeIpqMwrOWGSJ6tXjBz+pralpjnvdoFLQmf0NT5gJnksHlArqeiE6N2rVY4UsiAgFV+r5fFh2jHPfYu4snNwQAc+bMcft27f4TEc8uUgMOmMjRRtZt69l5RWRuPdJXOsI41TU15xD452PQ2DUTKzH6fVt6uv43z7Slp0+tmeu4zroo+TvCK6ND2khRc4EPx2okgmJD7DGFESYO3O0TdGAu2dqz47vYf90mzHJVXf1GRerxIhf64Zp+TqN9zvFl5NCTn4C9aOMQEztG5Jqt3TvWYPTrQgwAM6fOrBH2/gTQxEgb4yLrIwRS4fE9cgLUABiESEaIfEAEIAWglIBKIkKu7tH389uGIwuREjFPbe3uOn+UjVAu+9gVDnitERnrFcCc1qiI6IAzgWH9oooc0wEzO8boB7Z2d103rD8UAD29quZBxeqqKG94oWU3udjcWmQHCf4shF0EcQDUCOgUBk0nplz7jmk+5r9Lm+C87T09P0Vo9tYoPDlHWM+amosY/IMC507Yblp/fmtP100oMimMI62t1v58NEgmhY5+NBcFIOjbvftaJnV6NHGKNeuChT6L/Z6+R9oj0QDgrV1dv5xeVfu4Yrq4yDMsEoiY/akK95v7FFLGmCDPVDrWnKMSaReHZX0qWjM9MJCDISJmYOAI9UO+YJVoI5SvlRDG7hzjM7Orjf7Ktu6uQwnf3JhQm3dt3jG9qvZGxegQGXJIoiLqE+bcEdHRTMzVsYKIKkJBS0PZeaKKm2i8IE/Lz28bE0nAU2bNmpXYtGlTBiMf02gAzvauroenV9euUMwLo6tJ7hj6ZahP5MD30Bj7JbRGGNOtxCzEwWJoC30BKOoYYEgTFkAYVAdGHUfNkxtMIiJ5ZvnDcWgUAMKkPjtz6tTGzbt27TjuTdCUTJ7UkUae55hwAuCjQkVHNc9Fs3lq266uH49iIjxylhmWTwno4jFM+ChVYfXlW7q7H5o9e7azceNGzZoDqKGgBnyY5TvaxzZqhMWG8tP3HeH+GC9rWcDErjHmd0bxgqhehaxBGoCzrWfnt+uraz/NzB8bowAb3ney/3+G/i+NIHAPvuETgRDVSCZTB+CfOLifhAagtnXvXFxfVftiVvyGMdZhPPtkaGNlYN61NYzHPHxDpAHwtl07H5teVftLZnpVkbmAhzY/EJi8uN75zm7OIcpIBcxbFXmOn6dJ/Wl6dc0vIdQbsHysq6vrXzgOQ1pa7ffkRQEw06fWvkURv2IsKQcJgCL1mQOE4tEhnPBdXT8UIz8joqKFvwAQodsBYOPGjWFmGtbBMajLEUNEoIzy8wXJcU5ARI4Rs1kruiqK+1zMGboG4Gzt3vlxbcwXmdlFeDXncOo+kudzMcKNABgmcjVwyiHG11Byg1iQvVYb88u8OhyrDbowkRJjPrC9u/vxSBDqg9UTLC159ZAxtHW+V7lCYWEtSSArAaQKsoCFZ8+TFfElivltsYCmHq/z3grgk5fIyCYfG8PqpImIjZE/bO7a/uhR1n4P0IKJ+VNjmDVhqkLm106vqbkQ0ZkMMwcnUf+GEQpYeydIeX0mdkTwL2OCi6OgG4Vqv/ljOqdFflCMXhkJMMGxDTdpiAgQPr2Ahd4AoGf37u11sum3GGN+ENVB4+gGnAiIiImIjTYf3NrT9WWMfn4ZtntX1y+MMR9n5tx35YiOGWYlYr4T971/i67iFbLZjJzWJJDwrB1WAFuOuvY7s6ruPCa+YEzabxjq6U7kn6EeXTQA3tK1/REj8vsxaMFC4Xne7UMrX8CBnGT5RYPx31SMdwMZAIaZXQPzc+PQBdt37fobxh6jOXfXlbd0dy00xtwWOUqpoyAQRtsUaEBeVkSb8Kbe3n1bu3deYrT+PBOraIwf6ToYRGkbRdBjtMzduqvriyjMeSg6Buj6jDFmebRxOBJ+IRIJX1eM/lUq8N//7N69vUT4KxEV+r5Q2yY4xpHjNlCOFcAnMRpye+QnWcyEDj0JtfmnUxrvwHODIxzt8akB+myRUYSAMBiAYfCbZ0ypPSeaknK87oTHKCS1o/W4mi8pdLUeD21M5ywpoWeqaVNd8Yu2b9++BYefICFn/lRbu3feBY0LIfJ7Znai8gdHWJvMD0RCTBQnQBGkvIhNTO7qlr+1p+smA/0OiGyNNMsjUQeT649Qq5T1PplXbdu18xEU57mro3ZfpLW+IwqcM14bBxlqU2bXGP0IZzNv3rNnT384NPGlMR1HGWMFsOXoCq3p1dUvI8JbjBgfB0Y1GvUjgE9EBDLLIo9OhWN3vqgBUGX3pG8bY/4eyWAPhYez9EEQw1gMAEyBHsOiFeDohd8sahELnc3GUQMWSYlIF/OQNgY8NxrWaAJxKEIUESkmVhD5ZSD6zdu6d7ZswqYMxu84I/c+Z8uuHT/mkp2vMVrfLiQ7mdmJym9wYNSowxW4ufpRJMgcANpAvm8C/TafsLDIDetQDtytXV3f9BmvNFruBqh/HOowvD8iwYs/GyPXb+necXnkmKRQXHCXXFuobT1dnzCCa0Twr7zNj8booTkP1q6aQsHrAOg1Wn90a3fX3ChoCgMglUh8QRv9NDPHEJ6bH6pNDACj4PAY+jso5kNEYxrTNgDHyQeFwoZezKRi+29QFPprUtqYfXHf/99jrP3mJoKzARu8Gai9i5k/X+RuVoV5ZuVsADDa8ViZodsPh9KEo/uLR3WTKnlXYArZoAS+Mx4CWKIjhz2k/VcbONeA+L1EdA4ROXl3pjHCokcIA/gDoTaE8NIJfmRI37u1u+tb2B/+8UiYKwMAatMmZICuz9bW1n7Z0fp9IL6BiOYQEefd380XDMNjW8sIFobchpbDeNXh/WFjjBHBb0XMWpA8sLWr60/jsJFQO3fu7AFw68zq6hXG8AcBvIOJTsGBdSikDXN3t8P+EIFAfiZivqBKEt+INtact8kdc5m3du9YM3PChE6JJW4Wpg8xcS2issp+ASsHWafUAe0qpkvEfMMnWdbVPeS1nCsjb9q0KTNjypQrDaiDmV83rE2GX5NTufkfUFBUFEI2JsaO4xR4XOUwMwKjK8e8WFtOOg3YzKitPQeCfwvvMRYmRIigmZQy0Ou3dnV9EeMUXWkcNhRSU1NT5gruFaFyoijr66HrY4iIReOvW3ft/Hh9VdVskPoz9gfnoFEFkpi/Angmar8jbQUgIhgIzibiWdFVDTqE5jTgwsz+Z3d3V54QGUsgjjDcqMjOksryUzZu3JgFgPra2nNh8BYILgDhTAC1uaAKB6i+oXTuAuEZAD9Uhtdv2rX9t8MEgj4K4yRfu3ZnVldfYMBXQnAhCGcwUXwomInIQaVCLh5UZGWAiPgA/gXgNxD8iFg6t3R1PTNsztE4aNoH1KGmpqYsDlxkwJdD5PUAZhNR/IDTmOHbiWijJCL7APxJRJ5gReu27Nz56yPUH0PPmjZt2hTWcjVErgHkVURcRXltOcx6EwZBEfyLCL8U0Drj0GPbt2/fPUoZc2Pcqa+qnU9ENwjkZUSUoLxGCEW/QIB9RNhkjL5hW0/P7wtYz3JrzSmu0A0oLOKXYWbWgf71tl1d64tdM60Atow6GE+mCtXW1s5SWv5GRLFDTK6AmZ0gCP5z+67uTx7NMk6rqVnlQH3oECE4BWF2j31G0ek7duzYNU4CeIcn+oU9PT2Z4WbEqqqqctd1p5PW02BoEpGJi7CvyOwToh1x39+ycc+evlEE4tEct88xq86srj4NRHOMwYsBnCagOpBMgqAEBIZAiMgTYACCPQTZDsa/YOjvBP33LT09m0Yw1TpHSKvP3T0+wIN3Zk3NKcbwCwF5AQj1EJkEooSE7x8koIdEtgC80WPzt66uru4R+sMcgXn9nL6eOXPmJJ3JnAHwbBKZBqYJCDfNKQJ6jMEW49KzZWVl/8xt+PIEr4zSpgesS7Nqak4RkRcYoBpCCRBnxcheAe/USm8b1gbHHTYS1tHi6EfCKjY27/AF/ngL0HI49SEAgfKUhiriHJioBPvvLR7pK0wOgIAEsUK2xaFrnehYKj2u5WLmIUeYPEFgomQJf40+hxIcOaF0LI4vhpefAASbu7ufRZhMZN1hanv5EeGO1JjIPf/AOnR1/ROIYsoXtxk50v2RM0kPvW/z5s17Afw8+hTaroWkIpX8Tdam8Bz7X+OsTIwlQt6YrsLZSFgnL8f6buTxVB8CAEd5gYYqxjxk8haWo2FCLSJtJQFAkIrFjuTGIF+7Gx6wIr9fJG/TZo7T8TI8wMbBgknQKN/Tx7AOB2v/0TbQchQ2jiNtfjBs83Cw7461XfPfw4cYk2MJGHLU2s3pnXvt6TDGmqKPFMxS6bq0TzLdkx56aJ+EIfXFNszRJ6uUVgb6JBjsAgIJJIjH4vqovfPEHremiHoerxtQOaHG6NHZsJzQCqRDRv+egLiVCEdqeOgARjmOzy0AVqChQaGzM7ANcwwGu+No8Xx9srg+kCCorKzUtmctlhN0TQKgmIitAD5C8ldEgYgBsVaGY0xscFB7TkyfLCYIIfI3bNhgBbDFcsIKYCJjALEC+EipKXS4mXcs40Qvs0mANJ0kDt4EOdIRnywWyxHWgInsdaQjp6WMbyo3y+FowLGYJm2yIAogo6Y2yx0RHAvhloteNNoxRVR2yuTtJOwe2mI5AQWwxfK8oKysTGf6+icx86Gi3DjMDK11+dHfsMkEZnYgo89NIkKgdcWQMmwFsMViBbDFchwiALBx48agvqrm37XWEzFKIA4CjAEUDH50FDXh6B3yNaPNHwVGy0E09Fz5yMg227UWixXAFsuJgN7a09U2duF45AXw9u7utQDWjmWDYbFYrAC2WE6WMX8sAksoFO4zcLIFW7FY7GJksZzEHO93sK1AtVieJ9jrMRaLxWKxWAFssVgsFsvzgzGboOV56vhh70xbTiAKDUZv7xJbLCeSAHbogLTQzxv0QRJ5WyzH216RwrwfqsDvgsTE7PbSYjkBBLAW6RM5KTLLFKVOgKScQa4VwpbjGcPsiZEeERhADnHURAIICaiLmezQtliOZwGsiJDRciUb948cc9h4wUkfj5YZyhhodvz/K3Xctwz4niYiZYeQ5ThDA8DOnTt/etqkSaczkRgZPRFI7ju9zGb3jt3p/P2mxWI5DjVgUbR74mMde55vDdZ32dWetdJZTgCCZ/fu7bXNYLEcx4rdmH+otSsASWOjktCGdXJ/GhqcMLGCTStoOWGgMXwsFsvxrgGDSQgQmTNH6HlgrpLqaiFA+uyYsZxAw9Y2gcVyEmrAFovFYrFYrAC2WCwWi8UKYIvFYrFYLFYAWywWi8ViBbDFYrFYLBYrgC0Wi8VisQLYYrFYLBYrgC0nI9Ta2soiRyWYCEXvoedLu7a2tvIxrO/zqb1PiDEhIjSGuXY05+iYyaubHW+HgWOb4OSnsbFRzZkzR5LJpEkmk5JMJgEAra2tTjKZ1BghYIOI0JIlSw46uZLJ5Ihp7hobGxUAdHR06Fy+LBGhefM6uKNjnj7YZB7tXdH7zPDvL1myRIhoxLIDQP6/5X5zsHLnyt7R0WFQYACL1tZWPvPMM2nevHk6ei4AYPXq1aqxsdGMVLaDPWe0Ns37dzPSv23YsIHy2ztaxNU49i2JHPiYJUuW0IYNG2jOnDkEwAwv26HqFJWRCu3Xkfo0/znDfkOtra10sDY7WJuG43Qed3R06AKEJBXRH6POtSLn6FDdDjFfcu1+yLYYqW4jfT/qH5VMJoP8fmhtbXVGGgOWAhq777KrMwzEiwmZo4iQFfOKSY889DtpbWV6HjS8NDYq6ujQfZdd9XCFE7u8v8BkDAIEFW7MGfC85opH17RLQ4NDnZ3B0Sp3a2sr5ybG7bffPmFwMJicSFD6zjvv3Jk/DjAOUZPy33XDDa2Jurpsmdba+9znPtc/nu85EvNgf3cVX9fm5uY4UWkNkIaIdLW1tWWHf+dIbaxywmL+/Pmu606uLC+X4DOf+UzvePdtMe1RiPZU6ObkWJT1EP9Oh9jA6egZsZ6ewcmJhAnuvvvuXaM9e/gczWQwiSibXbp06Y6j3Y+Ftklzc3MVEfGOHTt25dWZrRA+QQSwtLYykskTJozliSiAcxOipaXlYma3yRhzDiBTAGSY+W/G4P5JkyraoklDAGT16tVq3rx5url58cJ4PP62dDrjE+UEVLgGJBIJJ5NJr2pvX/713Pdz72puXvxmZv6QiLw6fBcNEvEGwNy/bNk9X4gW32gIDP3ms7FY7DWel/XDBRpEFK7TSrFjjO6ePHniO5PJpBdO/kV3lpaWvSqdHvzD8uXLmvK0W7NgweIzXZf/h4hgDJqWL7/r6dbWVt69u+9LZWWlp6XTg+uWL1/62Vy583/b0nLL542RP7W339Oe+/fR2rWpqelUx0ncJiJvMkbXEwFEaiuRfC+dHvz0fffdt+1gi9L+uje/AOAvu24cnuf9e3v70h/na2dNTU0vVyrWxkzwPH3LihVLf52vZS1YsOjVsZizwBh5vTG6jojSzOpvxsh3stmBZatWrfKH921TU0tTIlEy72B9m81m72trW3p/a2trLJlMek1NNzclEvF3pdNpzUyR1YwCIuxWijcEgfe1tra2DTkB1NLSUmMMfTWRKCnJZNJ3t7cvWzN8nFx//fVl1dV1X/M8v729fekPon79VEVFxXl9fQM/bG9fumT+/PnOqlWr/AULFp3lus69gEAk+NDy5cv/NH/+fHfVqlVBU9Oi2yorJ1wxMND31PLlS/8tEg4Nrltyh+9n4Tj8/nvuuWdj7r2RRhnceGPTy2Mx93OuS+/MCcjm5kX/rbXet3Jl++dy3xth44DW1la3t3fg60Fg7mxvv+eXw/rjrFhMtYjIeVpLLTN8In4W4Id27cq23X9/W1/+BmT/WFr8BsdRzcbIuYCZClCGiP8OyDd+97unl3d2PqkBkgULFs8rLY1/OJ3OaGawCDlEQiIwRNAAG9d1le/7d7S13fPDpqZF7yktLftgKjW4xxj/+pUrVw6MJMxz/bNgweJ55eWJpnQ6M2CM/+4VK1bszvXrhz/84eqSkrJFxphLjZFZAJiZtzLTE6lUsPS++5b9ywrhE8AEnS+0BWHWcNsVR0b4NjW1JB0n/gnHCbva8zwopeKu655rjJy7Z0/vm5ubm6+dPHmyn0wm0dEx1EuXuq57PkCIxdxoAQIymTTi8Tg8L/sEADzzzDOU967/F4vFPh6PxzEwMABjZBcgk8rLSxtE0NDUtOg8InpfZL6T/WZbucJxnBcxK7ium7Ocwfc9AEAmk96LA/0VXhWPx89PpQbL8v6OW1tbsXt37ymJROI1Wmtks6k4AGzYsIFqa6dfEI/HTx0cHNicK3e+8G1uXrxq0qSJH9q9e89/5/59tHZdsKDljY7jrnZddzIzwfd9iAhisdgLAbwQoKtbWlouTSaTfxptUWLmCqXi58fjMfi+VxOW90wCwo7QmiaXlsbPJyJ4XmYKAOzYsUN1dHT4TU0tTY7jLCstLeVUKgVjsEtEyhOJxGuY6TUi+uLm5uYr9/dtrnN5hL4VZDIZxONxZLPe47kvhv8xL4zHY68JAn//zp0Y8XgcIuZKEbQ0Nze/sa2t7ReRmbiEiN4cj8eRTqe+k2vPxsZGlUwm9Q03LJo4YQKvLS0tO9/3d39lv4DDWbFY/Hyifh+A1NXVhTs1MZNiMfc1YRnNBACIx+MMQIjodfF47Pz+fgzsfw7XxuOx8wHAGK9ymBk4WLhw8Std1/kuIFON0W7e+2dPnDh53sKFLc8mk8nvDBPCNG/ePAag9+7t+0ZlZeW1vb177s3vj4ULW94Xi7n3uq4bJwrHBDPDcZwpWptzq6rMuxYsuPlKItp44CZr0X/EYu4d++eoD6U47rruOcbIOS9/+SvfcuaZC69buRIDSuGlEyZMvMhxBsHM8LwsjDFQSsF1YxARJBIJ7N69634APySS0+Px2Pmp1OBgIpFINDY2pru7u+nCCy80+ccDufFORKfGYvHz0+m0Li1FPHec1NLScjaR+6DjxGYoxQiCACICx3EnGmNeUlKC65uaFr89mUw+boVw4Rx1JyxpaHAomTQ9b7nyjNRl16zddeWV5TlBbLtjvEyTq1UkVN5VUlL6CWMMMpnMv1KpTLPW5rXZrHdxKpX6n0wmLRUVlZcZw5+KtAPV0TEv3BgJVWttdDabWdPf3399+BmYHwTBbt/3tYhkAOBf/4ITvevdpaVlHzfGoL+/v93zzItcl89QCqcPDg4kM5m0Li0tvaGl5earc5oIALn55ptLAJRorXU6nf5+f3/vxwYG+j/R39/7sUwm/ZSIaAB7D9REMOh5ngYw2NjYqJYsWaKAsBwi8noRCbLZ7G7Xdf8GAHPmzBER9Huep4kolT/2k8mkNDcvvj8ej39ocHBQE4l3iE2NtLS0zHQc9QAzT85mM5lMJnWX7wcXBkH2vFQq/bFUKrUrkUjUG8PfjuqXb+YeLoC173va8zwtIqa1tdWprd3h1NbWOq2trQ4zi+eF/64UAgBYtWqV39zcfFEsFm9TyuH+/v5vGeO/3HX5DNfl2anUYMvg4OBgeXn5mwG+aX/fdphwkZVc3z6Y69u+voEbfd/fk9+3+9vbpIMg0EGgN2ezwZwgyJ7mefqMwcGBD6XT6b2xWKxUhBfkFnMRMSLo8zxPM5MHAHv27FEdHR16/vz5UydO5O+5rnv+4OCAJnLzrAz0l1QqHQA4/YYbbkgsWbLEz7WB7/va931NxNLa2upMnjzZb21tdUTw0lQqFQDYkFdk3/M87YdWKh293w2F78LXOo76PjNNDYJgWLpGGvB9zziO838LFrS8MZlMBtE4paj9dHPz4v+Jx+PX9vcPaMAxUX8Ezc3Nr3Nd90sA4plMpiedTn3c8/wLMpnMZalU+qvZbEYcJ/ZiZnnw5ptvLtmwYUNu4zevpKTkDmMMstns5lQqs0hr/VrfD96USg3el06nTHl5xZuVin0mHC+yrq9v320DA3239PXtuy2Tyf6LiHQmk/5NX9++2/r7e2/r69t3mwj/LNqM5ObKvi1btuzt6OjQnZ2dQSQgJfLZyBubJht9vzebVU5ra6tzyy23TBXhhxxHzchmM0Eqlb4vk8lc5nneW9LpweWel80y8xRmemDRokWnJJNJyW0wLMeRBpwzv+6+9IrzypT6dtyN1wbpzCsBdKKxkXFo5wdLAccKHR3zTGtra2z37t5WY4wRMduDIHvhypUrN+V97/Hm5sU7g8CfT0SXNTc3L0kmk30A8P73f6SCyJ/OTArA+ra2pffnftTUtOi/iEiJhHbkU05B0Nra6uzZs+92IjK+79/f3r6sOe89ewAsaWpaVOO67vx0OvVWAA/u2LGDACAIgikiPJlZKWb61vLlS7+Y+2FLy6Kpruu+PpvN0ggbR0VEJs9hJmhpaXkJwB8A4IjIU3ffffeuPBMfA1DRb2nDhg16yZIlqrl58TdLSkquS6XS2ZKSRPwQm1IGEBhDt5WUxCs9z9PGmPe3ty/7Rt53frpo0aJfZDLp+x1H1Xqe//pkMvn9/PPBfLTWBLDKnQhFGteQ6XPBgkX7onLDGEN5Wt7HYrGYDAwMPNnevuztwx7b1tS0uISZPwXgWgBLN2zYIADkIx/5SEUm40+L+nB9e/s9Ud8KNTcv/i8iUkQHeuAyE4V/D33vvcv+nPdPf2tqWrRAKWcSEVUMm+0KgMp5yxJRdv78xXWJBD/iuu5ZmUzGi8fjsSAI8t/1sNbBYsdxZ1RWTv5/RHQLgGDhwsV9uTYgGmojtLQs/pzrOi8INU1Zm28qzm+zaAxkFy5ceKHrJtYQ0QTf94QI7vAyG2NYRFQs5nznwx9uviiZTP62ubk5nkwms01Niz+dSCQ+kE6nPdd1Y0Fg8nwH1Cccx4Hve32AvnT58uVP5z340ebmm7dq7f9bIhF/ied5b+/o6Phy/hw1RrqYzUXt7UufzfvdE83NN2/3fW8hIG++6aabJi1btuwXAH6RNx+vjcfjp2Sz2Wfa25ffdbBTQwAlNTXTL2luvnkAABwntoc5ePauu+4aPGDxCM+HFEA8MBDbu3x5MmhuXvSBRKJkuud5AmDR8uV3r8z7yfeamxf/WkT+Nx6PV6TTmY8CWBC902rBx4MAFoDQ0KCoszPon3tNo0v0VSOSgNYahOsAdKK722rA42N6pmQyafbs6T+TCLOJiLTWS1euXLnphhtaE6ecAi9n4mxrW/qfixYtukspYOLEyamcsCop0XUAqnzfB4CeSAtAf3//RM8zB/RTMpkMbrpp0Ysdh87wPI+JQM3Ni24RYUVktAgrQBsimuL7vgFoGgDU1dUJACilqo2hcq0DANjX2trq9PT0JKqqqjJ79uwrHe59m1snRAQimNLUtPhNIlLKTOcCuCmRSEzJZDL9RObfIhPzSIuR1NfXx/bs6V1dVlZ2+cDAgEdEPhHFR9vYRBoR79697w1EJFrrp9rbl31j/vz57t69e02kbVMymXzy/e9//4uqql7IRF1ezow3Wr9prUGEec3Ni88QIQUYEJEWkdONMaKUIuaw7Zubm6tEcI7v+0SEVHPzosUiFCOSQAQKYEMks7PZrAFQk+dJC63Dvg0CHyJmqG/37Pm3SRjFChX2AyWamha/AUCWiGKAvIGZ52SzmbSIfBMjOgqRQ0SyaNGiUwBan0gk5gwODg4CdMDaM3/+fLe9fekPmpoWfbm8vPx9QPbm5uabzxbR3yKSSblxIBLMbWpquZBIvc1xnNe7bgwDA/33rVix/EfRubA/rNxudJZ+qePEVzuOU55OZ/qU4kqR58qH0HfAkOvGJ8RieHjx4sUXLF269NmmpsUfTSTit3ueN7RuMnPUHx+vEkmdy8yitflme/vyp5ubm+M7d+4MJk2axHV1dRrAHbt373uf68ZqReRyAF/u6dk3Ryk+g4hZa922fPmyZ1tbWxMAvA0bNhAAtLXd81+LFi1azgxUV1cPRJol79ixg+rq6mT37n2uiICZ4+FGeI+aPHmynjZtGt14440+YNgYAwATy8vL1uW6yPM8aC2bWlpu+cqkSRV35DbEeS0XKy31FjU3L94LyHtFIMboP7S1LVuZGzMbNmyQSZMmcVvb0q81NS36MECvBfCGPNP98ep0+fwRwAIQWluJksmg99Krbi1hdWfWaARiAleMA5LLZP78W2nVKtth40Bu4gKm3nVdBEEApejpyFHETyY7zDCT6r79puvGSMswM13XdX3fF4A35zSORYsWBSOt0Y7DtY7jOJ6XNeXl5de7rnu95A73o//6vg+lFABxw3KGmqYxPM1xFAVBAK3N9mQyGTQ3N/vhfxcdbAfNQRCAiF5SUpL4PhHDGI0gCOB52V8Y47e0t7dv2Llz5wFaZ+TZNTh//nw3CLCurKzsDalUqhfAe0Xkc8xq9qF27ZlMpoIIk4mImPGraEGUVatW6WHtOlDoWCYiBEGA0tLSD+XOAfMF8+DgoHEch0TCBZ+Zp2qNidlsFiUlJXPj8fjc4e0dBOHNlWzWSwAwjY2N3NHRoYMgmOW6cdf3fWE2W3J9e9NNHwsc52DCl8gYAxFTW15e8URo+6DovDKLbDb7cHv7sm/lTPR5mjMA2bN48eI6Y/iJsrKy0/r7+//ALP8F8P3576irq8uZLT+4d2/vRiJOuq5zQWlp5QW+7yOVCk8OSkvLP+04DtLpFLTWnu8PfHzFiuV3t7a28o4dO57Trr7v7Fy4sOVix3EfKCkpTQwM9P4vM/0+Ho/fk06n9bDvS9j+9NdsNhtUVFS8tL+//5tNTYu/4brOZ6Ix+gSA84kotv9q1GCNCFVGf/5NVA/d1tamAeQczzJNTYv/ysx1IjItbB/UOY5SWgdQSnLOdX7uqCA3J5ctW7ZvWJcMOU02Ny/Kmf0lmUwGjY2N0tbWpnNCkogkcnrMDA4O/gCAJyIxgF4Sj8dOSSRin9izp7dm1apVH46OJ6LNLcUrKsrvICIMDAxEGzD8Lu/sOsht+KNN6dNE9DoAk3ft2jUBwG6JvCktx+gMWFpbmQChZNKkLrtmaWUsfmdaByYwRhjkpHVgEuy8oG9r17kARBob7bnB+Fmi/dD0xzDGJACgu3sODRMSBwib6E4nMeM0x3FgjPQrZXYWIEB8EQPXdSmVGvx/+/bte/u+fX3v6O3tfVtfX+/bent735ZKpd6WyWSuB8xHAWDSpB3RwqFnKKWgtckyu90AMHnyZBn9fZBImPan06lnBgcHn06nM/uUUsb3g43t7e2/nD9/vpu/kBEJGaNBRNWuW9JRUVH+hnQ6vUckuKy9fdkaIio/iLZ9AEEQBCIUaZMoHcHZJHc/tKiNJDMjlUr/ua+v76n+/r6f9Pf3/aSvr/+pVGrwjzRsFRORACA/dHJKr9q3b9/be3v3vTO/vQcHB97med71AD6QTCbNpEmTGAAZQ6c5jgMR06d1fEeBGwQhIhDRvsHB/k/39w/818DAwP/r7+/7mud5A4lEyRVNTYu+PfImic/1fXm0vLz8tMHBwWeYzZuDQP2eiOL5zR2ZyDmZTBqtzS7Hcdj3/dS+fb1fSqVST0bvRyo18IPe3t4v+b6fcRxXaW26cu/LWVXyNlspxzHzmenBRCKR6O8f+HZb2/L3ifAgMwN4zl1jYVYgkh1K4cpUKrUzHo+fqxTfHYvFEAT6boBudRzHNUYOGP8AaYBAhBIAeK5GCQCSiDZIft4cjcrKibw5ODRHOw7zWE5kqO/6du7cdnVb29Lr2tuXXRGPq5f4vr/a9z0N4IMLFtw8OzrayL0/GBjo/2VfX/9TxkgfM0EE8ZGcq5LJpAktIuHmwHEcHc1Ty7HSgKWxUVEyqbddfnnpZHG/lnDcawd8LxBA8dCCQsZVirNGXwXgp9YMffjMmTMnEmz8V9/3vUQi4fo+X55MJh+777771IUXtjrRQuctXLj4lfF47HrP8yQeV5/ZsWPHXgBiDM5QSoFIuvfu3bd3/vz5bl1dnfT39ztaD80/zpmatM4+K+IOlJSUlKVS/o729uXfOlQ54/E4r169Wv34xz+pDxdD6Q2CwT3R4iWjLyowjuMgm83+vq1t2fkAsHDh4vkicl9JScm7Fi5seWLFiuVfHubFqjzPg4hcW1paogYHB3cGQfaKFStW/Pqmmz42CUgfaqHLXZsabGpavMUYM42Z3pAzTc+fP98FQgepxsabS+rq5D9dN16SyWQeWrFi2ZOjeYZG3tPIZr2PtLcvW5//bwsXLnqt66qfighMtOq7rrvd8/QO13VnZbPeQHv70oLaG4AQhX0LoGdwsGdfrm/37PHy1wLOaVA5hSvsI+xra1v28fznNjUtatQ6WO267nX79u07F8AvjDEKcDg6wmgpLy/DwMDAr4Mgc8XKlSu7WlpaZhrDUOqAcauSyaTf3Nz8AiJnqVIOi2S/3N6+rKmp6eZXKcW/EBEEAW5duXLp75qaFhnHUR9USt3b3PzRziVLlmybN2+JGx1r5DQ2l5n/I5FIIJUa/FJ7+9IPRu2dONhmS8RAhCYsW7b0X01NTVcR0fcSicSEdDr9UHv70ltbWm55fe7ihlKhDdv3/W1Kud2A1Ivg0mQyubSxsZGiNuRkMuktWLBgFhG91BgtIvhrNCT/EQRBOpEoSQDZK5LJ5MPz589X+b9raWl5meMk3uv7WShFn1u6dOmO4ZaGwgSxcF1d3dTm5uZ9Wmv3rrvuGmhqWrxcROYxsxgTnApgY7jXIhBJBjCXt7e39TQ1LXqUiN5MRK9tbAyvpuXGezKZzJn8G0SMAbBj6dKlvcuWLaPhGxzLUdKApaHBoY4O3fOmK6dNkdgTCce9ts/PBgAcyrdhinBgNIzIFdLYqNDZaZ2wDpPI45Xb2+/6J0CdoUar3t/cvPitN954o59MJoNoYs9Uir5eVlZ6M4B39ff3D+TOz4joLdECtf4rX/lKZtWqVX4ymYwCCogJ9080EJq8WmMrVqzYDuAH4bu4ddGiW189Utnmz5/v5iZuW1tbNryHizMjwdBTXV3dO5Y6NzQ0OCtWLF2VzWa/R0RQSt11yy23zEgmkzrfG9MYE92R9Db7vnnTihUrft3a2spEfX5x88X8HwBWSr1o0aLFyxsbG9WqVav8UPiuVrW10lZaWvZx13UWMxvvwKOB0RZJExMRam39oRN6+AoZY2L7NS0WALjrrrsGieRhY4SY6cMtLbdcPtLzovCYsVx7AyCRsG9FaF1+37a1faoHQNS3ZiCZTAbDLREizz1/EEGPhIPFaI3pkbjPLfo6Ho8jk8n8mEhfvHLlyp2RU9bB7sGLMbwskUiUpNOD21yXPxEKIynff9yhyhsaWp143Pn3VCrVXVJSWiGSvYeIZM6c527UXDeGdDrdtnz50g/Mnz8/Z5Y91DoThHOo/ZdBELzX87xHe3v3vD1sP1E540YQ1WLlypUDIlgLECml3tjSsvjmjo4OnZtrCxcunOK68S8qpUq11kTEXweAcI7ih0QgZvXulpab357rj2Qy6d18883TRdT9paWlNwP0Hs/z+qMN31gEm1m+fHlXW1tbNroLDCK6OPIzIBHqyWnMuR9ks1QS/huvFhFWSs2qre1d2dra6uTGOwC0tNx8l1LqReH8kO8QkbS2tiq7Gh8DDTjn6bxn7jUvLwM9GFPq1D4/G/Awp4toAHBaa4kr9aLelH/WRODp1Y2Nap71hh4XGzSzuSUI/J+5rlvu+97qpqZF64jwG4CqRHBtLObWDgwMgNm8f9WqVammpkWNrut+yBhzZiqV8gC4TU0ttwLEkeBNiFBJdL3k0oULW0gEXwTgMcvHstnsG+LxxNRMJvP9lpZF3wDoaRGkjUEZs7xIKfVGz9PvBvC75uabL1KKz9JaX2iMIRE8k0wmzerVq9UzzzyTux9sRCQQQTBs3GgRCcLAA8CFF16Izs5OApwPZ7PZ38disYmZTGYlgCuiszICkE0kEpzJZP7u+5nLVq5cuXH+/PluMpn0FyxYAABB9C4zyuZGt7a28p49e76QyaTfXlJSdp7ve011ddNf29S0+Huhqfanb1HKOdsYg1RqsK29ve2nB/OAjrQ18X0TRI40hoiksXG1ABtARNLUtNjkBBZzKIDDs3r573Q6dXVJScmMTCbznebmxasB+SlAAyKUAPQLBgbSF2cymVYA65qbF89zHOeDxpg5Yd/KAX0LqBIRSYRXtdRlTU2LaOPGjf8LIGsMiTEmIEJi4cLFzeFVLVYippaZ3hM6+hkSUX8KtW2YbFa8kpLSeDab+f7u3T3XfP3rXx+cP3++S0T+okWLRGsJ8rX6UFC1XBeLuZeGDnl0+z333LMn1LKbfBEOQnMt+52dyaCzE93NzYv/XevgC47jXNvUtHhuMplcn3dGqhOJeDybTX+2rW3Z7Tn/hmhjELWpDPdp0FFb62QyaRobG1V7+7I1ANbkzly11pqZntMfzHKH52WuiMXiMz3Pv7u5efHVgPxUBBVEPJdZnRKLxTAwMPjFFSuWde53jFO3ep73eteNVXqe943m5kXXA/i1CKZqLdfEYrFpqdQgALxv5cqVA3ljKWdFHCrzyMcHEvUduU1NLTcz86AI4gBeRSRvd11XZbPekz092/8Y1kmC6HlBaSn7RCTz58//ejot7y0tLbnA87wP7NnTe3Zz86LHwnmINzHzq13XRSaT/TORWR5p6HYNP9oacE74Dlx2zSVlRJ3MdGqf7+mRhG/+oI8rhxToSgBotGbo8dKCafny5X/KZv23aK03xGIxqqysvKKyckJrZWXlgtLS0lqtzS7P8967fPnyR6KffjCRSFxsjEE8Ho9VVExYMGnS5DsnTZr02UmTJt85YcKkT5aWlkwUEeW6ziVEdLfr7nMAYNmyZX/W2rvE9/2/lpSUVFRUTJhfXl5xX3l5xVcnTpxw74QJExfF44mXEKEm0iQenTBhwt2JRGJC5B29HADtDxYBAFRRWlrqEGFqX19f/riYWFpa6ohgEgAsWbJEt7a2qvb2u/4pIh93HIcmTpx4eXPzon/PtYUIZnhe9u+ZjFy0cuXKjdEuPgCATCZDAKqid5WNNsSXLFkibW1t2SAoucLzMg8AQFlZ+dkTJkz4eGVl5b+VlZWfLSKSyWTunTJl0i3ROZ4Z5UzZKSkpcUpKSh2tMZIXthv+e4ljjI6F5+eTePny5V0iwZs9z/tlLBaPVVZWXl9RUbmyvLziqxMmVKyaMGHS7YlE4pXMNCMSOh/O79vKygkL8/t24sQJd+zv29glRHR3TpUl4op4PO7EYvHaSZMmLp84cdLnJ06csGLy5En/WVpaOguAJ2I+smLF3X+LTLJSUlJSkc1mH96+fevlX//61wdbW1tz3sAQETdXZ+bw7LOp6dZTmfnr5eXlnMlkf9DWtvT+xsbGWGi54FiuDURCJ7758+e7y5ff88VsNvvziopKJsI3WlpaZkbPLy0pKVXZbOY/2tqW3b569WrV0dFh9p8RS2lpaanDrCYTUf4aWFlaWuoA4bjq6OgwucQIDQ0NKtowHbQ/goAu9n3/546jUF5ecUFl5YSPTZgwYWFpaekpIqIzmUx7Q8N5N+YEVGtrK7W33/0Xrb2Lg0D/KRaLoaKicm5l5YTWCRMmLCwpKZ2mtdnjedkPtrUtfXikM2ERMzkss0w4yJAtTyRKnFgsPmXixEl3V1ZOvG/ixInLKysnXK+U46TTqe+L+O8aWow1lYbzgKfk2ua+++4LXJeu8TxvHTOjrKz8rIqKCR8rL6/897Ky8lcrpeB5/o+J9CVtbW19uRfblfgoacACEBobmTo6gr5Lr/6Qy/R5I8JZrTUfIlwjiZA2GmLkSgGWWDP0+Jqik8nkTxsbG8+ZNm3G1UEQnK+11BKhnxm/SacHv33fffdtmz//PnfVqht9EXSb8JDqr5lMem06nZGclhn1NIebNjrVdd23ArSjvz8MpBBqC+0/uf7668+eMqW6MZvNXmiMzAh31bRThH5DFDwxderEPzWGznaf6u3tPY0IvZ6XXr1y5cqfRPdFh8zGxmBNKjXQI4LdlZWVeWZi+Z9UauDHzPRspBHntBciohVNTYvLYrHYZBHS+4NnLP5Mf3/v//3P//zPtigiU87rHjNmzMju2bPvk4ODAxOJ5PE8LWoEjYIEAN1776f3Arju5ptvbkinU5caIy8AYJjpb0EgD7e33/PL0fpnyZIlkkwmEY/Hd2Qy6U9rbUipUIOcM+cZAXL21OCfqVT6M8yAMfz36Jw5iOr1l4aGhvPOOuvsazzPuxiQU0XEIaJuIvpDEOgfxGL8u+hB26O+/Usmk3740H0r27PZUi9a5B/LZNJpz8tqz8tIzlTJzGkitSUIzFMrViz9W+6c23GcVDab+fiOHds+19HRMRR+UkQomUxCa70tk0l/2vcNaY0/h88Lah3HXdHX1+8rJV+KzoVNOH7Ms6lU+jNhl5jNQOg1TUSyYMHiDw4MDFyvlOMGga4FsBnQ/+jr23dTW9uyzzc2Nqp58+blnOKi5/FPU6nBz4rotOPE+vL6tmNwcPBfAG3Kn0fJZBKtra2ms7MTzOafYVkAY/gfw/rjbwDOW7To1quDYPCNxpiZzJwFaAORXrNs2dLfLFt2wBzN+RX8srm5+RzmxNWDg4MXGGPqiGiASP3G8wa/c++9924ZwYdAorrcPTAwOIMZf8j3Adk/fuUHqVQq5nmZwPOyJqc1M6suY/Rv29ru+fl+qwogon+cSg1+FpCU47h90VilyBpxxaJFt16ayaSv0FrPDl+v/slsHlu27J4Hwr2PEBHZ+7+FminHIRa0g2RSEyD9l151R7kb+4+BwBfJueAWKMMVkWjg5RXrH/zT8Zjg4WRIxjASURYWCq/9LP7KhAkT3rNv377/a29f9q6D/aapafF5paUlT6VSqW3xuHNGdJn/oBliCmrfoxSgfxzfQ5EHq4yl3Y9G3+Z/J9e3fX19X1u+/J73HLxvm84rLa14KpVKb/W8CWesWpVMHWZZjtnVwqMdEnGsSR4KmaMdR+5YbtRxPKwfR9Vsj3WSjeedBixoZUomgx82NDiDZZP/p9R1b+j3shpEXITwhQC6xHGdfi97JYA/4cknGTaKyrhpwpFwVEDuukcj5sx5JpdGTud5vPo579H8S/25Z+X+vHt378QoMIM20S3/4e/asOFMCTW50AFpeNq6xsbVKioDNmzYICM5xuSCDkTPDoZvGjZs2CAjLUz5gQLyMrU4S5Ys0aMIzFwbFJpWTYjogLJEGgihuNRsQ31zkPIN/fvwdHa59m5sXM25/sxv76hMBMCIIHfmGh+9b3dPDBdk0dksTH57j1KH4fUdNR3iSHXOpbob7XkjtUH+GMk9K/d3w5MpHO64Krw/GrmYMZH73erVq/mZZ54Z6Xf6UBvoUebCUF2Hk/vNsLSJI7ZNrp55YyFXF46eY6zwPYoasKf9V018bN2vet949RQ3Qd8qcd039nteztO5WK1ElzmuGgz8X1Y++tCrDydBg0Tmy/HWoE9UDbjQcQBAFiy4rXbChLKJe/b09d933z3bDvblW2+9tUwkNsP3B/y2trZnYc97jus5nt+3fX2pvhUrPrfd9q3FcoIK4BgzUr4+VZSSEsajCaVe3Od7wSGcrQ61SggR6cDImRMeXfO3wzVDC8BPNjTwhZ2dejyyLZ3kAthisVgsR5mivaAJgG+Mp4gujcH8OMHqxX2+f1jCF6E9Q5c6rsNEcwEgMkMXJXAFoPSbr5g9cOV1ryDAXNTZGVAYYUtJY6OyGZcOaYmgnNfnoYZBdMfURi6zfWuxWI6mBiwixmVmJkJGa8NFnPeO8kxd7rpq0A9+VPHomgYBmIo4B87XUMvc2OXZIHhcQB0SyMPl331wKOSeNDQ4uPBCU6x2bTVgi8VisRxTDRgAmIh9EcmOk/ANtwLE6SAAM1699y1XnUKAkQJ34dLaytTRoXsvvfqFDvGbM74vJUq9qdRR97GDZ9Jzr/m/zOXXXrHt8stLqbMzyAlfaWhwBHanb7FYLJYTRABHrpVE4yV8o+dpICh1YnHl0KUAqFAz9JPR9wi4qcRxYwGg+31f94WJpSclHOcdcea1k8T9Y/rya+4cnHv1qwCAOjsDQtJIaytbE7XFYrFYjibOcVUaERIxgMg1AO7FhRcadHYeajNA1NmpZe7cSYMi784EvlCYrJ0IYXzBfs8zAlCJUqe5yrk1o4Nb05dd80shWk3Ag5RMDiXBllzIuo4OQ9YD1GKxWCzHkwZ8xCDijNZg0HmDV145jZJJ03qoMoYh4mRAnOvL3PgUX0TnJ3yINHXFRJwx2vT7XuAbg5jiV5U4zp0i8sf03GvWZq+47h375s6dRB0dmjo6NAEiDQ2OWGcUi8VisZzsGjAB5BujK2Ox0kEveIsA/4uGBk52dh7cYaqzU0tDg9MnWBAYDYjwwRJREmjokvlgEBiQNoqotEQ5VwC4wsDdkbr8mnWk8c2fp/b8iDo7A3R2hqE2+/sdAUy/HTMWi8ViOek0YABMJBDAkLmWAEF19UHNwD9saHAIkMHSSZdUuO6L0kGgCz2XJiImwNEi0u97ut/3NIHrSpTzIdfhJ15dPvl36bnXLMnOveYlBAg99liWAIHYc2KLxWKxnAAasIiYIsNSqowOwKAL+i5prKKOjp6DRca6MDojNpBFh6N1I7pO5IkRzzdaRFSp45zpsDoz5Xv/kZl7zY+EeLUf8HeIfN8OG4vFYrEc1xqwiOiEUlyMypgzQ5e5biWx/yYBKDrnPfDZjY2KkkkZmHvNy13mNwwGgRRyL/dQ7ybAYSJKB4Hp973AACqu1EUJpe4l8v4MyAVpHQDj6AFusVgsFiuAx1X4VrgxlTFmo4FkuAjLLYVmaAFwKDO0aNFNCcdlOUhC6jEL48hEDUDCK01Z7TBPcYgnByIge2XJYrFYLMeTAJbQVBxUxOMqrYMHDPmvAvC3hGKIiCnwGSqrAwLkDXLVVROpo0Pn39FtBZg6OszAZZfVKqi3pQNfAKgj1EY5L2rli4hfQCw/i8VisViOqgA2oXCScjfmDHr+stL1D143cf36vUT0KLMCCkzUTAB5xugyJza536c3AKAn88zQSxoaGIAYib2vzHUrgmFXj44UkYnayl+LxWKxHD8C2IgYh5lKlMMDnndr+SMPLg5DPYKMmAc9HaAoLZVIiCAcBuWQCyMztAAUXj26IUGE+X74XHsea7FYLJbnnwA2kbOVQ5RO+3pexaNr7paGBgednRoA/t5V+5us1n8vUYoKNUMDUJ7WpIE3S0Nj+ZAZuqFBESADJX1Xl7vuKRmtNVkBbLFYLJbnmwA2kKDCdZUAOwe0f3HFYw925DL+ECBoaFDnPL3KB9F6p0gzdEZrU+661YPl3gUA8GRDg0IUlEOTaTEiNlSkxWKxWJ5/AthAgko35njG/DETmNdPefThnzwn3V7Og9lgzVCkqgIhIsPEIkLXAMD0khJFgPRefvVrS5Tz2lTgF331SER0EVq4xWKxWCzHjwCW8BNUxuJONgi+1yXZhomPrfnHD0fKddvRYQCgApmfp4NgU0IpFhQsANnTAQnkks2NjSWnv/rVPgCBlpaYYgjIFFluqXBjqsxx2IiIAIHYhAsWi8ViOREEsABCIroiFnNSnvfltaXOZbPWr98rjY3qohESzeeSGtBjj2WJ8KirQr+sgjRggLNam1Ll1E9KZc9DMinpudee5jBfnfKLv3rkEtFg4N0/GOjflTsOVbiuE2OmSCvWVhhbLBaL5bgUwCJiGEC5G1OpbDZZ9sia9zd2dBhpbWXq6Dh4IIzIDE2GHjTGkBRhhgaRUawAg7cSIIGYG0sdN6GBgq8eiYiJs5JAZGP5Iw9dX/HomrM9g4vSgb7PiGyvcGOqwo0pRUQSZjC0JmqLxWKxHB8CWES0qxS7zGbQ8z9Q9uhDS3K5cymZHF1gRWboMid4aiDwd4Rm6EK1TWFtNEB00b65cycJ5N2eDqQoz2ci4ypFENwbeVJzyfrvPFm6/oEPZx1zpmf029OBv5aAwQo35pSHkbUQmqitMLZYLBbL+FNQMgYBglLHcQIj+3xt3lb+2JrvSUODQx0dQUHyDxBpbFTU0ZHqu/Tq78aUc0PWeLqQ9xOIs8ZAQDNZ3HaXqC5rTMECWABxidSg7+0TFXyVAEjnhUYaq8PNQ0fHPgDfAvCt9BVXnJrycTUTzXOJXpNwXMfXATJaGwCCMDylDcRhsVgsliMvgA0kqHRijmf0P1Lav3byYw//QUZytjoET3Z3U6jPmgdFzHshQgfL2/ucMoSxlxMx5nd6ofAtRgjqhOM6/X72/sp163aFjmLJAB1DAprQ2MiYM0comfwngHsA3ONded05qcB7G0DXlLvuC4gImSCAZ4ymUKu2wthisVgsY4ZHF74IKt24kzXBT3v9wfPHKnwB4MIoKEel9p7s94NdMaVUsU5PnjEGRQo9AlQmCAIYWQmALrzwQjNcO6eODk3JpBG0ci56V2ztd35dtn7NR3aXOi/1An15Rvv3C2RPZSymKlxXMWDPiy0Wi8UyvgI4l1ChMhZz0tr7dvcu503V3/3uDmlsVGMRvjlBJ42Nih57rE9Bvh9XSlB8BqNincZ0meOSb8z3Kh9bu0FaW2m082pC0uQCiEhrKIxndnSkE488uL5k3ZrrS1jP8Xz9wbTWTzCRX+HGnFLHYQN7pclisVgsxfEcE7QRESYKEyr43j3l69fcAgDS2sqUTB5eyr/ubhKABpgfhOAdxZihxwgJBKywDACwYUPBL4sEtRkyUQOgjo4uAF8E8MXMJVfOSQPXAWgsVc5LHWYnqzU8rcM2siZqi8VisRSqUe5PqKB4IMjeXL5+zS3S2soC0CE9nQuhs1MTINp3nhgI/H0uszpiWqOILnEcGvCCP5aVuE8IQKNelRpFc6eODp2LRf3DhgZH0MqJx9ZuKF3/4B3rSp1X+KIvTAfB58XItuFXmmBN1BaLxWIZTQAbEV2iFDvMqVQQvLVi/UNLpaHBQTIpNE5CMmeGnvi9jj0AfphQjlDxZuiCMAAcVkQsK6ijQyMvneHhlP+izs6AkDQ5E/W8jg5dum5NZ+n6B29KlDlnpo1+e0YHaxBdaUooFQMg9qzYYrFYLPk4OeFb4brK02bHoJ+9bsp31/1srM5WhyQyQw9CHgThGiNCPM5maAEkrpTq97Pdnin/Ri6F4Xi+4yAm6l7krjS95apTUvCvBuStLtN5zFxqh5vFYrFYhuRI36VX9VfE4uVZHfx+Xzp7be0T6589YsI3FI5EgPRfcUUNad7IxOWBiIzneakAQYUbc/p877MTHllz+5Gsz/C65V1pGtJ4U5dd9zpj/HT5Y2t/KwBTqKBbLBaL5XkMV7hueToIvp/K9DXUPrH+2cPxdC5I4kcexhUPP9xlgB+XKAfjeU4qgChApQI/K+TfBwAYdvXoSNZtpCtNpY9856flj639bfQdK3wtFovFAh4MgqUlA7svm/z4472rw2hV+oi/9cknWQCC0IMgAETj6YilS12XAmPWTlwfbSjGw4GsaGGcd6WpsVFJayvb4WaxWCyWHE75I2tujjRHOirCFwA6LzSEThkUenTQ9zOKKKHHywwtwr4xIKHlOE6uAR21drVYLBbLiaMBD10zOopBJHJexGWPPbjVQH5aotS4mKFzgTcyQfCLysfWPHVUNxUWi8VisRQjgCmZNHQsIjg9+WToOQysIeJxM0MzE5FwGwCgocGafS0Wi8VyfArgY/bmyDHKIbU+5XseAwqHsREQwMSVUv2ev6W8wnngSFw9slgsFovlhBfAlAzN0CXrH3hWC35d4jh0mMEqTEw5AOQL1NGRRkODIhub2WKxWCxWAI9AZIYWwho+DDO0AOIQqZTvDShfvggA6Oy0130sFovFYgXwiERmaGJ+OOV7mkIz9FjQJY5LGugoe3ztdmlsVPa+rcVisVisAD4IYcAKUMW6B/4aCH5XqhRBRI+hEpzVgdGa2mEzEFksFovFCuACiM5qCfIQs4IUaYYWEV3qOJzVunPSdx/8jbS22qtHFovFYrEC+JBEZmhmXpsOfBmbGZrgEIU5f6NzZYvFYrFYrAAeTXRGZuiyc172R9+YZ0qUKtgbWkRMieOowcD7W2lX9SP26pHFYrFYrAAuhoYGRcmkYaK1ihVAVJgDFZFxWMFAPk9Pr/Lt1SOLxWKxWAFcDNXVAgA6wEOeDoACzNACiEukBj1vL7L8VVjt12KxWCxWABcHdXRoAWhCdu9vskb/rUAztE44LmmS+yc8sWb3D632a7FYLBYrgMdAQ0MuD/E6pwAzNAMqHfgBgVYCwIVHKeevxWKxWCwnlwCOzNAgrAmMBkRGK1tQ5rgUiHms8pE1f159jHL+WiwWi8Vy4gvgjg4DADt19pfpQP8roRQLRjZDiwhrERDJMgBotP1osVgsFiuAxwYBIg0NzgsfeyxLwCOucgQYwQwdBt6gVOD/vvycV/zA5vy1WCwWixXAh0vODM3mQW0MjWSGNgAUKwJkBSWTBg0NynajxWKxWE40jqu4yQIQAbLt8stLK7T6W1yp6Z4xJm+jYFxm9rTpqnDN6Vi7diCnPduutFgsFovVgMe+GxBpbFTT161LgfDdmHJE8rIaCWDiyoFAvkxr1/bbwBsWi8VisQJ4vLVhoQdFDEGEIuErClCpwM/EDO4DMBRH2mKxWCyWE43jLnVfzgwtV15Z0R/Qxjir6qwxAkBXuK7T7/vfqnxkzdulsVFZ5yuLxWKxWA14/HYEIo2Nitau7Qfo8ZhSAkCTgH1j4ECWw+b8tVgsFosVwEeA7m4SgLQxD4qAIGJKHYczQfDz0kce+qnN+WuxWCyWEx3nuCxVZ6cmQETpJwZ8f68imshEIKLlAHI5f+35r8VisVisBjyeDJmh16/fC+CJ0ngc/b737N4yd43N+WuxWCwWK4CPJJEZGpBvQzkEoi/M7OhI26tHFovFYrEC+EgSmaHJ8I/S6cGtnsl8XQBa0tlpTc8Wi8VisRxppKHB2XvpVdfZlrBYLBbLycT/B6DxPAbbGlzBAAAAAElFTkSuQmCC" alt="Адресат">
+    </div>
+    <div class="hd-info">
+      <div class="hd-tag">Управление репутацией на геосервисах</div>
+      <div class="hd-title">Отчёт о работе<br>на геосервисах</div>
+      
+    </div>
+  </div>
+  </div>
+
+<!-- BRANCH CHOOSER -->
+<div class="bc">
+  <div class="bc-inner">
+    <div class="bc-label">Выберите филиал — <em>данные изменятся по всему отчёту</em></div>
+    <div class="bc-btns">
+      <button class="bc-btn active" onclick="setBranch('all')">
+        Общая сводка
+        <span class="sub">Все 4 филиала</span>
+      </button>
+      <button class="bc-btn" onclick="setBranch('kan')">
+        Канунникова, 15
+        <span class="sub">Ворошиловский р-н</span>
+      </button>
+      <button class="bc-btn" onclick="setBranch('bys')">
+        Быстрова, 78
+        <span class="sub">Кировский р-н</span>
+      </button>
+      <button class="bc-btn" onclick="setBranch('dze')">
+        Дзержинского, 1
+        <span class="sub">Тракторозаводский р-н</span>
+      </button>
+      <button class="bc-btn" onclick="setBranch('vol')">
+        Дружбы 85а/12
+        <span class="sub">Волжский</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- BRANCH BANNER -->
+<div class="bb">
+  <div class="bb-inner">
+    <div class="bb-text" id="bbText">Общая сводка по всем филиалам</div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ═══ 01 ВЫПОЛНЕННЫЕ РАБОТЫ ═══ -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">01</div><div class="sec-title">Выполненные работы</div></div>
+  <div class="svc-list">
+    <ul>
+      <li>Ежедневный контроль отзывов в карточках организаций на Яндекс Картах, 2ГИС, Google Maps, Zoon, Flamp, Otzovik</li>
+      <li>Работа с репутацией: ответы на отзывы, подача жалоб, чистка негатива</li>
+      <li>Еженедельная проверка корректности данных о компании на всех геосервисах</li>
+      <li>Добавление новых публикаций с SEO-оптимизированными текстами на Яндекс Картах</li>
+      <li>Бесплатное внедрение новых функций и дополнений геосервисов</li>
+      <li>Добавление новых фото-материалов в карточки</li>
+      <li>Работа с товарами / услугами — описания SEO-оптимизированы</li>
+      <li>Работа с аналитикой и полезные рекомендации для клиента</li>
+      <li>Коммуникация с поддержкой геосервисов</li>
+      <li>Контроль незапланированных автоизменений данных яндекс-роботом</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ 02 ССЫЛКИ ДЛЯ СБОРА ОТЗЫВОВ ═══ -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">02</div><div class="sec-title">Ссылки для сбора отзывов</div></div>
+
+  <!-- ALL -->
+  <div class="bc-content" data-branch="all">
+    <div class="rl2-wrap">
+      <div class="rl2-platform-block">
+        <div class="rl2-platform-title">Яндекс Карты</div>
+        <div class="rl2-item"><div class="rl2-addr">Канунникова, 15</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://yandex.ru/profile/194259366189?add-review=true" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://yandex.ru/profile/194259366189?add-review=true')">Скопировать</button></div></div>
+        <div class="rl2-item"><div class="rl2-addr">Быстрова, 78</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://yandex.ru/profile/1141197587?add-review=true" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://yandex.ru/profile/1141197587?add-review=true')">Скопировать</button></div></div>
+        <div class="rl2-item"><div class="rl2-addr">Дзержинского, 1</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://yandex.ru/profile/1179937603?add-review=true" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://yandex.ru/profile/1179937603?add-review=true')">Скопировать</button></div></div>
+        <div class="rl2-item"><div class="rl2-addr">Волжский, Дружбы 85а/12</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://yandex.ru/profile/159923710667?add-review=true" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://yandex.ru/profile/159923710667?add-review=true')">Скопировать</button></div></div>
+      </div>
+      <div class="rl2-platform-block">
+        <div class="rl2-platform-title">2ГИС</div>
+        <div class="rl2-item"><div class="rl2-addr">Канунникова, 15</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://2gis.ru/reviews/4644865397213193/addReview" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://2gis.ru/reviews/4644865397213193/addReview')">Скопировать</button></div></div>
+        <div class="rl2-item"><div class="rl2-addr">Быстрова, 78</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://2gis.ru/reviews/4644865396954214/addReview" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://2gis.ru/reviews/4644865396954214/addReview')">Скопировать</button></div></div>
+        <div class="rl2-item"><div class="rl2-addr">Дзержинского, 1</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://2gis.ru/reviews/70000001103273962/addReview" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://2gis.ru/reviews/70000001103273962/addReview')">Скопировать</button></div></div>
+        <div class="rl2-item"><div class="rl2-addr">Волжский, Дружбы 85а/12</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://2gis.ru/reviews/70000001045423544/addReview" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://2gis.ru/reviews/70000001045423544/addReview')">Скопировать</button></div></div>
+      </div>
+    </div>
+  </div>
+  <!-- KAN -->
+  <div class="bc-content" data-branch="kan" style="display:none">
+    <div class="rl2-wrap">
+      <div class="rl2-platform-block"><div class="rl2-platform-title">Яндекс Карты</div><div class="rl2-item"><div class="rl2-addr">Канунникова, 15</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://yandex.ru/profile/194259366189?add-review=true" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://yandex.ru/profile/194259366189?add-review=true')">Скопировать</button></div></div></div>
+      <div class="rl2-platform-block"><div class="rl2-platform-title">2ГИС</div><div class="rl2-item"><div class="rl2-addr">Канунникова, 15</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://2gis.ru/reviews/4644865397213193/addReview" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://2gis.ru/reviews/4644865397213193/addReview')">Скопировать</button></div></div></div>
+    </div>
+  </div>
+  <!-- BYS -->
+  <div class="bc-content" data-branch="bys" style="display:none">
+    <div class="rl2-wrap">
+      <div class="rl2-platform-block"><div class="rl2-platform-title">Яндекс Карты</div><div class="rl2-item"><div class="rl2-addr">Быстрова, 78</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://yandex.ru/profile/1141197587?add-review=true" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://yandex.ru/profile/1141197587?add-review=true')">Скопировать</button></div></div></div>
+      <div class="rl2-platform-block"><div class="rl2-platform-title">2ГИС</div><div class="rl2-item"><div class="rl2-addr">Быстрова, 78</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://2gis.ru/reviews/4644865396954214/addReview" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://2gis.ru/reviews/4644865396954214/addReview')">Скопировать</button></div></div></div>
+    </div>
+  </div>
+  <!-- DZE -->
+  <div class="bc-content" data-branch="dze" style="display:none">
+    <div class="rl2-wrap">
+      <div class="rl2-platform-block"><div class="rl2-platform-title">Яндекс Карты</div><div class="rl2-item"><div class="rl2-addr">Дзержинского, 1</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://yandex.ru/profile/1179937603?add-review=true" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://yandex.ru/profile/1179937603?add-review=true')">Скопировать</button></div></div></div>
+      <div class="rl2-platform-block"><div class="rl2-platform-title">2ГИС</div><div class="rl2-item"><div class="rl2-addr">Дзержинского, 1</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://2gis.ru/reviews/70000001103273962/addReview" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://2gis.ru/reviews/70000001103273962/addReview')">Скопировать</button></div></div></div>
+    </div>
+  </div>
+  <!-- VOL -->
+  <div class="bc-content" data-branch="vol" style="display:none">
+    <div class="rl2-wrap">
+      <div class="rl2-platform-block"><div class="rl2-platform-title">Яндекс Карты</div><div class="rl2-item"><div class="rl2-addr">Волжский, Дружбы 85а/12</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://yandex.ru/profile/159923710667?add-review=true" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://yandex.ru/profile/159923710667?add-review=true')">Скопировать</button></div></div></div>
+      <div class="rl2-platform-block"><div class="rl2-platform-title">2ГИС</div><div class="rl2-item"><div class="rl2-addr">Волжский, Дружбы 85а/12</div><div class="rl2-hint">Передайте клиенту — попадёт прямо на форму отзыва</div><div class="rl-btns"><a href="https://2gis.ru/reviews/70000001045423544/addReview" target="_blank" class="btn-primary">↗ Открыть</a><button class="btn-sec" onclick="cpBtn(this,'https://2gis.ru/reviews/70000001045423544/addReview')">Скопировать</button></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 03 РЕЙТИНГ НА ГЕОСЕРВИСАХ ═══ -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">03</div><div class="sec-title">Рейтинг на геосервисах</div></div>
+  <div class="scroll-hint">← листайте вправо →</div>
+
+  <!-- ALL -->
+  <div class="bc-content" data-branch="all">
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Геосервис</th><th>Канунникова</th><th>Быстрова</th><th>Дзержинского</th><th>Волжский</th></tr>
+      <tr><td>Яндекс Карты</td><td>⭐ 4,7</td><td>⭐ 4,4</td><td>⭐ 4,4</td><td>⭐ 4,3</td></tr>
+      <tr><td>2ГИС</td><td>⭐ 4,7</td><td>⭐ 4,7</td><td>⭐ 5,0</td><td>⭐ 4,7</td></tr>
+      <tr><td>Google Maps</td><td>⭐ 4,0</td><td>⭐ 3,5</td><td>⭐ 3,4</td><td>—</td></tr>
+      <tr><td>Flamp</td><td>⭐ 4,7</td><td>⭐ 4,8</td><td>—</td><td>⭐ 4,7</td></tr>
+      <tr><td>Zoon</td><td>⭐ 5,0</td><td>⭐ 4,5</td><td>⭐ 4,8</td><td>⭐ 3,9</td></tr>
+      <tr><td>Домклик</td><td colspan="4">⭐ 4,9 — единый профиль агентства</td></tr>
+    </table></div>
+  </div>
+
+  <!-- KAN -->
+  <div class="bc-content" data-branch="kan" style="display:none">
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Геосервис</th><th>Рейтинг</th><th>Динамика</th><th>Профиль</th></tr>
+      <tr><td>Яндекс Карты</td><td>⭐ 4,7</td><td class="d-neu">— без изм.</td><td><a href="https://yandex.ru/profile/194259366189" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>2ГИС</td><td>⭐ 4,7</td><td class="d-neg">▼ −0,1 с янв.</td><td><a href="https://2gis.ru/volgograd/firm/4644865397213193" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Google Maps</td><td>⭐ 4,0</td><td class="d-neu">— без изм.</td><td><a href="https://share.google/npNR4er4jIaj6sZdF" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Flamp</td><td>⭐ 4,7</td><td class="d-neu">— без изм.</td><td><a href="https://volgograd.flamp.ru/firm/adresat_agentstvo_nedvizhimosti-4644865397213193" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Zoon</td><td>⭐ 5,0</td><td class="d-neu">— без изм.</td><td><a href="https://zoon.ru/volgograd/realty/agentstvo_nedvizhimosti_adresat_v_voroshilovskom_rajone/" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Домклик</td><td>⭐ 4,9</td><td class="d-pos">▲ +0,1</td><td><a href="https://agencies.domclick.ru/agency/2498" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+    </table></div>
+  </div>
+
+  <!-- BYS -->
+  <div class="bc-content" data-branch="bys" style="display:none">
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Геосервис</th><th>Рейтинг</th><th>Динамика</th><th>Профиль</th></tr>
+      <tr><td>Яндекс Карты</td><td>⭐ 4,4</td><td class="d-neu">— без изм.</td><td><a href="https://yandex.ru/profile/1141197587" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>2ГИС</td><td>⭐ 4,7</td><td class="d-neu">— без изм.</td><td><a href="https://2gis.ru/volgograd/firm/4644865396954214" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Google Maps</td><td>⭐ 3,5</td><td class="d-neu">— без изм.</td><td><a href="https://share.google/kWVo2Dcv2mq9CYSjo" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Flamp</td><td>⭐ 4,8</td><td class="d-neu">— без изм.</td><td><a href="https://volgograd.flamp.ru/firm/adresat_agentstvo_nedvizhimosti-4644865396954214" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Zoon</td><td>⭐ 4,5</td><td class="d-neu">— без изм.</td><td><a href="https://zoon.ru/volgograd/realty/agentstvo_nedvizhimosti_adresat_v_kirovskom_rajone/" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Домклик</td><td>⭐ 4,9</td><td class="d-pos">▲ +0,1</td><td><a href="https://agencies.domclick.ru/agency/2498" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+    </table></div>
+  </div>
+
+  <!-- DZE -->
+  <div class="bc-content" data-branch="dze" style="display:none">
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Геосервис</th><th>Рейтинг</th><th>Динамика</th><th>Профиль</th></tr>
+      <tr><td>Яндекс Карты</td><td>⭐ 4,4</td><td class="d-neu">— без изм.</td><td><a href="https://yandex.ru/profile/1179937603" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>2ГИС</td><td>⭐ 5,0</td><td class="d-neu">— без изм.</td><td><a href="https://2gis.ru/volgograd/firm/70000001103273962" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Google Maps</td><td>⭐ 3,4</td><td class="d-neu">— без изм.</td><td><a href="https://share.google/KrbvFgyc3iC14vVRR" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Flamp</td><td>—</td><td class="d-neu">—</td><td><a href="https://volgograd.flamp.ru/firm/adresat_agentstvo_nedvizhimosti-70000001103273962" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Zoon</td><td>⭐ 4,8</td><td class="d-neu">— без изм.</td><td><a href="https://zoon.ru/volgograd/realty/agentstvo_nedvizhimosti_adresat_v_traktorozavodskom_rajone/" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Домклик</td><td>⭐ 4,9</td><td class="d-pos">▲ +0,1</td><td><a href="https://agencies.domclick.ru/agency/2498" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+    </table></div>
+  </div>
+
+  <!-- VOL -->
+  <div class="bc-content" data-branch="vol" style="display:none">
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Геосервис</th><th>Рейтинг</th><th>Динамика</th><th>Профиль</th></tr>
+      <tr><td>Яндекс Карты</td><td>⭐ 4,3</td><td class="d-pos">▲ +0,1 с марта</td><td><a href="https://yandex.ru/profile/159923710667" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>2ГИС</td><td>⭐ 4,7</td><td class="d-neu">— без изм.</td><td><a href="https://2gis.ru/volzhsky/firm/70000001045423544" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Google Maps</td><td>—</td><td class="d-neu">—</td><td><a href="https://share.google/U5jN6hCFJe9DYSKB7" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Flamp</td><td>⭐ 4,7</td><td class="d-neu">— без изм.</td><td><a href="https://volgograd.flamp.ru/firm/adresat_agentstvo_nedvizhimosti-70000001045423544" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Zoon</td><td>⭐ 3,9</td><td class="d-neu">— без изм.</td><td><a href="https://zoon.ru/volgograd/realty/agentstvo_nedvizhimosti_adresat_v_volzhskom/" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+      <tr><td>Домклик</td><td>⭐ 4,9</td><td class="d-pos">▲ +0,1</td><td><a href="https://agencies.domclick.ru/agency/2498" target="_blank" class="tbl-lnk">→ Открыть</a></td></tr>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ 04 СТАТИСТИКА ЯНДЕКС БИЗНЕС ═══ -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">04</div><div class="sec-title">Статистика Яндекс Бизнес</div></div>
+  <div class="scroll-hint">← листайте вправо →</div>
+
+  <!-- ALL -->
+  <div class="bc-content" data-branch="all">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Переходов в профиль</div><div class="stat-card-val">7 061</div><div class="stat-card-dyn pos">▲ +867 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Проложено маршрутов</div><div class="stat-card-val">58</div><div class="stat-card-dyn pos">▲ +9 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Нажатий «Позвонить»</div><div class="stat-card-val">98</div><div class="stat-card-dyn pos">▲ +36 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Переходов на сайт</div><div class="stat-card-val">90</div><div class="stat-card-dyn pos">▲ +11 к маю</div></div>
+    </div>
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Показатель</th><th>Янв</th><th>Фев</th><th>Мар</th><th>Апр</th><th>Май</th><th>Июн</th><th>Динамика</th></tr>
+      <tr><td>Переходов в профиль</td><td>5 880</td><td>5 818</td><td>7 458</td><td>6 505</td><td>6 194</td><td><b>7 061</b></td><td class="d-pos">▲ +867</td></tr>
+      <tr><td>Маршруты</td><td>65</td><td>20</td><td>38</td><td>63</td><td>49</td><td><b>58</b></td><td class="d-pos">▲ +9</td></tr>
+      <tr><td>Нажатий «Позвонить»</td><td>55</td><td>54</td><td>56</td><td>86</td><td>62</td><td><b>98</b></td><td class="d-pos">▲ +36</td></tr>
+      <tr><td>Переходов на сайт</td><td>59</td><td>96</td><td>63</td><td>68</td><td>79</td><td><b>90</b></td><td class="d-pos">▲ +11</td></tr>
+      <tr><td>Итого действий</td><td>179</td><td>170</td><td>157</td><td>217</td><td>190</td><td><b>246</b></td><td class="d-pos">▲ +56</td></tr>
+    </table></div>
+  </div>
+
+  <!-- KAN -->
+  <div class="bc-content" data-branch="kan" style="display:none">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Переходов в профиль</div><div class="stat-card-val">5 065</div><div class="stat-card-dyn pos">▲ +978 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Маршруты</div><div class="stat-card-val">42</div><div class="stat-card-dyn pos">▲ +9 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Нажатий «Позвонить»</div><div class="stat-card-val">60</div><div class="stat-card-dyn pos">▲ +22 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Переходов на сайт</div><div class="stat-card-val">71</div><div class="stat-card-dyn pos">▲ +5 к маю</div></div>
+    </div>
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Показатель</th><th>Янв</th><th>Фев</th><th>Мар</th><th>Апр</th><th>Май</th><th>Июн</th><th>Динамика</th></tr>
+      <tr><td>Переходов в профиль</td><td>4 197</td><td>4 044</td><td>5 268</td><td>4 462</td><td>4 087</td><td><b>5 065</b></td><td class="d-pos">▲ +978</td></tr>
+      <tr><td>Маршруты</td><td>62</td><td>11</td><td>29</td><td>46</td><td>33</td><td><b>42</b></td><td class="d-pos">▲ +9</td></tr>
+      <tr><td>Нажатий «Позвонить»</td><td>37</td><td>30</td><td>35</td><td>56</td><td>38</td><td><b>60</b></td><td class="d-pos">▲ +22</td></tr>
+      <tr><td>Переходов на сайт</td><td>51</td><td>69</td><td>55</td><td>52</td><td>66</td><td><b>71</b></td><td class="d-pos">▲ +5</td></tr>
+      <tr><td>Итого действий</td><td>150</td><td>110</td><td>119</td><td>154</td><td>137</td><td><b>173</b></td><td class="d-pos">▲ +36</td></tr>
+    </table></div>
+  </div>
+
+  <!-- BYS -->
+  <div class="bc-content" data-branch="bys" style="display:none">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Переходов в профиль</div><div class="stat-card-val">767</div><div class="stat-card-dyn neg">▼ −6 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Маршруты</div><div class="stat-card-val">8</div><div class="stat-card-dyn neg">▼ −2 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Нажатий «Позвонить»</div><div class="stat-card-val">13</div><div class="stat-card-dyn pos">▲ +2 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Переходов на сайт</div><div class="stat-card-val">5</div><div class="stat-card-dyn pos">▲ +1 к маю</div></div>
+    </div>
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Показатель</th><th>Янв</th><th>Фев</th><th>Мар</th><th>Апр</th><th>Май</th><th>Июн</th><th>Динамика</th></tr>
+      <tr><td>Переходов в профиль</td><td>567</td><td>609</td><td>792</td><td>702</td><td>773</td><td><b>767</b></td><td class="d-neg">▼ −6</td></tr>
+      <tr><td>Маршруты</td><td>3</td><td>1</td><td>8</td><td>5</td><td>10</td><td><b>8</b></td><td class="d-neg">▼ −2</td></tr>
+      <tr><td>Нажатий «Позвонить»</td><td>9</td><td>7</td><td>10</td><td>10</td><td>11</td><td><b>13</b></td><td class="d-pos">▲ +2</td></tr>
+      <tr><td>Переходов на сайт</td><td>6</td><td>4</td><td>3</td><td>5</td><td>4</td><td><b>5</b></td><td class="d-pos">▲ +1</td></tr>
+      <tr><td>Итого действий</td><td>18</td><td>12</td><td>21</td><td>20</td><td>25</td><td><b>26</b></td><td class="d-pos">▲ +1</td></tr>
+    </table></div>
+  </div>
+
+  <!-- DZE -->
+  <div class="bc-content" data-branch="dze" style="display:none">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Переходов в профиль</div><div class="stat-card-val">809</div><div class="stat-card-dyn neg">▼ −101 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Маршруты</div><div class="stat-card-val">7</div><div class="stat-card-dyn pos">▲ +6 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Нажатий «Позвонить»</div><div class="stat-card-val">14</div><div class="stat-card-dyn pos">▲ +5 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Переходов на сайт</div><div class="stat-card-val">6</div><div class="stat-card-dyn pos">▲ +1 к маю</div></div>
+    </div>
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Показатель</th><th>Янв</th><th>Фев</th><th>Мар</th><th>Апр</th><th>Май</th><th>Июн</th><th>Динамика</th></tr>
+      <tr><td>Переходов в профиль</td><td>808</td><td>777</td><td>927</td><td>924</td><td>910</td><td><b>809</b></td><td class="d-neg">▼ −101</td></tr>
+      <tr><td>Маршруты</td><td>0</td><td>7</td><td>1</td><td>8</td><td>1</td><td><b>7</b></td><td class="d-pos">▲ +6</td></tr>
+      <tr><td>Нажатий «Позвонить»</td><td>6</td><td>5</td><td>5</td><td>9</td><td>9</td><td><b>14</b></td><td class="d-pos">▲ +5</td></tr>
+      <tr><td>Переходов на сайт</td><td>0</td><td>9</td><td>4</td><td>3</td><td>5</td><td><b>6</b></td><td class="d-pos">▲ +1</td></tr>
+      <tr><td>Итого действий</td><td>6</td><td>21</td><td>10</td><td>20</td><td>15</td><td><b>27</b></td><td class="d-pos">▲ +12</td></tr>
+    </table></div>
+  </div>
+
+  <!-- VOL -->
+  <div class="bc-content" data-branch="vol" style="display:none">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Переходов в профиль</div><div class="stat-card-val">420</div><div class="stat-card-dyn neg">▼ −4 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Маршруты</div><div class="stat-card-val">1</div><div class="stat-card-dyn neg">▼ −4 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Нажатий «Позвонить»</div><div class="stat-card-val">11</div><div class="stat-card-dyn pos">▲ +7 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Переходов на сайт</div><div class="stat-card-val">8</div><div class="stat-card-dyn pos">▲ +4 к маю</div></div>
+    </div>
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Показатель</th><th>Янв</th><th>Фев</th><th>Мар</th><th>Апр</th><th>Май</th><th>Июн</th><th>Динамика</th></tr>
+      <tr><td>Переходов в профиль</td><td>308</td><td>388</td><td>471</td><td>417</td><td>424</td><td><b>420</b></td><td class="d-neg">▼ −4</td></tr>
+      <tr><td>Маршруты</td><td>0</td><td>1</td><td>0</td><td>4</td><td>5</td><td><b>1</b></td><td class="d-neg">▼ −4</td></tr>
+      <tr><td>Нажатий «Позвонить»</td><td>3</td><td>12</td><td>6</td><td>11</td><td>4</td><td><b>11</b></td><td class="d-pos">▲ +7</td></tr>
+      <tr><td>Переходов на сайт</td><td>2</td><td>14</td><td>1</td><td>8</td><td>4</td><td><b>8</b></td><td class="d-pos">▲ +4</td></tr>
+      <tr><td>Итого действий</td><td>5</td><td>27</td><td>7</td><td>23</td><td>13</td><td><b>20</b></td><td class="d-pos">▲ +7</td></tr>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ 05 СТАТИСТИКА 2ГИС ═══ -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">05</div><div class="sec-title">Статистика 2ГИС</div></div>
+
+  <!-- ALL -->
+  <div class="bc-content" data-branch="all">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Показы (все)</div><div class="stat-card-val">672</div><div class="stat-card-dyn pos">▲ +43 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Ср. позиция в выдаче</div><div class="stat-card-val">11</div><div class="stat-card-dyn neu">≈ стабильно</div></div>
+    </div>
+  </div>
+
+  <!-- KAN -->
+  <div class="bc-content" data-branch="kan" style="display:none">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Показы (все)</div><div class="stat-card-val">672</div><div class="stat-card-dyn pos">▲ +43 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Ср. позиция в выдаче</div><div class="stat-card-val">11</div><div class="stat-card-dyn neu">≈ стабильно</div></div>
+    </div>
+  </div>
+
+  <!-- BYS -->
+  <div class="bc-content" data-branch="bys" style="display:none">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Показы (все)</div><div class="stat-card-val">672</div><div class="stat-card-dyn pos">▲ +43 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Ср. позиция в выдаче</div><div class="stat-card-val">11</div><div class="stat-card-dyn neu">≈ стабильно</div></div>
+    </div>
+  </div>
+
+  <!-- DZE -->
+  <div class="bc-content" data-branch="dze" style="display:none">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Показы (все)</div><div class="stat-card-val">672</div><div class="stat-card-dyn pos">▲ +43 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Ср. позиция в выдаче</div><div class="stat-card-val">11</div><div class="stat-card-dyn neu">≈ стабильно</div></div>
+    </div>
+  </div>
+
+  <!-- VOL -->
+  <div class="bc-content" data-branch="vol" style="display:none">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Показы (все)</div><div class="stat-card-val">672</div><div class="stat-card-dyn pos">▲ +43 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Ср. позиция в выдаче</div><div class="stat-card-val">11</div><div class="stat-card-dyn neu">≈ стабильно</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 06 СТАТИСТИКА GOOGLE ═══ -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">06</div><div class="sec-title">Статистика Google Компании</div></div>
+  <div class="scroll-hint">← листайте вправо →</div>
+
+  <!-- ALL -->
+  <div class="bc-content" data-branch="all">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Просмотры (все)</div><div class="stat-card-val">1 017</div><div class="stat-card-dyn neg">▼ −68 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Маршруты (все)</div><div class="stat-card-val">217</div><div class="stat-card-dyn pos">▲ +66 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Звонки (все)</div><div class="stat-card-val">3</div><div class="stat-card-dyn pos">▲ +2 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Клики на сайт (все)</div><div class="stat-card-val">5</div><div class="stat-card-dyn pos">▲ +2 к маю</div></div>
+    </div>
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Показатель</th><th>Янв</th><th>Фев</th><th>Мар</th><th>Апр</th><th>Май</th><th>Июн</th><th>Динамика</th></tr>
+      <tr><td>Просмотры профиля</td><td>1 402</td><td>904</td><td>913</td><td>1 175</td><td>1 085</td><td><b>1 017</b></td><td class="d-neg">▼ −68</td></tr>
+      <tr><td>Маршруты</td><td>180</td><td>175</td><td>213</td><td>172</td><td>151</td><td><b>217</b></td><td class="d-pos">▲ +66</td></tr>
+      <tr><td>Звонки</td><td>4</td><td>0</td><td>7</td><td>8</td><td>1</td><td><b>3</b></td><td class="d-pos">▲ +2</td></tr>
+      <tr><td>Клики на сайт</td><td>7</td><td>8</td><td>5</td><td>9</td><td>3</td><td><b>5</b></td><td class="d-pos">▲ +2</td></tr>
+      <tr><td>Итого действий</td><td>191</td><td>184</td><td>225</td><td>191</td><td>155</td><td><b>225</b></td><td class="d-pos">▲ +70</td></tr>
+    </table></div>
+  </div>
+
+  <!-- KAN -->
+  <div class="bc-content" data-branch="kan" style="display:none">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Просмотры профиля</div><div class="stat-card-val">538</div><div class="stat-card-dyn neg">▼ −80 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Маршруты</div><div class="stat-card-val">53</div><div class="stat-card-dyn pos">▲ +38 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Звонки</div><div class="stat-card-val">1</div><div class="stat-card-dyn neu">= без изм.</div></div>
+      <div class="stat-card"><div class="stat-card-label">Клики на сайт</div><div class="stat-card-val">4</div><div class="stat-card-dyn pos">▲ +1 к маю</div></div>
+    </div>
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Показатель</th><th>Янв</th><th>Фев</th><th>Мар</th><th>Апр</th><th>Май</th><th>Июн</th><th>Динамика</th></tr>
+      <tr><td>Просмотры профиля</td><td>738</td><td>549</td><td>491</td><td>666</td><td>618</td><td><b>538</b></td><td class="d-neg">▼ −80</td></tr>
+      <tr><td>Маршруты</td><td>35</td><td>35</td><td>54</td><td>39</td><td>15</td><td><b>53</b></td><td class="d-pos">▲ +38</td></tr>
+      <tr><td>Звонки</td><td>1</td><td>0</td><td>4</td><td>2</td><td>1</td><td><b>1</b></td><td class="d-neu">= без изм.</td></tr>
+      <tr><td>Клики на сайт</td><td>3</td><td>2</td><td>4</td><td>4</td><td>3</td><td><b>4</b></td><td class="d-pos">▲ +1</td></tr>
+      <tr><td>Итого действий</td><td>39</td><td>37</td><td>62</td><td>45</td><td>19</td><td><b>58</b></td><td class="d-pos">▲ +39</td></tr>
+    </table></div>
+  </div>
+
+  <!-- BYS -->
+  <div class="bc-content" data-branch="bys" style="display:none">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Просмотры профиля</div><div class="stat-card-val">153</div><div class="stat-card-dyn pos">▲ +21 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Маршруты</div><div class="stat-card-val">40</div><div class="stat-card-dyn pos">▲ +7 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Звонки</div><div class="stat-card-val">1</div><div class="stat-card-dyn pos">▲ +1 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Клики на сайт</div><div class="stat-card-val">0</div><div class="stat-card-dyn neu">= без изм.</div></div>
+    </div>
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Показатель</th><th>Янв</th><th>Фев</th><th>Мар</th><th>Апр</th><th>Май</th><th>Июн</th><th>Динамика</th></tr>
+      <tr><td>Просмотры профиля</td><td>190</td><td>128</td><td>186</td><td>150</td><td>132</td><td><b>153</b></td><td class="d-pos">▲ +21</td></tr>
+      <tr><td>Маршруты</td><td>49</td><td>45</td><td>78</td><td>57</td><td>33</td><td><b>40</b></td><td class="d-pos">▲ +7</td></tr>
+      <tr><td>Звонки</td><td>3</td><td>0</td><td>3</td><td>1</td><td>0</td><td><b>1</b></td><td class="d-pos">▲ +1</td></tr>
+      <tr><td>Клики на сайт</td><td>3</td><td>4</td><td>1</td><td>3</td><td>0</td><td><b>0</b></td><td class="d-neu">= без изм.</td></tr>
+      <tr><td>Итого действий</td><td>55</td><td>49</td><td>82</td><td>62</td><td>33</td><td><b>41</b></td><td class="d-pos">▲ +8</td></tr>
+    </table></div>
+  </div>
+
+  <!-- DZE -->
+  <div class="bc-content" data-branch="dze" style="display:none">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Просмотры профиля</div><div class="stat-card-val">261</div><div class="stat-card-dyn pos">▲ +2 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Маршруты</div><div class="stat-card-val">94</div><div class="stat-card-dyn pos">▲ +33 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Звонки</div><div class="stat-card-val">0</div><div class="stat-card-dyn neu">— без изм.</div></div>
+      <div class="stat-card"><div class="stat-card-label">Клики на сайт</div><div class="stat-card-val">1</div><div class="stat-card-dyn pos">▲ +1 к маю</div></div>
+    </div>
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Показатель</th><th>Янв</th><th>Фев</th><th>Мар</th><th>Апр</th><th>Май</th><th>Июн</th><th>Динамика</th></tr>
+      <tr><td>Просмотры профиля</td><td>416</td><td>176</td><td>167</td><td>302</td><td>259</td><td><b>261</b></td><td class="d-pos">▲ +2</td></tr>
+      <tr><td>Маршруты</td><td>57</td><td>40</td><td>36</td><td>48</td><td>61</td><td><b>94</b></td><td class="d-pos">▲ +33</td></tr>
+      <tr><td>Звонки</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td><b>0</b></td><td class="d-neu">—</td></tr>
+      <tr><td>Клики на сайт</td><td>1</td><td>2</td><td>0</td><td>1</td><td>0</td><td><b>1</b></td><td class="d-pos">▲ +1</td></tr>
+      <tr><td>Итого действий</td><td>58</td><td>43</td><td>36</td><td>51</td><td>61</td><td><b>95</b></td><td class="d-pos">▲ +34</td></tr>
+    </table></div>
+  </div>
+
+  <!-- VOL -->
+  <div class="bc-content" data-branch="vol" style="display:none">
+    <div class="stat-cards">
+      <div class="stat-card"><div class="stat-card-label">Просмотры профиля</div><div class="stat-card-val">65</div><div class="stat-card-dyn neg">▼ −11 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Маршруты</div><div class="stat-card-val">30</div><div class="stat-card-dyn neg">▼ −12 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Звонки</div><div class="stat-card-val">1</div><div class="stat-card-dyn pos">▲ +1 к маю</div></div>
+      <div class="stat-card"><div class="stat-card-label">Клики на сайт</div><div class="stat-card-val">0</div><div class="stat-card-dyn neu">— без изм.</div></div>
+    </div>
+    <div class="tbl-wrap"><table class="r-tbl">
+      <tr><th>Показатель</th><th>Янв</th><th>Фев</th><th>Мар</th><th>Апр</th><th>Май</th><th>Июн</th><th>Динамика</th></tr>
+      <tr><td>Просмотры профиля</td><td>58</td><td>51</td><td>69</td><td>57</td><td>76</td><td><b>65</b></td><td class="d-neg">▼ −11</td></tr>
+      <tr><td>Маршруты</td><td>39</td><td>55</td><td>45</td><td>28</td><td>42</td><td><b>30</b></td><td class="d-neg">▼ −12</td></tr>
+      <tr><td>Звонки</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td><b>1</b></td><td class="d-pos">▲ +1</td></tr>
+      <tr><td>Клики на сайт</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td><b>0</b></td><td class="d-neu">—</td></tr>
+      <tr><td>Итого действий</td><td>39</td><td>55</td><td>45</td><td>33</td><td>42</td><td><b>31</b></td><td class="d-neg">▼ −11</td></tr>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ 07 ОТЗЫВЫ ═══ -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">07</div><div class="sec-title">Отзывы — июнь 2026</div></div>
+  <div class="scroll-hint">← листайте вправо →</div>
+
+  <!-- ALL -->
+  <div class="bc-content" data-branch="all">
+    <div class="rev-wrap"><table class="rev-tbl">
+      <tr><th>Геосервис</th><th>Всего</th><th>Хорошие</th><th>Плохие</th><th>Удалено</th></tr>
+      <tr><td>Яндекс Карты</td><td>2</td><td class="n-pos">1</td><td class="n-neg">1</td><td class="dash">0</td></tr>
+      <tr><td>2ГИС</td><td>1</td><td class="n-pos">1</td><td class="n-neg">0</td><td class="dash">0</td></tr>
+      <tr><td>Google Maps</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Flamp</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Zoon</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Домклик</td><td>8</td><td class="n-pos">8</td><td class="n-neg">0</td><td class="dash">—</td></tr>
+      <tr><td>Остальные сервисы</td><td>37+</td><td class="n-pos">37</td><td class="n-neg">0</td><td class="dash">—</td></tr>
+      <tr class="total"><td>ИТОГО</td><td>48+</td><td class="n-pos">47</td><td class="n-neg">1</td><td class="n-del">0</td></tr>
+    </table></div>
+  </div>
+
+  <!-- KAN -->
+  <div class="bc-content" data-branch="kan" style="display:none">
+    <div class="rev-wrap"><table class="rev-tbl">
+      <tr><th>Геосервис</th><th>Всего</th><th>Хорошие</th><th>Плохие</th><th>Удалено</th></tr>
+      <tr><td>Яндекс Карты</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>2ГИС</td><td>1</td><td class="n-pos">1</td><td class="n-neg">0</td><td class="dash">0</td></tr>
+      <tr><td>Google Maps</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Flamp</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Zoon</td><td>1</td><td class="n-pos">1</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Домклик</td><td>8</td><td class="n-pos">8</td><td class="n-neg">0</td><td class="dash">—</td></tr>
+      <tr><td>Остальные сервисы</td><td>11+</td><td class="n-pos">11</td><td class="n-neg">0</td><td class="dash">—</td></tr>
+      <tr class="total"><td>ИТОГО</td><td>21+</td><td class="n-pos">21</td><td class="n-neg">0</td><td class="n-del">0</td></tr>
+    </table></div>
+  </div>
+
+  <!-- BYS -->
+  <div class="bc-content" data-branch="bys" style="display:none">
+    <div class="rev-wrap"><table class="rev-tbl">
+      <tr><th>Геосервис</th><th>Всего</th><th>Хорошие</th><th>Плохие</th><th>Удалено</th></tr>
+      <tr><td>Яндекс Карты</td><td>1</td><td class="n-pos">1</td><td class="n-neg">0</td><td class="n-del">0</td></tr>
+      <tr><td>2ГИС</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Google Maps</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Flamp</td><td>1</td><td class="n-pos">1</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Zoon</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Домклик</td><td>8</td><td class="n-pos">8</td><td class="n-neg">0</td><td class="dash">—</td></tr>
+      <tr><td>Остальные сервисы</td><td>9+</td><td class="n-pos">9</td><td class="n-neg">0</td><td class="dash">—</td></tr>
+      <tr class="total"><td>ИТОГО</td><td>19+</td><td class="n-pos">19</td><td class="n-neg">0</td><td class="n-del">0</td></tr>
+    </table></div>
+  </div>
+
+  <!-- DZE -->
+  <div class="bc-content" data-branch="dze" style="display:none">
+    <div class="rev-wrap"><table class="rev-tbl">
+      <tr><th>Геосервис</th><th>Всего</th><th>Хорошие</th><th>Плохие</th><th>Удалено</th></tr>
+      <tr><td>Яндекс Карты</td><td>1</td><td class="n-pos">0</td><td class="n-neg">1</td><td class="n-del">0</td></tr>
+      <tr><td>2ГИС</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Google Maps</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Flamp</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Zoon</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Домклик</td><td>8</td><td class="n-pos">8</td><td class="n-neg">0</td><td class="dash">—</td></tr>
+      <tr><td>Остальные сервисы</td><td>8+</td><td class="n-pos">8</td><td class="n-neg">0</td><td class="dash">—</td></tr>
+      <tr class="total"><td>ИТОГО</td><td>17+</td><td class="n-pos">16</td><td class="n-neg">1</td><td class="n-del">0</td></tr>
+    </table></div>
+  </div>
+
+  <!-- VOL -->
+  <div class="bc-content" data-branch="vol" style="display:none">
+    <div class="rev-wrap"><table class="rev-tbl">
+      <tr><th>Геосервис</th><th>Всего</th><th>Хорошие</th><th>Плохие</th><th>Удалено</th></tr>
+      <tr><td>Яндекс Карты</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>2ГИС</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Google Maps</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Flamp</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Zoon</td><td>0</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+      <tr><td>Домклик</td><td>8</td><td class="n-pos">8</td><td class="n-neg">0</td><td class="dash">—</td></tr>
+      <tr><td>Остальные сервисы</td><td>8+</td><td class="n-pos">8</td><td class="n-neg">0</td><td class="dash">—</td></tr>
+      <tr class="total"><td>ИТОГО</td><td>16+</td><td class="n-pos">16</td><td class="n-neg">0</td><td class="n-del">0</td></tr>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ 08 ДРУГИЕ СЕРВИСЫ ═══ -->
+<div class="sec">
+  <div class="sec-hd"><div class="sec-num">08</div><div class="sec-title">Рейтинг на других сервисах</div></div>
+
+  <!-- ALL -->
+  <div class="bc-content" data-branch="all">
+    <div class="tbl-wrap"><table class="ot-tbl">
+      <tr><th>Сервис / Адрес</th><th>Рейтинг</th><th>Ссылка</th></tr>
+      <tr><td><span class="ot-name">Otzovik</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating mi">⭐ 4,2</span></td><td><a href="https://otzovik.com/reviews/agenstvo_nedvizhimosti_adresat_russia_volgograd/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Firmap</span><span class="ot-addr">Канунникова, 15</span></td><td><span class="oc-rating hi">9,7</span></td><td><a href="https://firmap.ru/volgograd/adresat-10466142" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Firmap</span><span class="ot-addr">Быстрова, 78</span></td><td><span class="oc-rating hi">9,7</span></td><td><a href="https://firmap.ru/volgograd/adresat-2190357" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Firmap</span><span class="ot-addr">Дзержинского, 1</span></td><td><span class="oc-rating hi">9,6</span></td><td><a href="https://firmap.ru/volgograd/adresat-2667075" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Spr</span><span class="ot-addr">Канунникова, 15</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://yfo.spr.ru/volgograd/adresat-4062315.html" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Spr</span><span class="ot-addr">Быстрова, 78</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://yfo.spr.ru/volgograd/adresat-5118428.html" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Spr</span><span class="ot-addr">Дзержинского, 1</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://yfo.spr.ru/volgograd/adresat-5118429.html" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Gdefirmi</span><span class="ot-addr">Канунникова, 15</span></td><td><span class="oc-rating hi">⭐ 4,7</span></td><td><a href="https://gdefirmi.ru/volgograd/agentstvo-nedvizhimosti-adresat-778682" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Gdefirmi</span><span class="ot-addr">Быстрова, 78</span></td><td><span class="oc-rating hi">⭐ 4,8</span></td><td><a href="https://gdefirmi.ru/volgograd/agentstvo-nedvizhimosti-adresat-83740/3" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Gdefirmi</span><span class="ot-addr">Дзержинского, 1</span></td><td><span class="oc-rating hi">⭐ 4,6</span></td><td><a href="https://gdefirmi.ru/volgograd/adresat-814964" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Ilike</span><span class="ot-addr">Канунникова, 15</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://llike.ru/volgograd/adresat_2" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Ilike</span><span class="ot-addr">Быстрова, 78</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://llike.ru/volgograd/adresat_set_agentstv_nedvigimosti" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Ilike</span><span class="ot-addr">Дзержинского, 1</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://llike.ru/volgograd/adresat" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Ilike</span><span class="ot-addr">Волжский</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://agentstvo_nedvigimosti_adresat/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Yell</span><span class="ot-addr">Канунникова, 15</span></td><td><span class="oc-rating hi">⭐ 4,8</span></td><td><a href="https://www.yell.ru/volgograd/com/adresat-nedvijimost_10310838/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Yell</span><span class="ot-addr">Быстрова, 78</span></td><td><span class="oc-rating hi">⭐ 4,9</span></td><td><a href="https://www.yell.ru/volgograd/com/adresat_10310818/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Yell</span><span class="ot-addr">Дзержинского, 1</span></td><td><span class="oc-rating hi">⭐ 4,8</span></td><td><a href="https://www.yell.ru/volgograd/com/adresat_10310824/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Yell</span><span class="ot-addr">Волжский</span></td><td><span class="oc-rating hi">⭐ 4,8</span></td><td><a href="https://www.yell.ru/volgograd/com/agentstvo-nedvizhimosti-adresat_12840571/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Realty-firmika</span><span class="ot-addr">Канунникова, 15</span></td><td><span class="oc-rating mi">⭐ 4,0</span></td><td><a href="https://volgograd.realty-firmika.ru/firms.php?i=139237" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Realty-firmika</span><span class="ot-addr">Быстрова, 78</span></td><td><span class="oc-rating mi">⭐ 4,0</span></td><td><a href="https://volgograd.realty-firmika.ru/firms.php?i=139227" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Realty-firmika</span><span class="ot-addr">Дзержинского, 1</span></td><td><span class="oc-rating mi">⭐ 4,0</span></td><td><a href="https://volgograd.realty-firmika.ru/firms.php?i=139170" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Spravka</span><span class="ot-addr">Канунникова, 15</span></td><td><span class="oc-rating na">—</span></td><td><a href="https://volgograd.spravka.ru/agentstva-nedvizhimosti/agentstvo-nedvizimosti-adresat-2" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Spravka</span><span class="ot-addr">Быстрова, 78</span></td><td><span class="oc-rating mi">⭐ 4,5</span></td><td><a href="https://volgograd.spravka.ru/agentstva-nedvizhimosti/agentstvo-nedvizimosti-adresat-4" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Spravka</span><span class="ot-addr">Дзержинского, 1</span></td><td><span class="oc-rating na">—</span></td><td><a href="https://volgograd.spravka.ru/agentstva-nedvizhimosti/agentstvo-nedvizimosti-adresat" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Gorodwiki</span><span class="ot-addr">Быстрова, 78</span></td><td><span class="oc-rating mi">⭐ 3,5</span></td><td><a href="https://ru.gorodwiki.ru/volgograd/agentstvo-nedvizhimosti-adresat-28408-otzyvy" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Gorodwiki</span><span class="ot-addr">Дзержинского, 1</span></td><td><span class="oc-rating mi">⭐ 4,0</span></td><td><a href="https://ru.gorodwiki.ru/volgograd/adresat-983447-otzyvy" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">irecommend</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 2,0</span></td><td><a href="https://irecommend.ru/content/agentstvo-nedvizhimosti-adresat-volgograd" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Otzyvru</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating hi">⭐ 4,9</span></td><td><a href="https://www.otzyvru.com/adresat-agentstvo-nedvijimosti" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Retwork</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating na">—</span></td><td><a href="https://retwork.com/reviews/detail/?%20id=1175588" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating hi">⭐ 4,8</span></td><td><a href="https://ru.otzyv.com/agentstvo-nedvijimosti-adresat" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Rubrikator</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating mi">⭐ 4,0</span></td><td><a href="https://rubrikator.org/russia/volgograd/adresat" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Pravogolosa</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://pravogolosa.net/otzyvcategory?page=show_category&catid=79334&order=0&expand=0" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Dreamjob</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating mi">⭐ 4,2</span></td><td><a href="https://dreamjob.ru/employers/306523" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Aget-otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 3,4</span></td><td><a href="https://agent-otzyv.ru/volgograd/adresat-nedvizhimost/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Ruspravochnik</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 3,7</span></td><td><a href="https://volgograd.ruspravochnik.com/company/adresat-2" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">More-otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 1,43</span></td><td><a href="https://more-otzyv.ru/company/view/agentstvo-nedvizimosti-adresat-mosenniki-otzyvy-437585" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+    </table></div>
+  </div>
+
+  <div class="bc-content" data-branch="kan" style="display:none">
+    <div class="tbl-wrap"><table class="ot-tbl">
+      <tr><th>Сервис / Адрес</th><th>Рейтинг</th><th>Ссылка</th></tr>
+      <tr><td><span class="ot-name">Otzovik</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating mi">⭐ 4,2</span></td><td><a href="https://otzovik.com/reviews/agenstvo_nedvizhimosti_adresat_russia_volgograd/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Firmap</span></td><td><span class="oc-rating hi">9,7</span></td><td><a href="https://firmap.ru/volgograd/adresat-10466142" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Spr</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://yfo.spr.ru/volgograd/adresat-4062315.html" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Gdefirmi</span></td><td><span class="oc-rating hi">⭐ 4,7</span></td><td><a href="https://gdefirmi.ru/volgograd/agentstvo-nedvizhimosti-adresat-778682" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Ilike</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://llike.ru/volgograd/adresat_2" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Yell</span></td><td><span class="oc-rating hi">⭐ 4,8</span></td><td><a href="https://www.yell.ru/volgograd/com/adresat-nedvijimost_10310838/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Realty-firmika</span></td><td><span class="oc-rating mi">⭐ 4,0</span></td><td><a href="https://volgograd.realty-firmika.ru/firms.php?i=139237" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Spravka</span></td><td><span class="oc-rating na">—</span></td><td><a href="https://volgograd.spravka.ru/agentstva-nedvizhimosti/agentstvo-nedvizimosti-adresat-2" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">irecommend</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 2,0</span></td><td><a href="https://irecommend.ru/content/agentstvo-nedvizhimosti-adresat-volgograd" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Otzyvru</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating hi">⭐ 4,9</span></td><td><a href="https://www.otzyvru.com/adresat-agentstvo-nedvijimosti" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Retwork</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating na">—</span></td><td><a href="https://retwork.com/reviews/detail/?%20id=1175588" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating hi">⭐ 4,8</span></td><td><a href="https://ru.otzyv.com/agentstvo-nedvijimosti-adresat" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Rubrikator</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating mi">⭐ 4,0</span></td><td><a href="https://rubrikator.org/russia/volgograd/adresat" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Pravogolosa</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://pravogolosa.net/otzyvcategory?page=show_category&catid=79334&order=0&expand=0" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Dreamjob</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating mi">⭐ 4,2</span></td><td><a href="https://dreamjob.ru/employers/306523" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Aget-otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 3,4</span></td><td><a href="https://agent-otzyv.ru/volgograd/adresat-nedvizhimost/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Ruspravochnik</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 3,7</span></td><td><a href="https://volgograd.ruspravochnik.com/company/adresat-2" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">More-otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 1,43</span></td><td><a href="https://more-otzyv.ru/company/view/agentstvo-nedvizimosti-adresat-mosenniki-otzyvy-437585" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+    </table></div>
+  </div>
+
+  <div class="bc-content" data-branch="bys" style="display:none">
+    <div class="tbl-wrap"><table class="ot-tbl">
+      <tr><th>Сервис / Адрес</th><th>Рейтинг</th><th>Ссылка</th></tr>
+      <tr><td><span class="ot-name">Otzovik</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating mi">⭐ 4,2</span></td><td><a href="https://otzovik.com/reviews/agenstvo_nedvizhimosti_adresat_russia_volgograd/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Firmap</span></td><td><span class="oc-rating hi">9,7</span></td><td><a href="https://firmap.ru/volgograd/adresat-2190357" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Spr</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://yfo.spr.ru/volgograd/adresat-5118428.html" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Gdefirmi</span></td><td><span class="oc-rating hi">⭐ 4,8</span></td><td><a href="https://gdefirmi.ru/volgograd/agentstvo-nedvizhimosti-adresat-83740/3" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Ilike</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://llike.ru/volgograd/adresat_set_agentstv_nedvigimosti" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Yell</span></td><td><span class="oc-rating hi">⭐ 4,9</span></td><td><a href="https://www.yell.ru/volgograd/com/adresat_10310818/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Realty-firmika</span></td><td><span class="oc-rating mi">⭐ 4,0</span></td><td><a href="https://volgograd.realty-firmika.ru/firms.php?i=139227" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Spravka</span></td><td><span class="oc-rating mi">⭐ 4,5</span></td><td><a href="https://volgograd.spravka.ru/agentstva-nedvizhimosti/agentstvo-nedvizimosti-adresat-4" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Gorodwiki</span></td><td><span class="oc-rating mi">⭐ 3,5</span></td><td><a href="https://ru.gorodwiki.ru/volgograd/agentstvo-nedvizhimosti-adresat-28408-otzyvy" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">irecommend</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 2,0</span></td><td><a href="https://irecommend.ru/content/agentstvo-nedvizhimosti-adresat-volgograd" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Otzyvru</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating hi">⭐ 4,9</span></td><td><a href="https://www.otzyvru.com/adresat-agentstvo-nedvijimosti" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating hi">⭐ 4,8</span></td><td><a href="https://ru.otzyv.com/agentstvo-nedvijimosti-adresat" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Aget-otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 3,4</span></td><td><a href="https://agent-otzyv.ru/volgograd/adresat-nedvizhimost/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Ruspravochnik</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 3,7</span></td><td><a href="https://volgograd.ruspravochnik.com/company/adresat-2" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">More-otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 1,43</span></td><td><a href="https://more-otzyv.ru/company/view/agentstvo-nedvizimosti-adresat-mosenniki-otzyvy-437585" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+    </table></div>
+  </div>
+
+  <!-- DZE -->
+  <div class="bc-content" data-branch="dze" style="display:none">
+    <div class="tbl-wrap"><table class="ot-tbl">
+      <tr><th>Сервис / Адрес</th><th>Рейтинг</th><th>Ссылка</th></tr>
+      <tr><td><span class="ot-name">Otzovik</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating mi">⭐ 4,2</span></td><td><a href="https://otzovik.com/reviews/agenstvo_nedvizhimosti_adresat_russia_volgograd/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Firmap</span></td><td><span class="oc-rating hi">9,6</span></td><td><a href="https://firmap.ru/volgograd/adresat-2667075" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Spr</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://yfo.spr.ru/volgograd/adresat-5118429.html" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Gdefirmi</span></td><td><span class="oc-rating hi">⭐ 4,6</span></td><td><a href="https://gdefirmi.ru/volgograd/adresat-814964" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Ilike</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://llike.ru/volgograd/adresat" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Yell</span></td><td><span class="oc-rating hi">⭐ 4,8</span></td><td><a href="https://www.yell.ru/volgograd/com/adresat_10310824/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Realty-firmika</span></td><td><span class="oc-rating mi">⭐ 4,0</span></td><td><a href="https://volgograd.realty-firmika.ru/firms.php?i=139170" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Spravka</span></td><td><span class="oc-rating na">—</span></td><td><a href="https://volgograd.spravka.ru/agentstva-nedvizhimosti/agentstvo-nedvizimosti-adresat" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Gorodwiki</span></td><td><span class="oc-rating mi">⭐ 4,0</span></td><td><a href="https://ru.gorodwiki.ru/volgograd/adresat-983447-otzyvy" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">irecommend</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 2,0</span></td><td><a href="https://irecommend.ru/content/agentstvo-nedvizhimosti-adresat-volgograd" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Otzyvru</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating hi">⭐ 4,9</span></td><td><a href="https://www.otzyvru.com/adresat-agentstvo-nedvijimosti" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Retwork</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating na">—</span></td><td><a href="https://retwork.com/reviews/detail/?%20id=1175588" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating hi">⭐ 4,8</span></td><td><a href="https://ru.otzyv.com/agentstvo-nedvijimosti-adresat" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Aget-otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 3,4</span></td><td><a href="https://agent-otzyv.ru/volgograd/adresat-nedvizhimost/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Ruspravochnik</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 3,7</span></td><td><a href="https://volgograd.ruspravochnik.com/company/adresat-2" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">More-otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 1,43</span></td><td><a href="https://more-otzyv.ru/company/view/agentstvo-nedvizimosti-adresat-mosenniki-otzyvy-437585" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+    </table></div>
+  </div>
+
+  <div class="bc-content" data-branch="vol" style="display:none">
+    <div class="tbl-wrap"><table class="ot-tbl">
+      <tr><th>Сервис / Адрес</th><th>Рейтинг</th><th>Ссылка</th></tr>
+      <tr><td><span class="ot-name">Ilike</span></td><td><span class="oc-rating hi">⭐ 5,0</span></td><td><a href="https://agentstvo_nedvigimosti_adresat/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Yell</span></td><td><span class="oc-rating hi">⭐ 4,8</span></td><td><a href="https://www.yell.ru/volgograd/com/agentstvo-nedvizhimosti-adresat_12840571/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">irecommend</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 2,0</span></td><td><a href="https://irecommend.ru/content/agentstvo-nedvizhimosti-adresat-volgograd" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Otzyvru</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating hi">⭐ 4,9</span></td><td><a href="https://www.otzyvru.com/adresat-agentstvo-nedvijimosti" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Retwork</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating na">—</span></td><td><a href="https://retwork.com/reviews/detail/?%20id=1175588" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating hi">⭐ 4,8</span></td><td><a href="https://ru.otzyv.com/agentstvo-nedvijimosti-adresat" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Aget-otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 3,4</span></td><td><a href="https://agent-otzyv.ru/volgograd/adresat-nedvizhimost/" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">Ruspravochnik</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 3,7</span></td><td><a href="https://volgograd.ruspravochnik.com/company/adresat-2" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+      <tr><td><span class="ot-name">More-otzyv</span><span class="ot-addr">общий профиль</span></td><td><span class="oc-rating lo">⭐ 1,43</span></td><td><a href="https://more-otzyv.ru/company/view/agentstvo-nedvizimosti-adresat-mosenniki-otzyvy-437585" target="_blank" class="oc-btn">↗ Открыть</a></td></tr>
+    </table></div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- FOOTER -->
+<div class="ft">
+  <div class="ft-inner">
+    <div class="ft-logo">YOU<em>Я</em>ARR</div>
+    <div class="ft-text">Управление геосервисами · АН «Адресат», Волгоград · Июнь 2026</div>
+  </div>
+</div>
+
+<script>
+const BRANCH_NAMES = {
+  all: 'Общая сводка по всем филиалам',
+  kan: 'Канунникова, 15 — Ворошиловский р-н',
+  bys: 'Быстрова, 78 — Кировский р-н',
+  dze: 'Дзержинского, 1 — Тракторозаводский р-н',
+  vol: 'Волжский, ул. Дружбы 85а/12'
+};
+
+function setBranch(b) {
+  document.querySelectorAll('.bc-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('onclick') === "setBranch('" + b + "')");
+  });
+  document.getElementById('bbText').textContent = BRANCH_NAMES[b];
+  document.querySelectorAll('.bc-content').forEach(el => {
+    el.style.display = el.dataset.branch === b ? '' : 'none';
+  });
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function cpBtn(btn, url) {
+  navigator.clipboard.writeText(url).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Скопировано';
+    setTimeout(() => btn.textContent = orig, 1600);
+  });
+}
+</script>
+</body>
+</html>
