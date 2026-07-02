@@ -14,20 +14,11 @@
   --text: #2a1a14;
   --muted: #7a5a50;
   --accent: #e85d7a;
-  --accent2: #c84060;
   --green: #4a9e6a;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Montserrat", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
 
-body {
-  font-family: "Montserrat", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-}
-
-/* HEADER */
 .header {
   background: linear-gradient(135deg, #fff0eb 0%, #ffe8e0 60%, #ffd5cc 100%);
   border-bottom: 2px solid var(--border);
@@ -36,371 +27,100 @@ body {
   position: relative;
   overflow: hidden;
 }
-.header::before {
-  content: "";
-  position: absolute;
-  top: -60px; right: -60px;
-  width: 240px; height: 240px;
-  border-radius: 50%;
-  background: rgba(232,93,122,0.08);
-}
-.header::after {
-  content: "";
-  position: absolute;
-  bottom: -40px; left: -40px;
-  width: 180px; height: 180px;
-  border-radius: 50%;
-  background: rgba(74,158,106,0.07);
-}
+.header::before { content:""; position:absolute; top:-60px; right:-60px; width:240px; height:240px; border-radius:50%; background:rgba(232,93,122,0.08); }
+.header::after  { content:""; position:absolute; bottom:-40px; left:-40px; width:180px; height:180px; border-radius:50%; background:rgba(74,158,106,0.07); }
 
 .logo-wrap {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 110px; height: 110px;
-  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 110px; height: 110px; border-radius: 50%;
   background: #fff;
   box-shadow: 0 4px 24px rgba(232,93,122,0.18), 0 0 0 3px var(--accent);
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
+  margin-bottom: 20px; position: relative; z-index: 1;
 }
-.logo-wrap img {
-  width: 90px; height: 90px;
-  border-radius: 50%;
-  object-fit: contain;
-}
+.logo-wrap img { width:90px; height:90px; border-radius:50%; object-fit:contain; }
 
-.header-badge {
-  display: inline-block;
-  background: var(--accent);
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 4px 14px;
-  border-radius: 20px;
-  margin-bottom: 12px;
-}
+.header-badge { display:inline-block; background:var(--accent); color:#fff; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:4px 14px; border-radius:20px; margin-bottom:12px; }
+.header h1 { font-family:"Cormorant Garamond",serif; font-size:clamp(22px,5vw,34px); font-weight:600; color:var(--text); margin-bottom:6px; position:relative; z-index:1; }
+.header-sub { font-size:13px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; position:relative; z-index:1; }
+.yourarr-badge { display:inline-flex; margin-top:14px; font-size:13px; font-weight:800; letter-spacing:3px; color:#2a1a14; }
+.yourarr-badge .r { color:var(--accent); }
 
-.header h1 {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(22px, 5vw, 34px);
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 6px;
-  position: relative; z-index: 1;
-}
+.container { max-width:800px; margin:0 auto; padding:0 16px 64px; }
 
-.header-sub {
-  font-size: 13px;
-  color: var(--muted);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  position: relative; z-index: 1;
-}
+.section { margin-top:40px; }
+.section-header { display:flex; align-items:center; gap:14px; margin-bottom:20px; padding-bottom:12px; border-bottom:1.5px solid var(--border); }
+.section-num { font-family:"Cormorant Garamond",serif; font-size:36px; font-weight:400; color:var(--accent); line-height:1; min-width:40px; }
+.section-title { font-size:15px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--text); }
 
-.yourarr-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-  margin-top: 14px;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  color: #2a1a14;
-}
-.yourarr-badge .r { color: var(--accent); }
+.cards-row { display:flex; gap:14px; flex-wrap:wrap; }
+.cards-row .card { flex:1; min-width:240px; }
 
-/* MAIN */
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 16px 64px;
-}
+.card { background:var(--card); border:1.5px solid var(--border); border-radius:14px; padding:20px 22px; }
+.card-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); margin-bottom:4px; }
+.card-desc { font-size:12px; color:var(--muted); margin-bottom:14px; }
+.btn-row { display:flex; gap:10px; }
+.btn { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:8px; font-size:12px; font-weight:600; text-decoration:none; cursor:pointer; border:none; font-family:"Montserrat",sans-serif; letter-spacing:0.5px; transition:opacity 0.15s; }
+.btn:hover { opacity:0.85; }
+.btn-open { background:var(--accent); color:#fff; }
+.btn-copy { background:#fff; color:var(--accent); border:1.5px solid var(--accent); }
 
-/* SECTION */
-.section { margin-top: 40px; }
-
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 1.5px solid var(--border);
-}
-
-.section-num {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 36px;
-  font-weight: 400;
-  color: var(--accent);
-  line-height: 1;
-  min-width: 40px;
-}
-
-.section-title {
-  font-size: 15px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--text);
-}
-
-/* CARDS — side by side */
-.cards-row {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.cards-row .card { flex: 1; min-width: 260px; }
-
-.card {
-  background: var(--card);
-  border: 1.5px solid var(--border);
-  border-radius: 14px;
-  padding: 20px 22px;
-  margin-bottom: 0;
-}
-
-.card-label {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--muted);
-  margin-bottom: 4px;
-}
-
-.card-desc {
-  font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 14px;
-}
-
-.btn-row {
-  display: flex;
-  gap: 10px;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-  font-family: "Montserrat", sans-serif;
-  letter-spacing: 0.5px;
-  transition: opacity 0.15s;
-}
-.btn:hover { opacity: 0.85; }
-.btn-open { background: var(--accent); color: #fff; }
-.btn-copy { background: #fff; color: var(--accent); border: 1.5px solid var(--accent); }
-
-/* RATING TABLE */
-.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.table-wrap table {
-  width: 100%;
-  min-width: 480px;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-.table-wrap th {
-  background: var(--bg2);
-  padding: 10px 14px;
-  text-align: left;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--muted);
-  border-bottom: 2px solid var(--border);
-}
-.table-wrap td {
-  padding: 11px 14px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: middle;
-}
-.table-wrap tr:last-child td { border-bottom: none; }
-.table-wrap a { color: var(--accent); text-decoration: none; font-weight: 600; }
-.table-wrap tr.total-row td { font-weight: 700; background: var(--bg2); }
-
-.dyn-up { color: var(--green); font-weight: 700; }
-.dyn-down { color: #c0392b; font-weight: 700; }
-.dyn-flat { color: var(--muted); }
-
-/* STAT GRID */
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.stat-card {
-  background: var(--card);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  padding: 16px 12px;
-  text-align: center;
-}
-
-.stat-val {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 28px;
-  font-weight: 600;
-  color: var(--text);
-  line-height: 1.1;
-}
-
-.stat-lbl {
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 4px;
-  line-height: 1.3;
-}
-
-.stat-dyn {
-  font-size: 11px;
-  font-weight: 700;
-  margin-top: 6px;
-}
-.stat-dyn.up { color: var(--green); }
-.stat-dyn.down { color: #c0392b; }
-.stat-dyn.flat { color: var(--muted); }
-
-/* CHART BLOCK */
-.chart-block {
-  background: var(--card);
-  border: 1.5px solid var(--border);
-  border-radius: 14px;
-  padding: 20px 20px 16px;
-  margin-bottom: 14px;
-}
-
-.chart-title {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-
-.barchart {
-  display: flex;
-  align-items: flex-end;
-  gap: 6px;
-  height: 120px;
-}
-
-.barchart-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  justify-content: flex-end;
-  gap: 3px;
-}
-
-.barchart-val {
-  font-size: 9px;
-  font-weight: 700;
-  color: var(--text);
-  text-align: center;
-  line-height: 1.1;
-}
-
-.barchart-bar {
-  width: 100%;
-  border-radius: 4px 4px 0 0;
-  min-height: 4px;
-}
-
-.barchart-lbl {
-  font-size: 9px;
-  color: var(--muted);
-  text-align: center;
-  white-space: nowrap;
-}
-
-/* WORKS LIST */
-.works-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.works-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--text);
-  line-height: 1.5;
-}
-
-.works-list li::before {
-  content: "✿";
-  color: var(--accent);
-  font-size: 12px;
-  margin-top: 2px;
-  flex-shrink: 0;
-}
-
+/* ТАБЛИЦЫ — scroll-hint ВСЕГДА виден на мобиле, убираем display:none */
+.table-outer { overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:12px; border:1.5px solid var(--border); }
 .scroll-hint {
-  text-align: center;
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 6px;
-  display: none;
+  text-align:center; font-size:11px; color:var(--muted);
+  margin-top:8px; padding:4px 0;
+  display:block;  /* всегда виден */
 }
-@media(max-width: 600px) { .scroll-hint { display: block; } }
+/* Прячем на широком экране */
+@media(min-width:640px) { .scroll-hint { display:none; } }
 
-/* FOOTER */
-.footer {
-  background: linear-gradient(135deg, #fff0eb 0%, #ffe8e0 100%);
-  border-top: 2px solid var(--border);
-  padding: 32px;
-  text-align: center;
-  margin-top: 40px;
-}
-.footer-logo {
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  color: #2a1a14;
-  margin-bottom: 8px;
-}
-.footer-logo .r { color: var(--accent); }
-.footer-info { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
-.footer-client {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 16px;
-  color: var(--text);
-  margin-top: 10px;
-}
+.table-outer table { width:100%; min-width:480px; border-collapse:collapse; font-size:13px; }
+.table-outer th { background:var(--bg2); padding:10px 14px; text-align:left; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--muted); border-bottom:2px solid var(--border); }
+.table-outer td { padding:11px 14px; border-bottom:1px solid var(--border); vertical-align:middle; }
+.table-outer tr:last-child td { border-bottom:none; }
+.table-outer a { color:var(--accent); text-decoration:none; font-weight:600; }
+.table-outer tr.total-row td { font-weight:700; background:var(--bg2); }
 
-@media(max-width: 600px) {
-  .header { padding: 32px 16px 28px; }
-  .stat-grid { grid-template-columns: 1fr 1fr; }
-  .cards-row { flex-direction: column; }
+.dyn-up { color:var(--green); font-weight:700; }
+.dyn-down { color:#c0392b; font-weight:700; }
+.dyn-flat { color:var(--muted); }
+
+.stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:20px; }
+.stat-card { background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:16px 12px; text-align:center; }
+.stat-val { font-family:"Cormorant Garamond",serif; font-size:28px; font-weight:600; color:var(--text); line-height:1.1; }
+.stat-lbl { font-size:11px; color:var(--muted); margin-top:4px; line-height:1.3; }
+.stat-dyn { font-size:11px; font-weight:700; margin-top:6px; }
+.stat-dyn.up { color:var(--green); }
+.stat-dyn.down { color:#c0392b; }
+.stat-dyn.flat { color:var(--muted); }
+
+.chart-block { background:var(--card); border:1.5px solid var(--border); border-radius:14px; padding:20px 20px 16px; margin-bottom:14px; }
+.chart-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:16px; }
+.barchart { display:flex; align-items:flex-end; gap:6px; height:120px; }
+.barchart-item { flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end; gap:3px; }
+.barchart-val { font-size:9px; font-weight:700; color:var(--text); text-align:center; line-height:1.1; }
+.barchart-bar { width:100%; border-radius:4px 4px 0 0; min-height:4px; }
+.barchart-lbl { font-size:9px; color:var(--muted); text-align:center; white-space:nowrap; }
+
+.works-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.works-list li { display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--text); line-height:1.5; }
+.works-list li::before { content:"✿"; color:var(--accent); font-size:12px; margin-top:2px; flex-shrink:0; }
+
+.footer { background:linear-gradient(135deg,#fff0eb 0%,#ffe8e0 100%); border-top:2px solid var(--border); padding:32px; text-align:center; margin-top:40px; }
+.footer-logo { font-size:20px; font-weight:800; letter-spacing:3px; color:#2a1a14; margin-bottom:8px; }
+.footer-logo .r { color:var(--accent); }
+.footer-info { font-size:12px; color:var(--muted); margin-bottom:4px; }
+.footer-client { font-family:"Cormorant Garamond",serif; font-size:16px; color:var(--text); margin-top:10px; }
+
+@media(max-width:600px) {
+  .header { padding:32px 16px 28px; }
+  .stat-grid { grid-template-columns:1fr 1fr; }
+  .cards-row { flex-direction:column; }
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div style="position:relative;z-index:1;">
     <div class="logo-wrap">
@@ -415,7 +135,7 @@ body {
 
 <div class="container">
 
-<!-- 01 ВЫПОЛНЕННЫЕ РАБОТЫ -->
+<!-- 01 -->
 <div class="section">
   <div class="section-header">
     <div class="section-num">01</div>
@@ -438,7 +158,7 @@ body {
   </div>
 </div>
 
-<!-- 02 ССЫЛКИ ДЛЯ СБОРА ОТЗЫВОВ — рядом -->
+<!-- 02 -->
 <div class="section">
   <div class="section-header">
     <div class="section-num">02</div>
@@ -450,7 +170,7 @@ body {
       <div class="card-desc">Передайте клиенту — он попадёт прямо на форму отзыва</div>
       <div class="btn-row">
         <a class="btn btn-open" href="https://yandex.ru/maps/org/1400956608?add-review=true" target="_blank">↗ Открыть</a>
-        <button class="btn btn-copy" onclick="navigator.clipboard.writeText('https://yandex.ru/maps/org/1400956608?add-review=true').then(function(){var b=this;b.textContent='✓ Скопировано';setTimeout(function(){b.textContent='⌧ Скопировать'},2000)}.bind(this))">⌧ Скопировать</button>
+        <button class="btn btn-copy" onclick="var b=this;navigator.clipboard.writeText('https://yandex.ru/maps/org/1400956608?add-review=true').then(function(){b.textContent='✓ Скопировано';setTimeout(function(){b.textContent='⌧ Скопировать'},2000)})">⌧ Скопировать</button>
       </div>
     </div>
     <div class="card">
@@ -458,25 +178,21 @@ body {
       <div class="card-desc">Передайте клиенту — он попадёт прямо на форму отзыва</div>
       <div class="btn-row">
         <a class="btn btn-open" href="https://2gis.ru/reviews/70000001019442528/addReview" target="_blank">↗ Открыть</a>
-        <button class="btn btn-copy" onclick="navigator.clipboard.writeText('https://2gis.ru/reviews/70000001019442528/addReview').then(function(){var b=this;b.textContent='✓ Скопировано';setTimeout(function(){b.textContent='⌧ Скопировать'},2000)}.bind(this))">⌧ Скопировать</button>
+        <button class="btn btn-copy" onclick="var b=this;navigator.clipboard.writeText('https://2gis.ru/reviews/70000001019442528/addReview').then(function(){b.textContent='✓ Скопировано';setTimeout(function(){b.textContent='⌧ Скопировать'},2000)})">⌧ Скопировать</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 03 РЕЙТИНГ -->
+<!-- 03 -->
 <div class="section">
   <div class="section-header">
     <div class="section-num">03</div>
     <div class="section-title">Рейтинг на геосервисах</div>
   </div>
-  <div class="table-wrap">
+  <div class="table-outer">
     <table>
-      <thead>
-        <tr>
-          <th>#</th><th>Геосервис</th><th>Рейтинг</th><th>Динамика</th><th>Ссылка</th>
-        </tr>
-      </thead>
+      <thead><tr><th>#</th><th>Геосервис</th><th>Рейтинг</th><th>Динамика</th><th>Ссылка</th></tr></thead>
       <tbody>
         <tr><td>1</td><td>Яндекс Карты</td><td>⭐ 5,0</td><td class="dyn-flat">— без изм.</td><td><a href="https://yandex.ru/maps/org/1400956608" target="_blank">→ Открыть</a></td></tr>
         <tr><td>2</td><td>2ГИС</td><td>⭐ 5,0</td><td class="dyn-flat">— без изм.</td><td><a href="https://go.2gis.com/U3sDe" target="_blank">→ Открыть</a></td></tr>
@@ -489,155 +205,70 @@ body {
   <div class="scroll-hint">← листайте вправо →</div>
 </div>
 
-<!-- 04 ЯНДЕКС БИЗНЕС -->
+<!-- 04 ЯНДЕКС -->
 <div class="section">
   <div class="section-header">
     <div class="section-num">04</div>
     <div class="section-title">Статистика Яндекс Бизнес</div>
   </div>
   <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Профиль · Июнь 2026</div>
-
   <div class="stat-grid">
-    <div class="stat-card">
-      <div class="stat-val">4 558</div>
-      <div class="stat-lbl">Переходов в профиль</div>
-      <div class="stat-dyn up">▲ +6% vs май</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val">96</div>
-      <div class="stat-lbl">Проложено маршрутов</div>
-      <div class="stat-dyn up">▲ +1% vs май</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val">25</div>
-      <div class="stat-lbl">Нажатий «Позвонить»</div>
-      <div class="stat-dyn down">▼ −74% vs май</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val">91</div>
-      <div class="stat-lbl">Переходов на сайт</div>
-      <div class="stat-dyn up">▲ +17% vs май</div>
-    </div>
+    <div class="stat-card"><div class="stat-val">4 558</div><div class="stat-lbl">Переходов в профиль</div><div class="stat-dyn up">▲ +6% vs май</div></div>
+    <div class="stat-card"><div class="stat-val">96</div><div class="stat-lbl">Проложено маршрутов</div><div class="stat-dyn up">▲ +1% vs май</div></div>
+    <div class="stat-card"><div class="stat-val">25</div><div class="stat-lbl">Нажатий «Позвонить»</div><div class="stat-dyn down">▼ −74% vs май</div></div>
+    <div class="stat-card"><div class="stat-val">91</div><div class="stat-lbl">Переходов на сайт</div><div class="stat-dyn up">▲ +17% vs май</div></div>
   </div>
-
-  <div class="chart-block">
-    <div class="chart-title">Переходов в профиль компании</div>
-    <div class="barchart" id="ynd-profile"></div>
-  </div>
-  <div class="chart-block">
-    <div class="chart-title">Проложено маршрутов</div>
-    <div class="barchart" id="ynd-routes"></div>
-  </div>
-  <div class="chart-block">
-    <div class="chart-title">Нажатий «Позвонить»</div>
-    <div class="barchart" id="ynd-calls"></div>
-  </div>
-  <div class="chart-block">
-    <div class="chart-title">Переходов на сайт</div>
-    <div class="barchart" id="ynd-site"></div>
-  </div>
+  <div class="chart-block"><div class="chart-title">Переходов в профиль компании</div><div class="barchart" id="ynd-profile"></div></div>
+  <div class="chart-block"><div class="chart-title">Проложено маршрутов</div><div class="barchart" id="ynd-routes"></div></div>
+  <div class="chart-block"><div class="chart-title">Нажатий «Позвонить»</div><div class="barchart" id="ynd-calls"></div></div>
+  <div class="chart-block"><div class="chart-title">Переходов на сайт</div><div class="barchart" id="ynd-site"></div></div>
 </div>
 
-<!-- 05 2ГИС ПРОФИЛЬ -->
+<!-- 05 2ГИС -->
 <div class="section">
   <div class="section-header">
     <div class="section-num">05</div>
     <div class="section-title">Статистика 2ГИС</div>
   </div>
   <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Профиль · Июнь 2026</div>
-
   <div class="stat-grid">
-    <div class="stat-card">
-      <div class="stat-val">49</div>
-      <div class="stat-lbl">Показы карточки</div>
-      <div class="stat-dyn down">▼ −30% vs май</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val">11</div>
-      <div class="stat-lbl">Позиция в выдаче</div>
-      <div class="stat-dyn up">▲ улучшение на 2 поз.</div>
-    </div>
+    <div class="stat-card"><div class="stat-val">49</div><div class="stat-lbl">Показы карточки</div><div class="stat-dyn down">▼ −30% vs май</div></div>
+    <div class="stat-card"><div class="stat-val">11</div><div class="stat-lbl">Позиция в выдаче</div><div class="stat-dyn up">▲ улучшение на 2 поз.</div></div>
   </div>
-
-  <div class="chart-block">
-    <div class="chart-title">Показы карточки</div>
-    <div class="barchart" id="gis-shows"></div>
-  </div>
-  <div class="chart-block">
-    <div class="chart-title">Средняя позиция в выдаче (чем меньше — тем лучше)</div>
-    <div class="barchart" id="gis-pos"></div>
-  </div>
+  <div class="chart-block"><div class="chart-title">Показы карточки</div><div class="barchart" id="gis-shows"></div></div>
+  <div class="chart-block"><div class="chart-title">Средняя позиция в выдаче (чем меньше — тем лучше)</div><div class="barchart" id="gis-pos"></div></div>
 </div>
 
-<!-- 06 GOOGLE MAPS -->
+<!-- 06 GOOGLE -->
 <div class="section">
   <div class="section-header">
     <div class="section-num">06</div>
     <div class="section-title">Статистика Google Maps</div>
   </div>
   <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Профиль · Июнь 2026</div>
-
   <div class="stat-grid">
-    <div class="stat-card">
-      <div class="stat-val">268</div>
-      <div class="stat-lbl">Просмотры профиля</div>
-      <div class="stat-dyn down">▼ −34% vs май</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val">0</div>
-      <div class="stat-lbl">Звонки</div>
-      <div class="stat-dyn down">▼ −100% vs май</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val">1</div>
-      <div class="stat-lbl">Клики в чат</div>
-      <div class="stat-dyn flat">— без изм.</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val">48</div>
-      <div class="stat-lbl">Маршруты</div>
-      <div class="stat-dyn up">▲ +12% vs май</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val">16</div>
-      <div class="stat-lbl">Переходы на сайт</div>
-      <div class="stat-dyn down">▼ −50% vs май</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val">65</div>
-      <div class="stat-lbl">Итого действий</div>
-      <div class="stat-dyn down">▼ −22% vs май</div>
-    </div>
+    <div class="stat-card"><div class="stat-val">268</div><div class="stat-lbl">Просмотры профиля</div><div class="stat-dyn down">▼ −34% vs май</div></div>
+    <div class="stat-card"><div class="stat-val">0</div><div class="stat-lbl">Звонки</div><div class="stat-dyn down">▼ −100% vs май</div></div>
+    <div class="stat-card"><div class="stat-val">1</div><div class="stat-lbl">Клики в чат</div><div class="stat-dyn flat">— без изм.</div></div>
+    <div class="stat-card"><div class="stat-val">48</div><div class="stat-lbl">Маршруты</div><div class="stat-dyn up">▲ +12% vs май</div></div>
+    <div class="stat-card"><div class="stat-val">16</div><div class="stat-lbl">Переходы на сайт</div><div class="stat-dyn down">▼ −50% vs май</div></div>
+    <div class="stat-card"><div class="stat-val">65</div><div class="stat-lbl">Итого действий</div><div class="stat-dyn down">▼ −22% vs май</div></div>
   </div>
-
-  <div class="chart-block">
-    <div class="chart-title">Просмотры профиля компании</div>
-    <div class="barchart" id="ggl-views"></div>
-  </div>
-  <div class="chart-block">
-    <div class="chart-title">Маршруты</div>
-    <div class="barchart" id="ggl-routes"></div>
-  </div>
-  <div class="chart-block">
-    <div class="chart-title">Переходы на сайт</div>
-    <div class="barchart" id="ggl-site"></div>
-  </div>
+  <div class="chart-block"><div class="chart-title">Просмотры профиля компании</div><div class="barchart" id="ggl-views"></div></div>
+  <div class="chart-block"><div class="chart-title">Маршруты</div><div class="barchart" id="ggl-routes"></div></div>
+  <div class="chart-block"><div class="chart-title">Переходы на сайт</div><div class="barchart" id="ggl-site"></div></div>
 </div>
 
-<!-- 07 УПРАВЛЕНИЕ ОТЗЫВАМИ -->
+<!-- 07 ОТЗЫВЫ -->
 <div class="section">
   <div class="section-header">
     <div class="section-num">07</div>
     <div class="section-title">Управление отзывами</div>
   </div>
   <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Июнь 2026</div>
-  <div class="table-wrap">
+  <div class="table-outer">
     <table>
-      <thead>
-        <tr>
-          <th>Геосервис</th><th>Всего</th><th>Хорошие (4–5★)</th><th>Плохие (1–3★)</th><th>Удалено нами</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Геосервис</th><th>Всего</th><th>Хорошие (4–5★)</th><th>Плохие (1–3★)</th><th>Удалено нами</th></tr></thead>
       <tbody>
         <tr><td>Яндекс Карты</td><td>3</td><td>2</td><td>1</td><td>1</td></tr>
         <tr><td>2ГИС</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
@@ -651,9 +282,8 @@ body {
   <div class="scroll-hint">← листайте вправо →</div>
 </div>
 
-</div><!-- /container -->
+</div>
 
-<!-- FOOTER -->
 <div class="footer">
   <div class="footer-logo">YOU<span class="r">Я</span>ARR</div>
   <div class="footer-info">Управление репутацией на геосервисах</div>
@@ -661,7 +291,6 @@ body {
 </div>
 
 <script>
-// Строим чарты после полной загрузки DOM
 (function() {
   var ACCENT = "#e85d7a";
   var LIGHT  = "#f5b8ca";
@@ -670,35 +299,31 @@ body {
   function buildChart(id, values) {
     var el = document.getElementById(id);
     if (!el) return;
-    var max = Math.max.apply(null, values);
+    var max = 0;
+    for (var i = 0; i < values.length; i++) { if (values[i] > max) max = values[i]; }
     var html = "";
-    for (var i = 0; i < values.length; i++) {
-      var isLast = (i === values.length - 1);
-      var pct = max > 0 ? Math.round(values[i] / max * 85 + 10) : 10;
+    for (var j = 0; j < values.length; j++) {
+      var isLast = (j === values.length - 1);
+      var pct = max > 0 ? Math.round(values[j] / max * 85 + 10) : 10;
       var color = isLast ? ACCENT : LIGHT;
-      html += '<div class="barchart-item">' +
-        '<div class="barchart-val">' + values[i] + "</div>" +
-        '<div class="barchart-bar" style="height:' + pct + '%;background:' + color + '"></div>' +
-        '<div class="barchart-lbl">' + MONTHS[i] + "</div>" +
+      html += "<div class="barchart-item">" +
+        "<div class="barchart-val">" + values[j] + "</div>" +
+        "<div class="barchart-bar" style="height:" + pct + "%;background:" + color + ""></div>" +
+        "<div class="barchart-lbl">" + MONTHS[j] + "</div>" +
         "</div>";
     }
     el.innerHTML = html;
   }
 
-  // Яндекс
   buildChart("ynd-profile", [2583, 3816, 6916, 3881, 4294, 4558]);
   buildChart("ynd-routes",  [101,  138,  128,  99,   95,   96]);
   buildChart("ynd-calls",   [56,   61,   69,   38,   97,   25]);
   buildChart("ynd-site",    [81,   100,  152,  73,   78,   91]);
-
-  // 2ГИС
-  buildChart("gis-shows", [58, 61, 86, 94, 70, 49]);
-  buildChart("gis-pos",   [3,  17, 15, 11, 13, 11]);
-
-  // Google
-  buildChart("ggl-views",  [437, 393, 690, 449, 404, 268]);
-  buildChart("ggl-routes", [41,  47,  53,  48,  43,  48]);
-  buildChart("ggl-site",   [13,  15,  25,  15,  32,  16]);
+  buildChart("gis-shows",   [58,   61,   86,   94,   70,   49]);
+  buildChart("gis-pos",     [3,    17,   15,   11,   13,   11]);
+  buildChart("ggl-views",   [437,  393,  690,  449,  404,  268]);
+  buildChart("ggl-routes",  [41,   47,   53,   48,   43,   48]);
+  buildChart("ggl-site",    [13,   15,   25,   15,   32,   16]);
 })();
 </script>
 </body>
