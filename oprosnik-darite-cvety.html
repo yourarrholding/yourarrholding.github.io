@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Опросник — Дарите Цветы Просто Так</title>
+<style>
+:root {
+  --accent: #e85d7a;
+  --accent2: #c84060;
+  --green: #4a9e6a;
+  --bg: #fff8f5;
+  --bg2: #fff0eb;
+  --border: #f5d5c8;
+  --text: #2a1a14;
+  --muted: #7a5a50;
+  --card: #ffffff;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  padding-bottom: 60px;
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #fff0eb, #ffe8e0 60%, #ffd5cc);
+  border-bottom: 2px solid var(--border);
+  padding: 28px 24px 24px;
+  text-align: center;
+}
+.header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.header p {
+  font-size: 13px;
+  color: var(--muted);
+}
+.yourarr {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--text);
+}
+.yourarr .r { color: var(--accent); }
+
+/* PERIOD BLOCK */
+.period-bar {
+  background: var(--accent);
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* MAIN */
+.container { max-width: 700px; margin: 0 auto; padding: 0 16px; }
+
+/* SECTION */
+.section {
+  margin-top: 28px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.section-head {
+  background: var(--bg2);
+  border-bottom: 1.5px solid var(--border);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-num {
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.section-sub {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-top: 1px;
+}
+
+.section-body { padding: 18px 20px; }
+
+/* FIELD GROUPS */
+.field-group {
+  margin-bottom: 18px;
+}
+.field-group:last-child { margin-bottom: 0; }
+
+.group-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* FIELD ROW */
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.field-row:last-child { margin-bottom: 0; }
+
+.field-label {
+  font-size: 13px;
+  color: var(--text);
+  flex: 1;
+  min-width: 0;
+}
+.field-label .hint {
+  font-size: 11px;
+  color: var(--muted);
+  display: block;
+}
+
+.field-input {
+  width: 100px;
+  flex-shrink: 0;
+  padding: 7px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text);
+  background: var(--bg);
+  outline: none;
+  transition: border-color 0.15s;
+  font-family: inherit;
+}
+.field-input:focus {
+  border-color: var(--accent);
+  background: #fff;
+}
+.field-input::placeholder { color: #ccc; font-weight: 400; }
+
+/* Два поля рядом (текущий / предыдущий) */
+.two-inputs {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.two-inputs .fi-label {
+  font-size: 9px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 2px;
+}
+.two-inputs input {
+  width: 80px;
+  padding: 7px 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text);
+  background: var(--bg);
+  outline: none;
+  transition: border-color 0.15s;
+  font-family: inherit;
+}
+.two-inputs input:focus {
+  border-color: var(--accent);
+  background: #fff;
+}
+.two-inputs input::placeholder { color: #ccc; font-weight: 400; }
+.two-inputs .cur input { border-color: var(--accent); }
+
+/* RATING ROW */
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  background: var(--bg);
+  border-radius: 10px;
+}
+.rating-row:last-child { margin-bottom: 0; }
+.rating-name {
+  font-size: 13px;
+  font-weight: 600;
+  flex: 1;
+}
+.rating-input {
+  width: 70px;
+  padding: 6px 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text);
+  background: #fff;
+  outline: none;
+  font-family: inherit;
+}
+.rating-input:focus { border-color: var(--accent); }
+.rating-badge {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+  width: 60px;
+  text-align: center;
+}
+.badge-up { background: #d4f5e2; color: #2d7a4a; }
+.badge-flat { background: #f0f0f0; color: #888; }
+.badge-down { background: #fde8ec; color: var(--accent2); }
+
+/* REVIEWS TABLE */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr repeat(4, 80px);
+  gap: 0;
+  font-size: 12px;
+}
+.rg-head {
+  background: var(--bg2);
+  padding: 8px 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  border-bottom: 1.5px solid var(--border);
+  text-align: center;
+}
+.rg-head:first-child { text-align: left; border-radius: 8px 0 0 0; }
+.rg-last-head { border-radius: 0 8px 0 0; }
+.rg-name {
+  padding: 10px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+.rg-cell {
+  padding: 6px 4px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rg-cell input {
+  width: 60px;
+  padding: 5px 4px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  background: var(--bg);
+  outline: none;
+  font-family: inherit;
+}
+.rg-cell input:focus { border-color: var(--accent); background: #fff; }
+
+/* INFO NOTE */
+.info-note {
+  background: #fff8e8;
+  border: 1px solid #f5d87a;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #7a6020;
+  margin-bottom: 14px;
+}
+
+/* COPY BUTTON */
+.copy-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 24px;
+  font-family: inherit;
+  letter-spacing: 0.5px;
+  transition: background 0.15s;
+}
+.copy-btn:hover { background: var(--accent2); }
+.copy-btn:active { transform: scale(0.98); }
+
+.copy-result {
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: #d4f5e2;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #2d7a4a;
+  font-weight: 600;
+  text-align: center;
+  display: none;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  margin-top: 32px;
+  padding: 20px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+@media(max-width: 500px) {
+  .two-inputs input { width: 68px; }
+  .reviews-grid { grid-template-columns: 1fr repeat(4, 64px); }
+  .rg-cell input { width: 50px; }
+  .rating-badge { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Дарите Цветы Просто Так</h1>
+  <p>Опросник для ежемесячного отчёта по геосервисам</p>
+  <div class="yourarr">YOU<span class="r">Я</span>ARR</div>
+</div>
+
+<div class="period-bar" id="period-bar">
+  Заполните поля ниже и нажмите «Скопировать данные»
+</div>
+
+<div class="container">
+
+<!-- ПЕРИОД -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">0</div>
+    <div>
+      <div class="section-title">Период отчёта</div>
+      <div class="section-sub">Укажите месяц и год</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="field-row">
+      <div class="field-label">Месяц и год отчёта</div>
+      <input class="field-input" type="text" id="period" placeholder="Июль 2026" style="width:160px;">
+    </div>
+  </div>
+</div>
+
+<!-- 1. РЕЙТИНГИ -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">1</div>
+    <div>
+      <div class="section-title">Рейтинги на геосервисах</div>
+      <div class="section-sub">Текущий рейтинг на каждой площадке</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="rating-row">
+      <div class="rating-name">&#11088; Яндекс Карты</div>
+      <input class="rating-input" type="text" id="r-yandex" placeholder="5.0">
+    </div>
+    <div class="rating-row">
+      <div class="rating-name">&#11088; 2ГИС</div>
+      <input class="rating-input" type="text" id="r-2gis" placeholder="5.0">
+    </div>
+    <div class="rating-row">
+      <div class="rating-name">&#11088; Google Maps</div>
+      <input class="rating-input" type="text" id="r-google" placeholder="4.3">
+    </div>
+    <div class="rating-row">
+      <div class="rating-name">&#11088; Zoon</div>
+      <input class="rating-input" type="text" id="r-zoon" placeholder="4.1">
+    </div>
+    <div class="rating-row">
+      <div class="rating-name">&#11088; Flamp</div>
+      <input class="rating-input" type="text" id="r-flamp" placeholder="—">
+    </div>
+  </div>
+</div>
+
+<!-- 2. ЯНДЕКС КАРТЫ — органика -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">2</div>
+    <div>
+      <div class="section-title">Яндекс Карты — статистика профиля</div>
+      <div class="section-sub">Органическая статистика из Яндекс Бизнес → Статистика</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="info-note">
+      Яндекс Бизнес → Статистика → выбрать период (текущий месяц). Вводите два значения: текущий месяц и предыдущий (для расчёта динамики).
+    </div>
+
+    <div class="field-group">
+      <div class="group-label">Переходы в профиль</div>
+
+      <div class="field-row">
+        <div class="field-label">Поиск</div>
+        <div class="two-inputs">
+          <div class="cur">
+            <div class="fi-label">Текущий</div>
+            <input type="number" id="yn-search-cur" placeholder="0" min="0">
+          </div>
+          <div>
+            <div class="fi-label">Предыдущий</div>
+            <input type="number" id="yn-search-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-label">Карты</div>
+        <div class="two-inputs">
+          <div class="cur">
+            <div class="fi-label">Текущий</div>
+            <input type="number" id="yn-maps-cur" placeholder="0" min="0">
+          </div>
+          <div>
+            <div class="fi-label">Предыдущий</div>
+            <input type="number" id="yn-maps-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-label">Навигатор</div>
+        <div class="two-inputs">
+          <div class="cur">
+            <div class="fi-label">Текущий</div>
+            <input type="number" id="yn-nav-cur" placeholder="0" min="0">
+          </div>
+          <div>
+            <div class="fi-label">Предыдущий</div>
+            <input type="number" id="yn-nav-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <div class="group-label">Целевые действия</div>
+
+      <div class="field-row">
+        <div class="field-label">Позвонить</div>
+        <div class="two-inputs">
+          <div class="cur">
+            <div class="fi-label">Текущий</div>
+            <input type="number" id="yn-calls-cur" placeholder="0" min="0">
+          </div>
+          <div>
+            <div class="fi-label">Предыдущий</div>
+            <input type="number" id="yn-calls-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-label">Маршруты</div>
+        <div class="two-inputs">
+          <div class="cur">
+            <div class="fi-label">Текущий</div>
+            <input type="number" id="yn-routes-cur" placeholder="0" min="0">
+          </div>
+          <div>
+            <div class="fi-label">Предыдущий</div>
+            <input type="number" id="yn-routes-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-label">Сайт</div>
+        <div class="two-inputs">
+          <div class="cur">
+            <div class="fi-label">Текущий</div>
+            <input type="number" id="yn-site-cur" placeholder="0" min="0">
+          </div>
+          <div>
+            <div class="fi-label">Предыдущий</div>
+            <input type="number" id="yn-site-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. ЯНДЕКС РЕКЛАМА -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">3</div>
+    <div>
+      <div class="section-title">Яндекс Бизнес — Реклама</div>
+      <div class="section-sub">Яндекс Бизнес → Продвижение → Статистика</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="info-note">
+      Раздел «Продвижение» → вкладка «Статистика» → период «Месяц». Если рекламы нет — оставьте пустым.
+    </div>
+
+    <div class="field-group">
+      <div class="group-label">Посещаемость (просмотры профиля)</div>
+
+      <div class="field-row">
+        <div class="field-label">Внешняя реклама</div>
+        <div class="two-inputs">
+          <div class="cur"><div class="fi-label">Текущий</div>
+            <input type="number" id="yr-ext-cur" placeholder="0" min="0">
+          </div>
+          <div><div class="fi-label">Предыдущий</div>
+            <input type="number" id="yr-ext-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-label">Дискавери в Картах</div>
+        <div class="two-inputs">
+          <div class="cur"><div class="fi-label">Текущий</div>
+            <input type="number" id="yr-disc-cur" placeholder="0" min="0">
+          </div>
+          <div><div class="fi-label">Предыдущий</div>
+            <input type="number" id="yr-disc-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-label">Прямые переходы</div>
+        <div class="two-inputs">
+          <div class="cur"><div class="fi-label">Текущий</div>
+            <input type="number" id="yr-direct-cur" placeholder="0" min="0">
+          </div>
+          <div><div class="fi-label">Предыдущий</div>
+            <input type="number" id="yr-direct-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <div class="group-label">Действия в профиле компании</div>
+
+      <div class="field-row">
+        <div class="field-label">Построение маршрута</div>
+        <div class="two-inputs">
+          <div class="cur"><div class="fi-label">Текущий</div>
+            <input type="number" id="yr-route-cur" placeholder="0" min="0">
+          </div>
+          <div><div class="fi-label">Предыдущий</div>
+            <input type="number" id="yr-route-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-label">Переходы на сайт</div>
+        <div class="two-inputs">
+          <div class="cur"><div class="fi-label">Текущий</div>
+            <input type="number" id="yr-site-cur" placeholder="0" min="0">
+          </div>
+          <div><div class="fi-label">Предыдущий</div>
+            <input type="number" id="yr-site-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-label">Клики по телефону</div>
+        <div class="two-inputs">
+          <div class="cur"><div class="fi-label">Текущий</div>
+            <input type="number" id="yr-phone-cur" placeholder="0" min="0">
+          </div>
+          <div><div class="fi-label">Предыдущий</div>
+            <input type="number" id="yr-phone-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-label">Переход по кнопке действия</div>
+        <div class="two-inputs">
+          <div class="cur"><div class="fi-label">Текущий</div>
+            <input type="number" id="yr-cta-cur" placeholder="0" min="0">
+          </div>
+          <div><div class="fi-label">Предыдущий</div>
+            <input type="number" id="yr-cta-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-label">Просмотр акции</div>
+        <div class="two-inputs">
+          <div class="cur"><div class="fi-label">Текущий</div>
+            <input type="number" id="yr-promo-cur" placeholder="0" min="0">
+          </div>
+          <div><div class="fi-label">Предыдущий</div>
+            <input type="number" id="yr-promo-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-label">Переходы в мессенджеры</div>
+        <div class="two-inputs">
+          <div class="cur"><div class="fi-label">Текущий</div>
+            <input type="number" id="yr-msg-cur" placeholder="0" min="0">
+          </div>
+          <div><div class="fi-label">Предыдущий</div>
+            <input type="number" id="yr-msg-prev" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. 2ГИС -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">4</div>
+    <div>
+      <div class="section-title">2ГИС — статистика профиля</div>
+      <div class="section-sub">Личный кабинет 2ГИС → Статистика</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="field-row">
+      <div class="field-label">Показы карточки</div>
+      <div class="two-inputs">
+        <div class="cur"><div class="fi-label">Текущий</div>
+          <input type="number" id="gis-shows-cur" placeholder="0" min="0">
+        </div>
+        <div><div class="fi-label">Предыдущий</div>
+          <input type="number" id="gis-shows-prev" placeholder="0" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">
+        Позиция в выдаче
+        <span class="hint">Среднее значение за месяц</span>
+      </div>
+      <div class="two-inputs">
+        <div class="cur"><div class="fi-label">Текущий</div>
+          <input type="number" id="gis-pos-cur" placeholder="0" min="0">
+        </div>
+        <div><div class="fi-label">Предыдущий</div>
+          <input type="number" id="gis-pos-prev" placeholder="0" min="0">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. GOOGLE -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">5</div>
+    <div>
+      <div class="section-title">Google Maps — статистика профиля</div>
+      <div class="section-sub">Google Business Profile → Статистика</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="field-row">
+      <div class="field-label">Просмотры профиля</div>
+      <div class="two-inputs">
+        <div class="cur"><div class="fi-label">Текущий</div>
+          <input type="number" id="gg-views-cur" placeholder="0" min="0">
+        </div>
+        <div><div class="fi-label">Предыдущий</div>
+          <input type="number" id="gg-views-prev" placeholder="0" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Маршруты</div>
+      <div class="two-inputs">
+        <div class="cur"><div class="fi-label">Текущий</div>
+          <input type="number" id="gg-routes-cur" placeholder="0" min="0">
+        </div>
+        <div><div class="fi-label">Предыдущий</div>
+          <input type="number" id="gg-routes-prev" placeholder="0" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Звонки</div>
+      <div class="two-inputs">
+        <div class="cur"><div class="fi-label">Текущий</div>
+          <input type="number" id="gg-calls-cur" placeholder="0" min="0">
+        </div>
+        <div><div class="fi-label">Предыдущий</div>
+          <input type="number" id="gg-calls-prev" placeholder="0" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Переходы на сайт</div>
+      <div class="two-inputs">
+        <div class="cur"><div class="fi-label">Текущий</div>
+          <input type="number" id="gg-site-cur" placeholder="0" min="0">
+        </div>
+        <div><div class="fi-label">Предыдущий</div>
+          <input type="number" id="gg-site-prev" placeholder="0" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Клики в чат</div>
+      <div class="two-inputs">
+        <div class="cur"><div class="fi-label">Текущий</div>
+          <input type="number" id="gg-chat-cur" placeholder="0" min="0">
+        </div>
+        <div><div class="fi-label">Предыдущий</div>
+          <input type="number" id="gg-chat-prev" placeholder="0" min="0">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 6. ОТЗЫВЫ -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">6</div>
+    <div>
+      <div class="section-title">Управление отзывами</div>
+      <div class="section-sub">Количество отзывов за отчётный месяц</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="info-note">
+      Прочерк (—) = 0 отзывов. Поле «Удалено» — только те, что удалили мы (жалобы).
+    </div>
+    <div class="reviews-grid">
+      <div class="rg-head" style="text-align:left;">Геосервис</div>
+      <div class="rg-head">Всего</div>
+      <div class="rg-head">Хорошие</div>
+      <div class="rg-head">Плохие</div>
+      <div class="rg-head rg-last-head">Удалено</div>
+
+      <div class="rg-name">Яндекс Карты</div>
+      <div class="rg-cell"><input type="number" id="rv-ya-all" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-ya-good" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-ya-bad" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-ya-del" placeholder="—" min="0"></div>
+
+      <div class="rg-name">2ГИС</div>
+      <div class="rg-cell"><input type="number" id="rv-gis-all" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-gis-good" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-gis-bad" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-gis-del" placeholder="—" min="0"></div>
+
+      <div class="rg-name">Google Maps</div>
+      <div class="rg-cell"><input type="number" id="rv-gg-all" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-gg-good" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-gg-bad" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-gg-del" placeholder="—" min="0"></div>
+
+      <div class="rg-name">Zoon</div>
+      <div class="rg-cell"><input type="number" id="rv-zo-all" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-zo-good" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-zo-bad" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-zo-del" placeholder="—" min="0"></div>
+
+      <div class="rg-name">Flamp</div>
+      <div class="rg-cell"><input type="number" id="rv-fl-all" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-fl-good" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-fl-bad" placeholder="—" min="0"></div>
+      <div class="rg-cell"><input type="number" id="rv-fl-del" placeholder="—" min="0"></div>
+    </div>
+  </div>
+</div>
+
+<!-- COPY BUTTON -->
+<button class="copy-btn" onclick="copyData()">&#128203; Скопировать данные для отчёта</button>
+<div class="copy-result" id="copy-result">&#10003; Данные скопированы! Вставьте их в чат с YOUARR.</div>
+
+<div class="footer">YOUARR &mdash; Управление репутацией на геосервисах</div>
+
+</div>
+
+<script>
+function v(id) {
+  var el = document.getElementById(id);
+  if (!el) return '—';
+  var val = el.value.trim();
+  return val === '' ? '—' : val;
+}
+
+function copyData() {
+  var period = v('period');
+
+  var lines = [];
+  lines.push('=== ОПРОСНИК: ДАРИТЕ ЦВЕТЫ ПРОСТО ТАК ===');
+  lines.push('Период: ' + period);
+  lines.push('');
+
+  lines.push('--- 1. РЕЙТИНГИ ---');
+  lines.push('Яндекс Карты: ' + v('r-yandex'));
+  lines.push('2ГИС: ' + v('r-2gis'));
+  lines.push('Google Maps: ' + v('r-google'));
+  lines.push('Zoon: ' + v('r-zoon'));
+  lines.push('Flamp: ' + v('r-flamp'));
+  lines.push('');
+
+  lines.push('--- 2. ЯНДЕКС КАРТЫ (органика) ---');
+  lines.push('Переходы в профиль:');
+  lines.push('  Поиск: ' + v('yn-search-cur') + ' | пред.: ' + v('yn-search-prev'));
+  lines.push('  Карты: ' + v('yn-maps-cur') + ' | пред.: ' + v('yn-maps-prev'));
+  lines.push('  Навигатор: ' + v('yn-nav-cur') + ' | пред.: ' + v('yn-nav-prev'));
+  lines.push('Целевые действия:');
+  lines.push('  Позвонить: ' + v('yn-calls-cur') + ' | пред.: ' + v('yn-calls-prev'));
+  lines.push('  Маршруты: ' + v('yn-routes-cur') + ' | пред.: ' + v('yn-routes-prev'));
+  lines.push('  Сайт: ' + v('yn-site-cur') + ' | пред.: ' + v('yn-site-prev'));
+  lines.push('');
+
+  lines.push('--- 3. ЯНДЕКС РЕКЛАМА ---');
+  lines.push('Посещаемость:');
+  lines.push('  Внешняя реклама: ' + v('yr-ext-cur') + ' | пред.: ' + v('yr-ext-prev'));
+  lines.push('  Дискавери в Картах: ' + v('yr-disc-cur') + ' | пред.: ' + v('yr-disc-prev'));
+  lines.push('  Прямые переходы: ' + v('yr-direct-cur') + ' | пред.: ' + v('yr-direct-prev'));
+  lines.push('Действия:');
+  lines.push('  Маршрут: ' + v('yr-route-cur') + ' | пред.: ' + v('yr-route-prev'));
+  lines.push('  Сайт: ' + v('yr-site-cur') + ' | пред.: ' + v('yr-site-prev'));
+  lines.push('  Телефон: ' + v('yr-phone-cur') + ' | пред.: ' + v('yr-phone-prev'));
+  lines.push('  Кнопка действия: ' + v('yr-cta-cur') + ' | пред.: ' + v('yr-cta-prev'));
+  lines.push('  Просмотр акции: ' + v('yr-promo-cur') + ' | пред.: ' + v('yr-promo-prev'));
+  lines.push('  Мессенджеры: ' + v('yr-msg-cur') + ' | пред.: ' + v('yr-msg-prev'));
+  lines.push('');
+
+  lines.push('--- 4. 2ГИС ---');
+  lines.push('  Показы: ' + v('gis-shows-cur') + ' | пред.: ' + v('gis-shows-prev'));
+  lines.push('  Позиция: ' + v('gis-pos-cur') + ' | пред.: ' + v('gis-pos-prev'));
+  lines.push('');
+
+  lines.push('--- 5. GOOGLE MAPS ---');
+  lines.push('  Просмотры: ' + v('gg-views-cur') + ' | пред.: ' + v('gg-views-prev'));
+  lines.push('  Маршруты: ' + v('gg-routes-cur') + ' | пред.: ' + v('gg-routes-prev'));
+  lines.push('  Звонки: ' + v('gg-calls-cur') + ' | пред.: ' + v('gg-calls-prev'));
+  lines.push('  Сайт: ' + v('gg-site-cur') + ' | пред.: ' + v('gg-site-prev'));
+  lines.push('  Чат: ' + v('gg-chat-cur') + ' | пред.: ' + v('gg-chat-prev'));
+  lines.push('');
+
+  lines.push('--- 6. ОТЗЫВЫ ---');
+  lines.push('           Всего | Хор. | Плох. | Удалено');
+  lines.push('Яндекс:  ' + v('rv-ya-all') + ' | ' + v('rv-ya-good') + ' | ' + v('rv-ya-bad') + ' | ' + v('rv-ya-del'));
+  lines.push('2ГИС:    ' + v('rv-gis-all') + ' | ' + v('rv-gis-good') + ' | ' + v('rv-gis-bad') + ' | ' + v('rv-gis-del'));
+  lines.push('Google:  ' + v('rv-gg-all') + ' | ' + v('rv-gg-good') + ' | ' + v('rv-gg-bad') + ' | ' + v('rv-gg-del'));
+  lines.push('Zoon:    ' + v('rv-zo-all') + ' | ' + v('rv-zo-good') + ' | ' + v('rv-zo-bad') + ' | ' + v('rv-zo-del'));
+  lines.push('Flamp:   ' + v('rv-fl-all') + ' | ' + v('rv-fl-good') + ' | ' + v('rv-fl-bad') + ' | ' + v('rv-fl-del'));
+
+  var text = lines.join('\n');
+
+  navigator.clipboard.writeText(text).then(function() {
+    var res = document.getElementById('copy-result');
+    res.style.display = 'block';
+    setTimeout(function() { res.style.display = 'none'; }, 4000);
+  });
+}
+</script>
+</body>
+</html>
