@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Опросник ОМИС</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Одна узкая колонка. Метрика - строка с двумя полями: предыдущий и отчётный месяц, чтобы в отчёте показать динамику. */
+:root {
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --fg: #11181f;
+  --muted: #5d6b73;
+  --line: #d6dee4;
+  --line-strong: #0a62b4;
+  --accent: #0a62b4;
+  --on-accent: #ffffff;
+  --yellow: #ffd600;
+  --note-bg: #eaf1f8;
+  --good: #1d6b3a;
+  --font: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101519; --surface: #182026; --fg: #eaf0f4; --muted: #9bacb6; --line: #2a343b;
+    --line-strong: #6fb3d2; --accent: #6fb3d2; --on-accent: #101519; --note-bg: #1c262e; --good: #71b78c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101519; --surface: #182026; --fg: #eaf0f4; --muted: #9bacb6; --line: #2a343b;
+  --line-strong: #6fb3d2; --accent: #6fb3d2; --on-accent: #101519; --note-bg: #1c262e; --good: #71b78c;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: inherit; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 15px; line-height: 1.45; padding-inline: 16px; padding-block: 24px 48px; }
+.wrap { max-width: 700px; margin-inline: auto; display: flex; flex-direction: column; gap: 28px; }
+header { display: flex; flex-direction: column; gap: 6px; padding-bottom: 14px; border-bottom: 3px solid var(--line-strong); position: relative; }
+header::after { content: ""; position: absolute; left: 0; bottom: -3px; width: 90px; height: 3px; background: var(--yellow); }
+h1 { font-size: 28px; font-weight: 700; line-height: 1.1; margin: 0; letter-spacing: -0.01em; }
+.sub { color: var(--muted); font-size: 14px; margin: 0; }
+section { display: flex; flex-direction: column; gap: 10px; }
+h2 { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; margin: 0; padding-bottom: 8px; border-bottom: 1px solid var(--line-strong); }
+h3 { font-size: 13px; font-weight: 600; margin: 6px 0 0; color: var(--fg); }
+.row { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr); gap: 10px; align-items: center; }
+.row.single { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+.row .name { font-size: 14px; }
+.row.head span { font-size: 12px; color: var(--muted); font-weight: 600; letter-spacing: 0.04em; }
+input[type="text"] {
+  width: 100%; font: inherit; font-size: 16px; color: var(--fg); background: var(--surface);
+  border: 1px solid var(--line); padding: 8px 10px; min-height: 40px; border-radius: 0;
+}
+input:focus-visible, button:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+label.mob { display: none; font-size: 11px; color: var(--muted); }
+.note { background: var(--note-bg); padding: 10px 12px; font-size: 13px; color: var(--fg); border-left: 3px solid var(--line-strong); }
+.hint { font-size: 12px; color: var(--muted); }
+.calc { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr); gap: 10px; padding: 9px 10px; border: 1px dashed var(--line-strong); font-variant-numeric: tabular-nums; align-items: center; }
+.calc .name { font-size: 13px; color: var(--muted); }
+.calc b { font-weight: 600; font-size: 15px; }
+.rv { display: grid; grid-template-columns: minmax(0, 1.2fr) repeat(3, minmax(0, 1fr)); gap: 8px; align-items: end; }
+.rv .name { font-weight: 500; padding-bottom: 10px; }
+.rv.head span { font-size: 12px; color: var(--muted); }
+.rv .field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+button { font: inherit; font-weight: 500; cursor: pointer; border-radius: 0; padding: 11px 18px; min-height: 44px; border: 1px solid var(--line-strong); }
+button.primary { background: var(--accent); color: var(--on-accent); }
+button.ghost { background: transparent; color: var(--fg); }
+#status { font-size: 13px; color: var(--good); }
+textarea { width: 100%; min-height: 360px; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 13px; color: var(--fg); background: var(--surface); border: 1px solid var(--line); padding: 12px; border-radius: 0; resize: vertical; }
+@media (max-width: 520px) {
+  .row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); row-gap: 2px; }
+  .row.single { grid-template-columns: minmax(0, 1fr); }
+  .row .name { grid-column: 1 / -1; font-weight: 500; }
+  .row.head { display: none; }
+  label.mob { display: block; }
+  .calc { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .calc .name { grid-column: 1 / -1; }
+  .rv { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .rv .name { grid-column: 1 / -1; padding-bottom: 0; }
+  .rv.head { display: none; }
+  .rv .field label { display: block; }
+}
+@media (min-width: 521px) { .rv .field label.mob { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>ОМИС</h1>
+    <p class="sub">Данные для отчёта за <span data-m="cur"></span>. <span data-m="prevcap"></span> нужен, чтобы показать динамику. Пустое поле считается за 0.</p>
+  </header>
+
+  <section>
+    <h2>Период</h2>
+    <div class="row">
+      <span class="name">Отчётный месяц</span>
+      <input type="text" id="month" value="" autocomplete="off" aria-label="Отчётный месяц">
+      <span class="hint">сравнение с <span data-m="previns"></span> <span data-m="prevyear"></span></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Рейтинги</h2>
+    <div class="row head" aria-hidden="true"><span></span><span data-m="prevcap"></span><span data-m="curcap"></span></div>
+    <div id="ratings"></div>
+  </section>
+
+  <section>
+    <h2>Яндекс Бизнес, профиль</h2>
+    <div class="row head" aria-hidden="true"><span></span><span data-m="prevcap"></span><span data-m="curcap"></span></div>
+    <div id="yaprof"></div>
+    <div class="calc" aria-live="polite">
+      <span class="name">Итого переходов в профиль</span>
+      <b id="calc_ya_a">-</b><b id="calc_ya_s">-</b>
+    </div>
+    <span class="hint">Итог считается сам, вписывать не нужно.</span>
+  </section>
+
+  <section>
+    <h2>Яндекс, рекламная кампания</h2>
+    <p class="hint">Всё из кабинета как есть, ничего не считаем сами: Яндекс показывает и стоимости, и конверсии.</p>
+    <h3>Сводная статистика</h3>
+    <div class="row head" aria-hidden="true"><span></span><span data-m="prevcap"></span><span data-m="curcap"></span></div>
+    <div id="yasum"></div>
+    <h3>Целевые действия в Картах</h3>
+    <div class="row head" aria-hidden="true"><span></span><span data-m="prevcap"></span><span data-m="curcap"></span></div>
+    <div id="yaact"></div>
+  </section>
+
+  <section>
+    <h2>2ГИС, профиль</h2>
+    <div class="row head" aria-hidden="true"><span></span><span data-m="prevcap"></span><span data-m="curcap"></span></div>
+    <div id="gisprof"></div>
+  </section>
+
+  <section>
+    <h2>2ГИС, действия на странице</h2>
+    <p class="hint">Проценты из кабинета 2ГИС, блок «Действия на странице за последний месяц». Только за <span data-m="cur"></span>: история по месяцам там не хранится.</p>
+    <div class="row head single" aria-hidden="true"><span></span><span><span data-m="curcap"></span>, %</span></div>
+    <div id="gisact"></div>
+  </section>
+
+  <section>
+    <h2>2ГИС, рекламная кампания</h2>
+    <div class="row head" aria-hidden="true"><span></span><span data-m="prevcap"></span><span data-m="curcap"></span></div>
+    <div id="gisad"></div>
+    <div class="calc" aria-live="polite">
+      <span class="name">Итого действий</span>
+      <b id="calc_ad_a">-</b><b id="calc_ad_s">-</b>
+    </div>
+    <div class="calc" aria-live="polite">
+      <span class="name">Стоимость действия</span>
+      <b id="calc_cpa_a">-</b><b id="calc_cpa_s">-</b>
+    </div>
+    <span class="hint">Здесь 2ГИС стоимость не показывает, поэтому считаем сами.</span>
+  </section>
+
+  <section>
+    <h2>Google Maps</h2>
+    <div class="row head" aria-hidden="true"><span></span><span data-m="prevcap"></span><span data-m="curcap"></span></div>
+    <div id="gmaps"></div>
+  </section>
+
+  <section>
+    <h2>Отзывы за <span data-m="cur"></span></h2>
+    <div class="rv head" aria-hidden="true"><span></span><span>Хорошие</span><span>Плохие</span><span>Удалено</span></div>
+    <div id="reviews" style="display:flex;flex-direction:column;gap:10px"></div>
+    <div class="hint">«Удалено» - снятые по нашим жалобам, в сумму «Всего» не входят.</div>
+  </section>
+
+  <section>
+    <div class="actions">
+      <button type="button" class="primary" id="build">Сформировать текст</button>
+      <button type="button" class="ghost" id="copy">Скопировать</button>
+      <span id="status" role="status"></span>
+    </div>
+    <textarea id="out" readonly placeholder="Здесь появится готовый текст. Скопируйте его и вставьте в чат."></textarea>
+  </section>
+</div>
+
+<script>
+(function () {
+  var MN = [["январь","январём"],["февраль","февралём"],["март","мартом"],["апрель","апрелем"],["май","маем"],["июнь","июнем"],["июль","июлем"],["август","августом"],["сентябрь","сентябрём"],["октябрь","октябрём"],["ноябрь","ноябрём"],["декабрь","декабрём"]];
+  /* Отчётный месяц: из ?m=ГГГГ-ММ, иначе прошлый месяц относительно сегодняшней даты. */
+  var now = new Date(), cy = now.getFullYear(), cm = now.getMonth() - 1;
+  var mm = /^(\d{4})-(\d{2})$/.exec((location.search.match(/[?&]m=([^&]+)/) || [])[1] || "");
+  if (mm && +mm[2] >= 1 && +mm[2] <= 12) { cy = +mm[1]; cm = +mm[2] - 1; }
+  if (cm < 0) { cm += 12; cy -= 1; }
+  var pm = cm - 1, py = cy;
+  if (pm < 0) { pm += 12; py -= 1; }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+  var CUR = MN[cm][0], PREV = MN[pm][0], CCAP = cap(CUR), PCAP = cap(PREV), PREVINS = MN[pm][1], PYEAR = py, CYEAR = cy;
+  var FILL = { cur: CUR, curcap: CCAP, prevcap: PCAP, previns: PREVINS, prevyear: String(PYEAR) };
+  [].forEach.call(document.querySelectorAll("[data-m]"), function (el) { el.textContent = FILL[el.getAttribute("data-m")]; });
+  document.getElementById("month").value = CCAP + " " + CYEAR;
+  var RATINGS = [
+    ["r_ya", "Яндекс Карты"], ["r_gis", "2ГИС"], ["r_g", "Google Maps"],
+    ["r_zoon", "Zoon"], ["r_flamp", "Flamp"]
+  ];
+  var YAPROF = [
+    ["ya_search", "Переходов в профиль: Поиск", 1],
+    ["ya_maps", "Переходов в профиль: Карты", 1],
+    ["ya_nav", "Переходов в профиль: Навигатор", 1],
+    ["ya_routes", "Проложено маршрутов", 0],
+    ["ya_calls", "Нажатий «Позвонить»", 0],
+    ["ya_site", "Переходов на сайт", 0]
+  ];
+  var YASUM = [
+    ["yad_views", "Просмотров рекламы"],
+    ["yad_spent", "Потрачено, ₽"],
+    ["yad_bonus", "из них бонусами, ₽"],
+    ["yad_clicks", "Переходы"],
+    ["yad_cpc", "₽ за переход"],
+    ["yad_conv1", "Конверсия в переходы, %"],
+    ["yad_leads", "Целевых клиентов"],
+    ["yad_cpl", "₽ за клиента"],
+    ["yad_conv2", "Конверсия в клиентов, %"],
+    ["yad_acts", "Целевых действий"],
+    ["yad_cpa", "₽ за действие"]
+  ];
+  var YAACT = [
+    ["yaa_phone", "Клики по телефону в Картах"],
+    ["yaa_button", "Переход по кнопке действия"],
+    ["yaa_route", "Построение маршрута в Картах"],
+    ["yaa_promo", "Просмотр акции в Картах"],
+    ["yaa_site", "Переходы на сайт из Карт"]
+  ];
+  var GISPROF = [["gis_views", "Показы карточки"], ["gis_pos", "Позиция в выдаче"]];
+  var GISACT = [
+    ["ga_reviews", "Переходы к отзывам"],
+    ["ga_calls", "Звонки и просмотры телефона"],
+    ["ga_photo", "Просмотры фотогалереи"],
+    ["ga_prices", "Просмотр цен"],
+    ["ga_site", "Переходы на сайт"],
+    ["ga_product", "Открытие карточки товара"],
+    ["ga_chat", "Открытие чата через мессенджер"],
+    ["ga_cta", "Call-to-Action, переход по ссылке"],
+    ["ga_schedule", "Расписание работы"],
+    ["ga_social", "Переходы в соцсети"],
+    ["ga_share", "Поделиться ссылкой"],
+    ["ga_route", "Построение маршрута"],
+    ["ga_stop", "Поиск остановки транспорта"]
+  ];
+  var GISAD = [
+    ["ad_budget", "Бюджет на рекламу, ₽", 0],
+    ["ad_1", "Звонки и просмотры тел.", 1],
+    ["ad_2", "Клики в адрес", 1],
+    ["ad_3", "Переходы на сайт", 1],
+    ["ad_4", "Построения маршрутов", 1],
+    ["ad_5", "Клики в соцсети", 1],
+    ["ad_6", "Клики в мессенджеры", 1],
+    ["ad_7", "Переходы по рекл. ссылке", 1]
+  ];
+  var GMAPS = [
+    ["g_views", "Просмотры профиля"], ["g_calls", "Звонки"],
+    ["g_routes", "Маршруты"], ["g_site", "Клики на сайт"]
+  ];
+  var SERVICES = [
+    { key: "ya", name: "Яндекс" }, { key: "gis", name: "2ГИС" }, { key: "g", name: "Google" },
+    { key: "zoon", name: "Zoon" }, { key: "flamp", name: "Flamp" }
+  ];
+
+  function pair(boxId, rows, cls) {
+    var box = document.getElementById(boxId);
+    rows.forEach(function (r) {
+      var id = r[0], name = r[1], sum = r[2];
+      var div = document.createElement("div");
+      div.className = "row";
+      div.innerHTML =
+        '<span class="name">' + name + "</span>" +
+        '<div><label class="mob" for="' + id + '_a">' + PCAP + '</label>' +
+        '<input type="text" id="' + id + '_a" inputmode="decimal" autocomplete="off" aria-label="' + name + ', ' + PREV + '"></div>' +
+        '<div><label class="mob" for="' + id + '_s">' + CCAP + '</label>' +
+        '<input type="text" id="' + id + '_s" inputmode="decimal" autocomplete="off" aria-label="' + name + ', ' + CUR + '"></div>';
+      box.appendChild(div);
+    });
+  }
+  function single(boxId, rows) {
+    var box = document.getElementById(boxId);
+    rows.forEach(function (r) {
+      var id = r[0], name = r[1];
+      var div = document.createElement("div");
+      div.className = "row single";
+      div.innerHTML =
+        '<span class="name">' + name + "</span>" +
+        '<div><label class="mob" for="' + id + '">' + CCAP + ', %</label>' +
+        '<input type="text" id="' + id + '" inputmode="decimal" autocomplete="off" aria-label="' + name + ', процент"></div>';
+      box.appendChild(div);
+    });
+  }
+
+  pair("ratings", RATINGS, "rat");
+  pair("yaprof", YAPROF, "yap");
+  pair("yasum", YASUM, "yas");
+  pair("yaact", YAACT, "yaa");
+  pair("gisprof", GISPROF, "gip");
+  pair("gisad", GISAD, "gad");
+  pair("gmaps", GMAPS, "gmp");
+  single("gisact", GISACT);
+
+  var rbox = document.getElementById("reviews");
+  SERVICES.forEach(function (s) {
+    var row = document.createElement("div");
+    row.className = "rv";
+    var html = '<div class="name">' + s.name + "</div>";
+    [["good", "Хорошие"], ["bad", "Плохие"], ["del", "Удалено"]].forEach(function (f) {
+      var id = "rv_" + s.key + "_" + f[0];
+      html += '<div class="field"><label class="mob" for="' + id + '">' + f[1] + "</label>" +
+              '<input type="text" id="' + id + '" inputmode="numeric" autocomplete="off" aria-label="' + s.name + ", " + f[1] + '"></div>';
+    });
+    row.innerHTML = html;
+    rbox.appendChild(row);
+  });
+
+  function $(id) { return document.getElementById(id); }
+  function raw(id) { var el = $(id); return el ? el.value.trim() : ""; }
+  function show(id) { var v = raw(id); return v === "" ? "-" : v; }
+  function num(id) {
+    var v = raw(id).replace(/\s/g, "").replace(",", ".");
+    var n = parseFloat(v);
+    return isNaN(n) ? 0 : n;
+  }
+  function money(n) { return (Math.round(n * 100) / 100).toFixed(2) + " ₽"; }
+  function sumIds(ids, m) {
+    var t = 0;
+    ids.forEach(function (id) { t += num(id + "_" + m); });
+    return t;
+  }
+
+  var YA_IDS = ["ya_search", "ya_maps", "ya_nav"];
+  var GAD_IDS = ["ad_1", "ad_2", "ad_3", "ad_4", "ad_5", "ad_6", "ad_7"];
+
+  function recalc() {
+    ["a", "s"].forEach(function (m) {
+      var ya = sumIds(YA_IDS, m);
+      $("calc_ya_" + m).textContent = ya > 0 ? String(ya) : "-";
+      var gad = sumIds(GAD_IDS, m), gbud = num("ad_budget_" + m);
+      $("calc_ad_" + m).textContent = gad > 0 ? String(gad) : "-";
+      $("calc_cpa_" + m).textContent = (gad > 0 && gbud > 0) ? money(gbud / gad) : "-";
+    });
+  }
+  document.querySelectorAll("input").forEach(function (el) { el.addEventListener("input", recalc); });
+
+  function line(label, id) {
+    return label + ": " + PREV + " " + show(id + "_a") + "  |  " + CUR + " " + show(id + "_s");
+  }
+
+  function build() {
+    recalc();
+    var L = [];
+    L.push("=== ДАННЫЕ ДЛЯ ОТЧЁТА ОМИС ===");
+    L.push("Отчётный месяц: " + (raw("month") || "-") + ", сравнение с " + PREVINS + " " + PYEAR);
+    L.push("");
+    L.push("--- РЕЙТИНГИ ---");
+    RATINGS.forEach(function (r) { L.push(line(r[1], r[0])); });
+    L.push("");
+    L.push("--- ЯНДЕКС БИЗНЕС (профиль) ---");
+    YAPROF.forEach(function (r) { L.push(line(r[1], r[0])); });
+    L.push("Итого переходов в профиль: " + PREV + " " + (sumIds(YA_IDS, "a") || "-") + "  |  " + CUR + " " + (sumIds(YA_IDS, "s") || "-") + " (посчитано автоматически)");
+    L.push("");
+    L.push("--- ЯНДЕКС РЕКЛАМНАЯ, сводная ---");
+    YASUM.forEach(function (r) { L.push(line(r[1], r[0])); });
+    L.push("");
+    L.push("--- ЯНДЕКС РЕКЛАМНАЯ, целевые действия в Картах ---");
+    YAACT.forEach(function (r) { L.push(line(r[1], r[0])); });
+    L.push("");
+    L.push("--- 2ГИС (профиль) ---");
+    GISPROF.forEach(function (r) { L.push(line(r[1], r[0])); });
+    L.push("");
+    L.push("--- 2ГИС, ДЕЙСТВИЯ НА СТРАНИЦЕ (" + CUR + ", %) ---");
+    GISACT.forEach(function (r) { L.push(r[1] + ": " + show(r[0])); });
+    L.push("");
+    L.push("--- 2ГИС РЕКЛАМНАЯ ---");
+    GISAD.forEach(function (r) { L.push(line(r[1], r[0])); });
+    L.push("Итого действий: " + PREV + " " + (sumIds(GAD_IDS, "a") || "-") + "  |  " + CUR + " " + (sumIds(GAD_IDS, "s") || "-") + " (посчитано автоматически)");
+    L.push("Стоимость действия: " + PREV + " " + $("calc_cpa_a").textContent + "  |  " + CUR + " " + $("calc_cpa_s").textContent + " (посчитано автоматически)");
+    L.push("");
+    L.push("--- GOOGLE MAPS (профиль) ---");
+    GMAPS.forEach(function (r) { L.push(line(r[1], r[0])); });
+    L.push("");
+    L.push("--- ОТЗЫВЫ ЗА " + CUR.toUpperCase() + " ---");
+    SERVICES.forEach(function (s) {
+      var pad = s.name + ":";
+      while (pad.length < 8) pad += " ";
+      L.push(pad + " хорошие=" + show("rv_" + s.key + "_good") +
+             "  плохие=" + show("rv_" + s.key + "_bad") +
+             "  удалено=" + show("rv_" + s.key + "_del"));
+    });
+    L.push("");
+    L.push("Пустое поле (-) = 0");
+    return L.join("\n");
+  }
+
+  var out = $("out"), status = $("status");
+  function setStatus(t) { status.textContent = t; }
+
+  $("build").addEventListener("click", function () {
+    out.value = build();
+    out.focus(); out.select();
+    setStatus("Текст готов");
+  });
+
+  $("copy").addEventListener("click", function () {
+    out.value = build();
+    function fallback() {
+      out.focus(); out.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      setStatus(ok ? "Скопировано" : "Текст выделен, нажмите Ctrl+C или «Копировать» в меню");
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(out.value).then(function () { setStatus("Скопировано"); }, fallback);
+    } else {
+      fallback();
+    }
+  });
+
+  recalc();
+})();
+</script>
+
+</body>
+</html>
