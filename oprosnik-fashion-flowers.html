@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fashion Flowers - опросник за {{МЕСЯЦ}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f4f1; --paper:#fff; --ink:#1a1a1a; --muted:#8f8880; --line:#e6e2dc;
+  --acc:#8c7358; --ok:#2e7d32;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#161416;--paper:#201e20;--ink:#efeae6;--muted:#a39b94;--line:#343032;--acc:#c4a46e;--ok:#7cc39b;}}
+:root[data-theme="dark"]{--bg:#161416;--paper:#201e20;--ink:#efeae6;--muted:#a39b94;--line:#343032;--acc:#c4a46e;--ok:#7cc39b;}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Montserrat,system-ui,-apple-system,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:26px 16px 130px}
+h1{font-size:23px;font-weight:600;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 20px;font-size:13.5px}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tab{flex:1;min-width:150px;padding:11px 12px;border:1px solid var(--line);background:var(--paper);border-radius:10px;cursor:pointer;font:inherit;font-weight:600;color:var(--muted);text-align:left}
+.tab.on{border-color:var(--acc);color:var(--ink)}
+.tab small{display:block;font-weight:400;font-size:11.5px;color:var(--muted);margin-top:2px}
+section.blk{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:13px}
+section.blk h2{font-size:13px;margin:0 0 3px;letter-spacing:.07em;text-transform:uppercase;color:var(--acc);font-weight:600}
+section.blk p.note{color:var(--muted);font-size:12.5px;margin:0 0 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px}
+.grid.wide{grid-template-columns:1fr}
+label.f{display:block}
+label.f span{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
+input,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:10px}
+input:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:1px}
+textarea{min-height:76px;resize:vertical}
+table.rv{width:100%;border-collapse:collapse}
+table.rv th{font-size:11px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.05em;padding:0 4px 6px;text-align:center}
+table.rv th:first-child{text-align:left}
+table.rv td{padding:3px 4px}
+table.rv td:first-child{font-size:13.5px;white-space:nowrap;padding-right:8px}
+table.rv input{padding:8px 6px;text-align:center}
+.scroll{overflow-x:auto}
+.hint{font-size:11.5px;color:var(--muted);margin-top:8px}
+.dock{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.dock .in{max-width:900px;margin:0 auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+button{font:inherit;font-weight:600;border:0;border-radius:10px;padding:11px 18px;cursor:pointer}
+.primary{background:var(--acc);color:#fff}
+.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.msg{font-size:13px;color:var(--ok)}
+#out{display:none;margin-top:12px;min-height:200px;font-size:12px}
+@media (max-width:560px){h1{font-size:20px} table.rv td:first-child{font-size:12.5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Fashion Flowers - данные за {{МЕСЯЦ}}</h1>
+  <p class="sub">Период: {{ПЕРИОД}}, полный месяц. Заполните, что есть, пустое поле считаю нулём. Внизу нажмите «Скопировать» и пришлите текст в чат.</p>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="body"></div>
+
+  <section class="blk">
+    <h2>2ГИС - общее по сети</h2>
+    <p class="note">2ГИС считает статистику по сети целиком, без разбивки по филиалам</p>
+    <div class="grid">
+      <label class="f"><span>Показы карточки</span><input data-k="g|gis_pokaz" inputmode="decimal"></label>
+      <label class="f"><span>Позиция в выдаче</span><input data-k="g|gis_poz" inputmode="decimal"></label>
+    </div>
+    <p class="hint">Скриншот блока «Действия на странице» пришлите отдельно в чат - возьму проценты оттуда.</p>
+  </section>
+
+  <section class="blk">
+    <h2>Комментарий</h2>
+    <p class="note">Что подсветить клиенту, о чём не упоминать, важные события месяца</p>
+    <label class="f"><textarea id="common_note" placeholder="Необязательно"></textarea></label>
+    <p class="hint">Ссылки на карточки и работы по чек-листу у меня есть - вносить не нужно. Динамику рейтингов посчитаю сам от значений прошлого отчёта.</p>
+  </section>
+
+  <textarea id="out" readonly></textarea>
+</div>
+
+<div class="dock"><div class="in">
+  <button class="primary" id="copy">Скопировать для отчёта</button>
+  <button class="ghost" id="reset">Очистить</button>
+  <span class="msg" id="msg" role="status"></span>
+</div></div>
+
+<script>
+var VERSION='ff-oprosnik-{{ВЕРСИЯ}}';
+var BR=[['o','Островского, 102','центр Казани'],['c','Марш. Чуйкова, 69','Ново-Савиновский']];
+var SRV=[['ya','Яндекс Карты'],['gis','2ГИС'],['g','Google Maps'],['zoon','Zoon'],['flamp','Flamp']];
+var BLOCKS=[
+ {t:'Яндекс - переходы в профиль',n:'Источники перехода за отчётный месяц',
+  f:[['ya_disc','Дискавери в Картах'],['ya_direct','Прямые переходы']]},
+ {t:'Яндекс - что делали в профиле',n:'Действия пользователей за тот же период',
+  f:[['ya_foto','Просмотр фото'],['ya_marshrut','Проложено маршрутов'],['ya_sait','Переходов на сайт'],['ya_otzyvy','Просмотры отзывов'],['ya_zvonki','Клики по телефону'],['ya_time','Просмотры времени работы'],['ya_vhod','Просмотры входов']]},
+ {t:'Яндекс реклама - сводная',n:'Вкладка «Рекламная», блок «Сводная статистика». Только на Чуйкова',only:'c',
+  f:[['ad_pokaz','Просмотры рекламы'],['ad_perehod','Переходы'],['ad_clients','Целевые клиенты'],['ad_actions','Целевые действия'],['ad_rashod','Расход, ₽']]},
+ {t:'Яндекс реклама - стоимости',n:'Цифры под каждым столбцом сводной статистики и проценты между ними',only:'c',
+  f:[['ad_cpc','₽ за переход'],['ad_cpcl','₽ за клиента'],['ad_cpa','₽ за действие'],['ad_ctr','CTR, %'],['ad_conv','Конверсия в клиента, %']]},
+ {t:'Яндекс реклама - действия в Картах',n:'Блок «Целевые действия пользователей в Картах»',only:'c',
+  f:[['adm_sait','Переходы на сайт из Карт'],['adm_marshrut','Построение маршрута'],['adm_zvonki','Клики по телефону'],['adm_knopka','Переход по кнопке действия'],['adm_akcia','Просмотр акции']]},
+ {t:'Яндекс реклама - действия на сайте',n:'Блок «Целевые действия пользователей на сайте»',only:'c',
+  f:[['ads_tovar','Переход в карточку товара'],['ads_forma','Отправка формы'],['ads_zakaz','Начало оформления заказа'],['ads_kviz','Клик «Заказать букет» в квизе'],['ads_poisk_str','Переход на страницу поиска'],['ads_poisk','Поиск по сайту'],['ads_poisk2','Поиск на сайте']]},
+ {t:'Яндекс реклама - звонки',n:'Блоки «Статистика по звонкам» и «Длительность звонков»',only:'c',
+  f:[['ad_call_ok','Принятые звонки'],['ad_call_no','Непринятые звонки'],['ad_call_talk','Средний разговор, мин:сек'],['ad_call_wait','Среднее ожидание, мин:сек']]},
+ {t:'Google Maps',n:'Из «Показатели эффективности»',
+  f:[['g_prosmotr','Просмотры профиля'],['g_marshrut','Маршруты'],['g_zvonki','Звонки'],['g_sait','Переходы на сайт']]},
+ {t:'Рейтинги на сегодня',n:'Только оценка, количество отзывов не нужно',
+  f:[['r_ya','Яндекс Карты'],['r_gis','2ГИС'],['r_g','Google Maps'],['r_zoon','Zoon'],['r_flamp','Flamp']]}
+];
+var state={};
+try{state=JSON.parse(localStorage.getItem(VERSION)||'{}')}catch(e){state={}}
+function save(){try{localStorage.setItem(VERSION,JSON.stringify(state))}catch(e){}}
+var cur='o';
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function bind(root){
+  root.querySelectorAll('input,textarea').forEach(function(i){
+    if(!i.dataset.k)return;
+    i.addEventListener('input',function(){state[i.dataset.k]=i.value;save();});
+  });
+}
+function renderTabs(){
+  document.getElementById('tabs').innerHTML=BR.map(function(b){
+    return '<button class="tab'+(b[0]===cur?' on':'')+'" data-b="'+b[0]+'">'+b[1]+'<small>'+b[2]+'</small></button>';
+  }).join('');
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click',function(){cur=t.dataset.b;renderTabs();renderBody();});
+  });
+}
+function renderBody(){
+  var h='';
+  BLOCKS.forEach(function(bl){
+    if(bl.only&&bl.only!==cur)return;
+    h+='<section class="blk"><h2>'+esc(bl.t)+'</h2><p class="note">'+esc(bl.n)+'</p><div class="grid">';
+    bl.f.forEach(function(f){
+      var k=cur+'|'+f[0];
+      h+='<label class="f"><span>'+esc(f[1])+'</span><input data-k="'+k+'" value="'+esc(state[k]||'')+'" inputmode="decimal"></label>';
+    });
+    h+='</div></section>';
+  });
+  h+='<section class="blk"><h2>Отзывы за месяц</h2><p class="note">Для таблицы «Управление отзывами». Где ничего не было - оставьте пустым</p><div class="scroll"><table class="rv"><thead><tr><th>Геосервис</th><th>Всего</th><th>Хорошие<br>4-5★</th><th>Плохие<br>1-3★</th><th>Удалено<br>нами</th></tr></thead><tbody>';
+  SRV.forEach(function(s){
+    h+='<tr><td>'+esc(s[1])+'</td>';
+    ['vsego','good','bad','del'].forEach(function(c){
+      var k=cur+'|rev_'+s[0]+'_'+c;
+      h+='<td><input data-k="'+k+'" value="'+esc(state[k]||'')+'" inputmode="decimal"></td>';
+    });
+    h+='</tr>';
+  });
+  h+='</tbody></table></div><p class="hint">Удалённые считаем те, что убрали по нашим жалобам за месяц.</p></section>';
+  document.getElementById('body').innerHTML=h;
+  bind(document.getElementById('body'));
+}
+function report(){
+  var L=['Fashion Flowers - данные за {{МЕСЯЦ}} ({{ПЕРИОД}})',''];
+  BR.forEach(function(b){
+    L.push('=== '+b[1]+' ===');
+    BLOCKS.forEach(function(bl){
+      if(bl.only&&bl.only!==b[0])return;
+      var v=bl.f.map(function(f){var x=(state[b[0]+'|'+f[0]]||'').trim();return x?f[1]+': '+x:null;}).filter(Boolean);
+      if(v.length)L.push(bl.t+' -> '+v.join('; '));
+    });
+    var rv=[];
+    SRV.forEach(function(s){
+      var vals=['vsego','good','bad','del'].map(function(c){return (state[b[0]+'|rev_'+s[0]+'_'+c]||'').trim()||'—';});
+      if(vals.join('')!=='————')rv.push(s[1]+': всего '+vals[0]+', хорошие '+vals[1]+', плохие '+vals[2]+', удалено '+vals[3]);
+    });
+    if(rv.length)L.push('Отзывы за месяц -> '+rv.join(' | '));
+    L.push('');
+  });
+  var gp=(state['g|gis_pokaz']||'').trim(), gz=(state['g|gis_poz']||'').trim();
+  if(gp||gz)L.push('2ГИС по сети -> Показы: '+(gp||'—')+'; Позиция: '+(gz||'—'));
+  var c=(document.getElementById('common_note').value||'').trim();
+  if(c)L.push('Комментарий: '+c);
+  return L.join('\n');
+}
+document.getElementById('copy').addEventListener('click',function(){
+  var txt=report(),msg=document.getElementById('msg'),out=document.getElementById('out');
+  out.value=txt;
+  function fb(){out.style.display='block';out.focus();out.select();msg.textContent='Текст ниже выделен - скопируйте Ctrl+C / Cmd+C';}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){out.style.display='none';msg.textContent='Скопировано - вставьте в чат';},fb);
+  } else fb();
+});
+document.getElementById('reset').addEventListener('click',function(){
+  if(!confirm('Очистить все поля?'))return;
+  state={};save();document.getElementById('common_note').value='';
+  try{localStorage.removeItem(VERSION+'-c')}catch(e){}
+  renderBody();document.querySelectorAll('.blk input').forEach(function(i){i.value='';});
+  document.getElementById('msg').textContent='Поля очищены';
+});
+try{document.getElementById('common_note').value=localStorage.getItem(VERSION+'-c')||''}catch(e){}
+document.getElementById('common_note').addEventListener('input',function(e){try{localStorage.setItem(VERSION+'-c',e.target.value)}catch(err){}});
+bind(document.querySelector('.wrap'));
+renderTabs();renderBody();
+</script>
+</body>
+</html>
