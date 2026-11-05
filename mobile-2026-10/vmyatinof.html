@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Опросник Вмятиноф</title>
+<style>
+:root {
+  --bg: #f5f4ed;
+  --surface: #ffffff;
+  --surface1: #f9f9f7;
+  --border: rgba(31,30,29,0.15);
+  --border-strong: rgba(31,30,29,0.3);
+  --text: #14140f;
+  --text2: #3d3d3a;
+  --text3: #73726c;
+  --accent: #2a78d6;
+  --accent-bg: #e7f1fb;
+  --warn-bg: #f6eedf;
+  --warn-border: #d4a041;
+  --warn-text: #5a4815;
+  --danger-bg: #f7eded;
+  --danger-border: #d03b3b;
+  --danger-text: #7f2c28;
+  --radius: 8px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  padding: 20px 16px 40px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.op { max-width: 660px; margin: 0 auto; }
+h1 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.sub { font-size: 13px; color: var(--text3); margin-bottom: 20px; }
+.sec {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 12px;
+}
+.sec-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 14px;
+}
+.note {
+  font-size: 12px;
+  color: var(--warn-text);
+  background: var(--warn-bg);
+  border: 0.5px solid var(--warn-border);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  margin-bottom: 14px;
+}
+.warn {
+  font-size: 12px;
+  color: var(--danger-text);
+  background: var(--danger-bg);
+  border: 0.5px solid var(--danger-border);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  margin-bottom: 14px;
+}
+.g1{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:10px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:480px){
+  .g2,.g3{grid-template-columns:1fr 1fr}
+}
+.f{display:flex;flex-direction:column;gap:4px}
+.l{font-size:12px;color:var(--text2);font-weight:500}
+.hint{font-size:11px;color:var(--text3);margin-top:1px}
+input[type=text], input[type=number] {
+  border: 0.5px solid var(--border-strong);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 14px;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--surface1);
+  width: 100%;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+input:focus{
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-bg);
+}
+.div{height:0.5px;background:var(--border);margin:10px 0}
+.gen-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 11px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font);
+  margin-top: 8px;
+  width: 100%;
+  transition: opacity 0.15s;
+}
+.gen-btn:hover{opacity:0.88}
+.output {
+  margin-top: 16px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  display: none;
+}
+.cp-btn {
+  background: transparent;
+  border: 0.5px solid var(--border-strong);
+  border-radius: 6px;
+  padding: 7px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: var(--font);
+  color: var(--text);
+  margin-bottom: 14px;
+  transition: background 0.15s;
+}
+.cp-btn:hover{background:var(--surface1)}
+pre {
+  font-family: "SF Mono", "Menlo", "Consolas", monospace;
+  font-size: 12px;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.6;
+}
+</style>
+<meta name="robots" content="noindex,nofollow"></head>
+<body><div style="padding:10px;background:#fff;color:#222;font:14px Arial"><a href="../reports-oct-2026.html">← Отчёты за октябрь</a><span> · Заполни только октябрь и скопируй результат в чат.</span></div><p data-october-only="1" style="padding:12px;margin:0">Вводи только данные за октябрь 2026. Показатели сентября возьму из предыдущего отчёта этого же клиента или партнёра. Если видишь сентябрьское число в подсказке - повторно вводить его не нужно.</p>
+<div class="op">
+<h1>Опросник — Вмятиноф.рф</h1>
+<p class="sub">Заполни данные → нажми кнопку → скопируй текст в чат</p>
+<div class="sec">
+  <div class="sec-title">📅 Период отчёта</div>
+  <div class="warn">Отчёт за октябрь 2026. Сентябрьские данные возьму из предыдущего отчёта.</div>
+  <div class="g2">
+    <div class="f"><label class="l">Месяц отчёта (как писать в отчёте)</label><input type="text" id="month" value="Октябрь 2026" placeholder="Октябрь 2026"></div>
+    <div class="f"><label class="l">Предыдущий месяц</label><input type="text" id="month_prev" readonly value="Сентябрь 2026" placeholder="Сентябрь 2026"></div>
+  </div>
+</div>
+<div class="sec">
+  <div class="sec-title">⭐ Рейтинги (раздел 03)</div>
+  <div class="note">Прочерк (—) = без изменений. Если рейтинга нет на сервисе — напиши «нет рейтинга».</div>
+  <div class="g3">
+    <div class="f"><label class="l">Яндекс Карты</label><input type="text" id="r_ya" placeholder="4,9"></div>
+    <div class="f"><label class="l">2ГИС</label><input type="text" id="r_gis" placeholder="4,6"></div>
+    <div class="f"><label class="l">Google Maps</label><input type="text" id="r_google" placeholder="3,5"></div>
+  </div>
+  <div class="g2">
+    <div class="f"><label class="l">Zoon</label><input type="text" id="r_zoon" placeholder="3,2"></div>
+    <div class="f"><label class="l">Flamp</label><input type="text" id="r_flamp" placeholder="нет рейтинга"></div>
+  </div>
+</div>
+<div class="sec">
+  <div class="sec-title">🗺 Яндекс Бизнес — профиль (раздел 04)</div>
+  <div class="note">Прочерк (—) = 0. Все 4 показателя обязательны — пустое поле = ошибка на графике!</div>
+  <div class="g2">
+    <div class="f"><label class="l">Переходов в профиль</label><input type="number" id="ya_views" placeholder="9967"></div>
+    <div class="f"><label class="l">Проложено маршрутов</label><input type="number" id="ya_routes" placeholder="116"></div>
+  </div>
+  <div class="g2">
+    <div class="f"><label class="l">Нажатий «Позвонить»</label><input type="number" id="ya_calls" placeholder="103"></div>
+    <div class="f"><label class="l">Переходов на сайт</label><input type="number" id="ya_sites" placeholder="95"></div>
+  </div>
+</div>
+<div class="sec">
+  <div class="sec-title">📍 2ГИС — профиль (раздел 05)</div>
+  <div class="note">Прочерк (—) = 0. Процент действий — приложи скриншот из 2ГИС отдельно в чат.</div>
+  <div class="g2">
+    <div class="f"><label class="l">Показы карточки</label><input type="number" id="gis_shows" placeholder="1439"></div>
+    <div class="f"><label class="l">Позиция в выдаче</label><input type="number" id="gis_pos" placeholder="4"></div>
+  </div>
+</div>
+<div class="sec">
+  <div class="sec-title">🌐 Google Maps — профиль (раздел 06)</div>
+  <div class="note">Прочерк (—) = 0. Все 4 показателя обязательны!</div>
+  <div class="g2">
+    <div class="f"><label class="l">Просмотры профиля</label><input type="number" id="g_views" placeholder="81"></div>
+    <div class="f"><label class="l">Звонки</label><input type="number" id="g_calls" placeholder="2"></div>
+  </div>
+  <div class="g2">
+    <div class="f"><label class="l">Маршруты</label><input type="number" id="g_routes" placeholder="32"></div>
+    <div class="f"><label class="l">Клики на сайт</label><input type="number" id="g_site" placeholder="2"></div>
+  </div>
+</div>
+<div class="sec">
+  <div class="sec-title">📢 2ГИС Рекламная (раздел 07)</div>
+  <div class="note">Прочерк (—) = 0. Итого действий и стоимость действия — считаю сам по данным ниже. Все 8 строк действий обязательны!</div>
+  <div class="g2">
+    <div class="f"><label class="l">Бюджет на рекламу, ₽</label><input type="number" id="ad_budget" placeholder="12649.87"></div>
+    <div class="f"></div>
+  </div>
+  <div class="div"></div>
+  <div class="g2">
+    <div class="f"><label class="l">Звонки и просмотры тел.</label><input type="number" id="ad_calls" placeholder="33"></div>
+    <div class="f"><label class="l">Клики в адрес</label><input type="number" id="ad_addr" placeholder="1"></div>
+  </div>
+  <div class="g2">
+    <div class="f"><label class="l">Переходы на сайт</label><input type="number" id="ad_sites" placeholder="12"></div>
+    <div class="f"><label class="l">Построения маршрутов</label><input type="number" id="ad_routes" placeholder="5"></div>
+  </div>
+  <div class="g2">
+    <div class="f"><label class="l">Клики в соцсети</label><input type="number" id="ad_social" placeholder="5"></div>
+    <div class="f"><label class="l">Клики в мессенджеры</label><input type="number" id="ad_messen" placeholder="6"></div>
+  </div>
+  <div class="g2">
+    <div class="f"><label class="l">Переходы по рекл. ссылке</label><input type="number" id="ad_link" placeholder="4"></div>
+    <div class="f"><label class="l">Клики в каталог/описание</label><input type="number" id="ad_catalog" placeholder="0"></div>
+  </div>
+</div>
+<div class="sec">
+  <div class="sec-title">💬 Отзывы за месяц (раздел 08)</div>
+  <div class="note">Прочерк (—) = 0. Только новые отзывы за отчётный месяц. Не придумывай — только то что есть!</div>
+  <div class="g3">
+    <div class="f"><label class="l">Яндекс — хорошие</label><input type="number" id="rev_ya_pos" placeholder="6"></div>
+    <div class="f"><label class="l">Яндекс — плохие</label><input type="number" id="rev_ya_neg" placeholder="0"></div>
+    <div class="f"><label class="l">Яндекс — удалено</label><input type="number" id="rev_ya_del" placeholder="0"></div>
+  </div>
+  <div class="div"></div>
+  <div class="g3">
+    <div class="f"><label class="l">2ГИС — хорошие</label><input type="number" id="rev_gis_pos" placeholder="1"></div>
+    <div class="f"><label class="l">2ГИС — плохие</label><input type="number" id="rev_gis_neg" placeholder="0"></div>
+    <div class="f"><label class="l">2ГИС — удалено</label><input type="number" id="rev_gis_del" placeholder="0"></div>
+  </div>
+  <div class="div"></div>
+  <div class="g3">
+    <div class="f"><label class="l">Google — хорошие</label><input type="number" id="rev_g_pos" placeholder="0"></div>
+    <div class="f"><label class="l">Google — плохие</label><input type="number" id="rev_g_neg" placeholder="0"></div>
+    <div class="f"><label class="l">Google — удалено</label><input type="number" id="rev_g_del" placeholder="0"></div>
+  </div>
+  <div class="div"></div>
+  <div class="g3">
+    <div class="f"><label class="l">Zoon — хорошие</label><input type="number" id="rev_zoon_pos" placeholder="0"></div>
+    <div class="f"><label class="l">Zoon — плохие</label><input type="number" id="rev_zoon_neg" placeholder="0"></div>
+    <div class="f"><label class="l">Zoon — удалено</label><input type="number" id="rev_zoon_del" placeholder="0"></div>
+  </div>
+  <div class="div"></div>
+  <div class="g3">
+    <div class="f"><label class="l">Flamp — хорошие</label><input type="number" id="rev_flamp_pos" placeholder="0"></div>
+    <div class="f"><label class="l">Flamp — плохие</label><input type="number" id="rev_flamp_neg" placeholder="0"></div>
+    <div class="f"><label class="l">Flamp — удалено</label><input type="number" id="rev_flamp_del" placeholder="0"></div>
+  </div>
+</div>
+<button class="gen-btn" onclick="generate()">Сформировать текст для вставки в чат ↗</button>
+<div class="output" id="output">
+  <button class="cp-btn" id="cp-btn" onclick="copyText()">📋 Скопировать</button>
+  <pre id="result"></pre>
+</div>
+</div>
+<script>
+function v(id) {
+  var el = document.getElementById(id);
+  if (!el) return '—';
+  var val = el.value.trim();
+  return val === '' ? '—' : val;
+}
+function calcAd() {
+  var fields = ['ad_calls','ad_addr','ad_sites','ad_routes','ad_social','ad_messen','ad_link','ad_catalog'];
+  var total = 0;
+  for (var i = 0; i < fields.length; i++) {
+    var val = document.getElementById(fields[i]).value.trim();
+    if (val !== '') total += parseInt(val, 10) || 0;
+  }
+  var budget = parseFloat(document.getElementById('ad_budget').value.trim());
+  var costStr = '—';
+  if (!isNaN(budget) && total > 0) costStr = (budget / total).toFixed(2) + ' ₽';
+  return { total: total, cost: costStr };
+}
+function generate() {
+  var ad = calcAd();
+  var lines = [
+    '=== ДАННЫЕ ДЛЯ ОТЧЁТА ВМЯТИНОФ.РФ ===',
+    'Месяц отчёта: ' + v('month'),
+    'Предыдущий месяц: ' + v('month_prev'),
+    '',
+    '--- РЕЙТИНГИ ---',
+    'Яндекс Карты: ' + v('r_ya'),
+    '2ГИС: ' + v('r_gis'),
+    'Google Maps: ' + v('r_google'),
+    'Zoon: ' + v('r_zoon'),
+    'Flamp: ' + v('r_flamp'),
+    '',
+    '--- ЯНДЕКС БИЗНЕС (профиль) ---',
+    'Переходов в профиль: ' + v('ya_views'),
+    'Проложено маршрутов: ' + v('ya_routes'),
+    'Нажатий «Позвонить»: ' + v('ya_calls'),
+    'Переходов на сайт: ' + v('ya_sites'),
+    '',
+    '--- 2ГИС (профиль) ---',
+    'Показы карточки: ' + v('gis_shows'),
+    'Позиция в выдаче: ' + v('gis_pos'),
+    '(% действий — скриншот прикреплён отдельно)',
+    '',
+    '--- GOOGLE MAPS (профиль) ---',
+    'Просмотры профиля: ' + v('g_views'),
+    'Звонки: ' + v('g_calls'),
+    'Маршруты: ' + v('g_routes'),
+    'Клики на сайт: ' + v('g_site'),
+    '',
+    '--- 2ГИС РЕКЛАМНАЯ ---',
+    'Бюджет: ' + v('ad_budget') + ' ₽',
+    'Итого действий: ' + ad.total + ' (посчитано автоматически)',
+    'Стоимость действия: ' + ad.cost + ' (посчитано автоматически)',
+    'Звонки и просмотры тел.: ' + v('ad_calls'),
+    'Клики в адрес: ' + v('ad_addr'),
+    'Переходы на сайт: ' + v('ad_sites'),
+    'Построения маршрутов: ' + v('ad_routes'),
+    'Клики в соцсети: ' + v('ad_social'),
+    'Клики в мессенджеры: ' + v('ad_messen'),
+    'Переходы по рекл. ссылке: ' + v('ad_link'),
+    'Клики в каталог/описание: ' + v('ad_catalog'),
+    '',
+    '--- ОТЗЫВЫ ЗА МЕСЯЦ ---',
+    'Яндекс:  хорошие=' + v('rev_ya_pos') + '  плохие=' + v('rev_ya_neg') + '  удалено=' + v('rev_ya_del'),
+    '2ГИС:    хорошие=' + v('rev_gis_pos') + '  плохие=' + v('rev_gis_neg') + '  удалено=' + v('rev_gis_del'),
+    'Google:  хорошие=' + v('rev_g_pos') + '  плохие=' + v('rev_g_neg') + '  удалено=' + v('rev_g_del'),
+    'Zoon:    хорошие=' + v('rev_zoon_pos') + '  плохие=' + v('rev_zoon_neg') + '  удалено=' + v('rev_zoon_del'),
+    'Flamp:   хорошие=' + v('rev_flamp_pos') + '  плохие=' + v('rev_flamp_neg') + '  удалено=' + v('rev_flamp_del'),
+  ];
+  var text = lines.join('\n');
+  document.getElementById('result').textContent = text;
+  document.getElementById('output').style.display = 'block';
+  document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function copyText() {
+  var text = document.getElementById('result').textContent;
+  var btn = document.getElementById('cp-btn');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      btn.textContent = '✓ Скопировано!';
+      setTimeout(function() { btn.textContent = '📋 Скопировать'; }, 2000);
+    }).catch(function() { fallbackCopy(text, btn); });
+  } else {
+    fallbackCopy(text, btn);
+  }
+}
+function fallbackCopy(text, btn) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  ta.style.top = '-9999px';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try {
+    var ok = document.execCommand('copy');
+    btn.textContent = ok ? '✓ Скопировано!' : '✗ Не скопировалось — выдели вручную';
+  } catch(e) {
+    btn.textContent = '✗ Ошибка — выдели текст вручную';
+  }
+  document.body.removeChild(ta);
+  setTimeout(function() { btn.textContent = '📋 Скопировать'; }, 2500);
+}
+</script>
+<script>(()=>{const key='oct26-fields-vmyatinof';const fields=[...document.querySelectorAll('input,textarea,select')].filter(e=>!e.readOnly);try{const values=JSON.parse(localStorage.getItem(key)||'{}');fields.forEach((e,i)=>{const k=e.id||'field-'+i;if(k in values){if(e.type==='checkbox')e.checked=values[k];else e.value=values[k];}});}catch(e){}document.addEventListener('input',()=>{const v={};fields.forEach((e,i)=>v[e.id||'field-'+i]=e.type==='checkbox'?e.checked:e.value);try{localStorage.setItem(key,JSON.stringify(v));}catch(e){}});})();</script></body>
+</html>

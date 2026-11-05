@@ -1,0 +1,145 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>adresat - октябрь 2026</title><style>body{font:15px Arial;background:#faf9f6;color:#222;max-width:900px;margin:24px auto;padding:16px}input,select,textarea,button{font:inherit;padding:8px;max-width:100%}button{cursor:pointer}table{max-width:100%}</style><meta name="robots" content="noindex,nofollow"></head><body><div style="padding:10px;background:#fff;color:#222;font:14px Arial"><a href="../reports-oct-2026.html">← Отчёты за октябрь</a><span> · Заполни только октябрь и скопируй результат в чат.</span></div><p data-october-only="1" style="padding:12px;margin:0">Вводи только данные за октябрь 2026. Показатели сентября возьму из предыдущего отчёта этого же клиента или партнёра. Если видишь сентябрьское число в подсказке - повторно вводить его не нужно.</p><h2 class="sr-only">Опросник для отчёта Адресат за октябрь 2026: ввод данных по четырём филиалам и копирование итогового текста</h2>
+<style>
+.op{padding:1rem 0}
+.sec{background:var(--surface-1);border-radius:12px;padding:1rem 1.25rem;margin-bottom:12px}
+.st{font-size:12px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--text-secondary);margin:0 0 10px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tab{font-size:13px}
+.tab.on{background:var(--fill-accent);color:var(--on-accent);border-color:var(--fill-accent)}
+.panel{display:none}.panel.show{display:block}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:6px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:6px}
+.f label{display:block;font-size:12px;color:var(--text-secondary);margin-bottom:3px}
+.f input{width:100%;box-sizing:border-box}
+.sub{font-size:12px;font-weight:500;color:var(--text-accent);margin:14px 0 8px}
+.rl{font-size:13px;font-weight:500;margin:10px 0 4px}
+.note{font-size:12px;color:var(--text-secondary);background:var(--bg-warning);border-radius:var(--radius);padding:8px 12px;margin-bottom:12px}
+textarea{width:100%;box-sizing:border-box;min-height:170px;font-family:var(--font-mono);font-size:12px}
+.row{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.msg{font-size:13px;color:var(--text-secondary)}
+.warn{font-size:12px;color:var(--text-danger);margin-top:8px}
+</style>
+<div class="op">
+<div class="sec">
+<p class="st">Отчётный месяц</p>
+<div class="g2">
+<select id="mon"><option>Январь</option><option>Февраль</option><option>Март</option><option>Апрель</option><option>Май</option><option>Июнь</option><option>Июль</option><option>Август</option><option>Сентябрь</option><option selected>Октябрь</option><option>Ноябрь</option><option>Декабрь</option></select>
+<select id="yr"><option selected>2026</option><option>2027</option></select>
+</div>
+</div>
+<div class="sec">
+<p class="st">Данные по филиалам</p>
+<div class="note">Пустое поле или прочерк = 0. Заполни все 4 вкладки, сводка считается сама. Серые подсказки в полях рейтинга - значения прошлого месяца.</div>
+<div class="tabs" id="tabs"></div>
+<div id="panels"></div>
+</div>
+<div class="sec">
+<p class="st">2ГИС - общая статистика на все филиалы</p>
+<div class="g2">
+<div class="f"><label>Показы (все филиалы)</label><input id="gis-sh" inputmode="numeric"></div>
+<div class="f"><label>Средняя позиция в выдаче</label><input id="gis-pos" inputmode="numeric"></div>
+</div>
+</div>
+<div class="sec">
+<p class="st">Итог для отправки</p>
+<textarea id="out" readonly placeholder="Нажми «Скопировать» - текст соберётся из всех полей и сразу попадёт в буфер"></textarea>
+<div class="row">
+<button id="cpbtn"><i class="ti ti-copy" aria-hidden="true"></i> <span id="cptxt">Скопировать</span></button>
+<button id="genbtn">Только показать текст</button>
+<span class="msg" id="msg"></span>
+</div>
+<div class="warn" id="warn"></div>
+</div>
+</div>
+<script>
+var B=[
+{id:'kan',name:'Канунникова, 15',tab:'Канунникова',ph:{yr:'4,7',gr:'4,7',ggr:'4,0',fl:'4,7',zo:'5,0',dk:'4,9'}},
+{id:'bys',name:'Быстрова, 78',tab:'Быстрова',ph:{yr:'4,4',gr:'4,6',ggr:'3,5',fl:'4,8',zo:'4,6',dk:'4,9'}},
+{id:'dze',name:'Дзержинского, 1',tab:'Дзержинского',ph:{yr:'4,4',gr:'5,0',ggr:'3,4',fl:'-',zo:'4,8',dk:'4,9'}},
+{id:'vol',name:'Волжский, Дружбы 85а/12',tab:'Волжский',ph:{yr:'4,3',gr:'4,7',ggr:'-',fl:'4,7',zo:'3,9',dk:'4,9'}}
+];
+var PL=[['ry','Яндекс Карты'],['rg','2ГИС'],['rgg','Google'],['rfl','Flamp'],['rzo','Zoon'],['rdk','Домклик'],['rot','Остальные сервисы']];
+function fld(id,l,ph){return '<div class="f"><label>'+l+'</label><input id="'+id+'" placeholder="'+(ph||'')+'" inputmode="decimal" autocomplete="off"></div>';}
+function panel(b,i){
+var p=b.id+'-',h='<div class="panel'+(i===0?' show':'')+'" id="pn-'+b.id+'">';
+h+='<p class="sub">Яндекс Бизнес</p><div class="g2">'+fld(p+'yv','Переходов в профиль')+fld(p+'yr','Рейтинг',b.ph.yr)+fld(p+'yc','Нажатий «Позвонить»')+fld(p+'ym','Маршруты')+fld(p+'ys','Переходов на сайт')+'</div>';
+h+='<p class="sub">2ГИС</p><div class="g2">'+fld(p+'gr','Рейтинг',b.ph.gr)+'</div>';
+h+='<p class="sub">Google</p><div class="g2">'+fld(p+'gv','Просмотры профиля')+fld(p+'ggr','Рейтинг',b.ph.ggr)+fld(p+'gm','Маршруты')+fld(p+'gc','Звонки')+fld(p+'gs','Клики на сайт')+'</div>';
+h+='<p class="sub">Рейтинги других сервисов</p><div class="g3">'+fld(p+'fl','Flamp',b.ph.fl)+fld(p+'zo','Zoon',b.ph.zo)+fld(p+'dk','Домклик',b.ph.dk)+'</div>';
+h+='<p class="sub">Отзывы за месяц</p>';
+PL.forEach(function(x){h+='<p class="rl">'+x[1]+'</p><div class="g3">'+fld(p+x[0]+'-p','Хорошие')+fld(p+x[0]+'-n','Плохие')+fld(p+x[0]+'-d','Удалено')+'</div>';});
+return h+'</div>';
+}
+var tabsEl=document.getElementById('tabs'),panelsEl=document.getElementById('panels');
+B.forEach(function(b,i){
+var t=document.createElement('button');
+t.className='tab'+(i===0?' on':'');t.textContent=b.tab;t.setAttribute('data-id',b.id);
+t.addEventListener('click',function(){
+document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('show');});
+document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
+document.getElementById('pn-'+b.id).classList.add('show');t.classList.add('on');
+});
+tabsEl.appendChild(t);
+});
+panelsEl.innerHTML=B.map(panel).join('');
+function raw(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+function num(id){var v=raw(id).replace(',','.').replace(/\s/g,'');if(!v||v==='-'||v==='—')return 0;var x=parseFloat(v);return isNaN(x)?0:x;}
+function txt(id){var v=raw(id);return(!v||v==='-'||v==='—')?'-':v;}
+function nz(x){return x?x:'-';}
+function build(){
+var mon=document.getElementById('mon').value,yr=document.getElementById('yr').value;
+var L='-'.repeat(32),E='='.repeat(40);
+var t='АДРЕСАТ - '+mon+' '+yr+'\n'+E+'\n\nЯНДЕКС БИЗНЕС\n'+L+'\n';
+B.forEach(function(b){var p=b.id+'-';
+t+='\n'+b.name+'\n  Рейтинг: '+txt(p+'yr')+'\n  Переходов в профиль: '+nz(num(p+'yv'))+'\n  Звонки: '+nz(num(p+'yc'))+'\n  Маршруты: '+nz(num(p+'ym'))+'\n  На сайт: '+nz(num(p+'ys'))+'\n';});
+function sm(k){return B.reduce(function(a,b){return a+num(b.id+'-'+k);},0);}
+t+='\nСводка (все филиалы)\n  Переходов в профиль: '+nz(sm('yv'))+'\n  Звонки: '+nz(sm('yc'))+'\n  Маршруты: '+nz(sm('ym'))+'\n  На сайт: '+nz(sm('ys'))+'\n';
+t+='\n'+E+'\n2ГИС\n'+L+'\nПоказы (все): '+txt('gis-sh')+'\nСр. позиция: '+txt('gis-pos')+'\n';
+B.forEach(function(b){t+='Рейтинг '+b.name+': '+txt(b.id+'-gr')+'\n';});
+t+='\n'+E+'\nGOOGLE\n'+L+'\n';
+B.forEach(function(b){var p=b.id+'-';
+t+='\n'+b.name+'\n  Рейтинг: '+txt(p+'ggr')+'\n  Просмотры: '+nz(num(p+'gv'))+'\n  Маршруты: '+nz(num(p+'gm'))+'\n  Звонки: '+nz(num(p+'gc'))+'\n  Клики на сайт: '+nz(num(p+'gs'))+'\n';});
+t+='\nСводка (все филиалы)\n  Просмотры: '+nz(sm('gv'))+'\n  Маршруты: '+nz(sm('gm'))+'\n  Звонки: '+nz(sm('gc'))+'\n  Клики на сайт: '+nz(sm('gs'))+'\n';
+t+='\n'+E+'\nРЕЙТИНГИ\n'+L+'\n';
+B.forEach(function(b){var p=b.id+'-';
+t+='\n'+b.name+'\n  Яндекс: '+txt(p+'yr')+'\n  2ГИС: '+txt(p+'gr')+'\n  Google: '+txt(p+'ggr')+'\n  Flamp: '+txt(p+'fl')+'\n  Zoon: '+txt(p+'zo')+'\n  Домклик: '+txt(p+'dk')+'\n';});
+t+='\n'+E+'\nОТЗЫВЫ\n'+L+'\n';
+var tp=0,tn=0,td=0;
+B.forEach(function(b){t+='\n'+b.name+'\n';
+PL.forEach(function(x){var q=b.id+'-'+x[0],a=num(q+'-p'),n=num(q+'-n'),d=num(q+'-d');tp+=a;tn+=n;td+=d;
+t+='  '+x[1]+': '+((a||n||d)?('+'+a+' / -'+n+' / удалено '+d):'-')+'\n';});});
+t+='\nСводка отзывов (все): +'+tp+' / -'+tn+' / удалено '+td+'\n';
+return t;
+}
+function checkWarn(){
+var w=[];
+B.forEach(function(b){
+var miss=[];
+['yv','yc','ym','ys','gv','gm'].forEach(function(k){if(!raw(b.id+'-'+k))miss.push(k);});
+if(miss.length===6)w.push(b.tab+': не заполнены Яндекс и Google');
+});
+if(!raw('gis-sh'))w.push('2ГИС: нет показов');
+if(!raw('gis-pos'))w.push('2ГИС: нет позиции');
+document.getElementById('warn').textContent=w.length?('Проверь: '+w.join('; ')):'';
+}
+function gen(){document.getElementById('out').value=build();checkWarn();}
+function setMsg(s){document.getElementById('msg').textContent=s;}
+function cp(){
+gen();
+var ta=document.getElementById('out'),text=ta.value,done=false;
+function fallback(){
+try{ta.focus();ta.select();ta.setSelectionRange(0,text.length);done=document.execCommand('copy');}catch(e){done=false;}
+finish(done);
+}
+function finish(ok){
+var lbl=document.getElementById('cptxt');
+if(ok){lbl.textContent='Скопировано';setMsg('Готово, вставляй в чат');setTimeout(function(){lbl.textContent='Скопировать';setMsg('');},2500);}
+else{setMsg('Не вышло автоматически: текст выделен, нажми Ctrl+C или удержи и выбери «Копировать»');}
+}
+if(navigator.clipboard&&navigator.clipboard.writeText){
+navigator.clipboard.writeText(text).then(function(){finish(true);},function(){fallback();});
+}else{fallback();}
+}
+document.getElementById('cpbtn').addEventListener('click',cp);
+document.getElementById('genbtn').addEventListener('click',function(){gen();setMsg('Текст собран ниже');});
+</script><script>(()=>{const key='oct26-fields-adresat';const fields=[...document.querySelectorAll('input,textarea,select')].filter(e=>!e.readOnly);try{const values=JSON.parse(localStorage.getItem(key)||'{}');fields.forEach((e,i)=>{const k=e.id||'field-'+i;if(k in values){if(e.type==='checkbox')e.checked=values[k];else e.value=values[k];}});}catch(e){}document.addEventListener('input',()=>{const v={};fields.forEach((e,i)=>v[e.id||'field-'+i]=e.type==='checkbox'?e.checked:e.value);try{localStorage.setItem(key,JSON.stringify(v));}catch(e){}});})();</script></body></html>
